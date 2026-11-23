@@ -1,6 +1,6 @@
 import WaitlistForm from "./waitlist-form";
 
-const logo = { src: "/call-the-saul.webp", width: 480, height: 233 };
+const logo = { src: "/call-the-saul-logo.webp", width: 480, height: 233 };
 
 const comparisonRows = [
   { question: "Who does the work", tools: "You", firm: "We do" },

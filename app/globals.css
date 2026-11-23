@@ -90,12 +90,7 @@ section[id], #investor-inquiry { scroll-margin-top: 1.5rem; }
   gap: 1.4rem;
 }
 .masthead { min-height: 5.15rem; }
-.wordmark, .comparison-brand {
-  display: inline-block;
-  background: #181817;
-  border-radius: .35rem;
-  padding: .25rem .4rem;
-}
+.wordmark, .comparison-brand { display: inline-block; }
 .wordmark { flex-shrink: 0; width: clamp(6.9rem, 11vw, 8.4rem); }
 .wordmark img, .comparison-brand img {
   display: block;
