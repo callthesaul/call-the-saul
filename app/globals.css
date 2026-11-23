@@ -312,8 +312,10 @@ section[id] { scroll-margin-top: 1.5rem; }
   --workflow-top: 0px;
   --workflow-columns: minmax(0, .86fr) minmax(0, 1.14fr);
 }
-/* Give each step its own scroll distance before the comparison enters. */
-.workflow-scroll[data-pinned] > .workflow-track { height: 261svh; }
+/* Give each step about one Page Down beneath the floating menu. */
+.workflow-scroll[data-pinned] > .workflow-track {
+  height: calc((100svh - var(--header-clearance)) * 2.61);
+}
 .workflow-scroll[data-pinned]::after {
   content: "";
   display: block;
