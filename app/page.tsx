@@ -1,5 +1,11 @@
 import WaitlistForm from "./waitlist-form";
 
+const comparisonRows = [
+  { question: "Who does the work", tools: "You", firm: "We do" },
+  { question: "Who’s accountable", tools: "You", firm: "A real law firm" },
+  { question: "What you receive", tools: "A draft", firm: "Finished work" },
+];
+
 export default function Home() {
   return (
     <>
@@ -27,6 +33,39 @@ export default function Home() {
           <div className="hero-actions">
             <a className="button button-primary" href="#waitlist">Join the waitlist</a>
             <a className="text-link" href="#process">See how it works</a>
+          </div>
+        </section>
+
+        <section className="comparison section-space" id="comparison" aria-labelledby="comparison-title">
+          <div className="shell">
+            <h2 id="comparison-title">We handle the contract work.</h2>
+            <p>Send us an agreement to review or tell us what you need drafted.</p>
+            <div className="comparison-card">
+              <table className="comparison-table">
+                <caption className="visually-hidden">AI tools compared with CalltheSaul</caption>
+                <colgroup>
+                  <col className="comparison-question" />
+                  <col className="comparison-tools" />
+                  <col className="comparison-firm" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col"><span className="visually-hidden">Question</span></th>
+                    <th scope="col">AI tools</th>
+                    <th scope="col">CalltheSaul</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map(({ question, tools, firm }) => (
+                    <tr key={question}>
+                      <th scope="row">{question}</th>
+                      <td><span className="comparison-mark" aria-hidden="true">×</span>{tools}</td>
+                      <td><span className="comparison-mark" aria-hidden="true">✓</span>{firm}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
