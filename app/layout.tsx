@@ -5,8 +5,7 @@ export const metadata: Metadata = {
   title: "CalltheSaul | Commercial contracts, reviewed by lawyers",
   description: "Lawyer-reviewed contracts within 12 hours. One transparent fee. Join the CalltheSaul waitlist.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: { url: "/call-the-saul.webp", type: "image/webp" },
   },
 };
 

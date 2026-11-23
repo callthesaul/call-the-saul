@@ -10,7 +10,7 @@ function respond(request: Request, message: string, status: number) {
   }
 
   return new Response(
-    `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>CalltheSaul</title><link rel="icon" href="/favicon.svg"><main><h1>CalltheSaul</h1><p>${message}</p><p><a href="/#waitlist">Return to CalltheSaul</a></p></main></html>`,
+    `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>CalltheSaul</title><link rel="icon" href="/call-the-saul.webp" type="image/webp"><main><h1>CalltheSaul</h1><p>${message}</p><p><a href="/#waitlist">Return to CalltheSaul</a></p></main></html>`,
     { status, headers: { ...headers, "Content-Type": "text/html; charset=utf-8" } },
   );
 }

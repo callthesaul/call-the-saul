@@ -1,5 +1,7 @@
 import WaitlistForm from "./waitlist-form";
 
+const logo = { src: "/call-the-saul.webp", width: 480, height: 233 };
+
 const comparisonRows = [
   { question: "Who does the work", tools: "You", firm: "We do" },
   { question: "Who’s accountable", tools: "You", firm: "A real law firm" },
@@ -12,9 +14,8 @@ export default function Home() {
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="site-header" id="top">
         <div className="shell masthead">
-          <a className="wordmark" href="#top" aria-label="CalltheSaul home">
-            <span className="wordmark-sign" aria-hidden="true">§</span>
-            <span>CalltheSaul</span>
+          <a className="wordmark" href="#top" aria-label="Call the Saul home">
+            <img {...logo} alt="" />
           </a>
           <nav aria-label="Main navigation">
             <a href="#process">How it works</a>
@@ -33,39 +34,6 @@ export default function Home() {
           <div className="hero-actions">
             <a className="button button-primary" href="#waitlist">Join the waitlist</a>
             <a className="text-link" href="#process">See how it works</a>
-          </div>
-        </section>
-
-        <section className="comparison section-space" id="comparison" aria-labelledby="comparison-title">
-          <div className="shell">
-            <h2 id="comparison-title">We handle the contract work.</h2>
-            <p>Send us an agreement to review or tell us what you need drafted.</p>
-            <div className="comparison-card">
-              <table className="comparison-table">
-                <caption className="visually-hidden">AI tools compared with CalltheSaul</caption>
-                <colgroup>
-                  <col className="comparison-question" />
-                  <col className="comparison-tools" />
-                  <col className="comparison-firm" />
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th scope="col"><span className="visually-hidden">Question</span></th>
-                    <th scope="col">AI tools</th>
-                    <th scope="col">CalltheSaul</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonRows.map(({ question, tools, firm }) => (
-                    <tr key={question}>
-                      <th scope="row">{question}</th>
-                      <td><span className="comparison-mark" aria-hidden="true">×</span>{tools}</td>
-                      <td><span className="comparison-mark" aria-hidden="true">✓</span>{firm}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </section>
 
@@ -164,6 +132,41 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="comparison section-space" id="comparison" aria-labelledby="comparison-title">
+          <div className="shell">
+            <h2 id="comparison-title">We handle the contract work.</h2>
+            <p>Send us an agreement to review or tell us what you need drafted.</p>
+            <div className="comparison-card">
+              <table className="comparison-table">
+                <caption className="visually-hidden">AI tools compared with Call the Saul</caption>
+                <colgroup>
+                  <col className="comparison-question" />
+                  <col className="comparison-tools" />
+                  <col className="comparison-firm" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col"><span className="visually-hidden">Question</span></th>
+                    <th scope="col">AI tools</th>
+                    <th scope="col">
+                      <span className="comparison-brand"><img {...logo} alt="Call the Saul" /></span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map(({ question, tools, firm }) => (
+                    <tr key={question}>
+                      <th scope="row">{question}</th>
+                      <td><span className="comparison-mark" aria-hidden="true">×</span>{tools}</td>
+                      <td><span className="comparison-mark" aria-hidden="true">✓</span>{firm}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         <section className="shell section-space firm" id="firm" aria-labelledby="firm-title">
           <div className="firm-copy">
             <p className="eyebrow">Who we are</p>
@@ -218,8 +221,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="shell footer-inner">
           <a className="wordmark" href="#top">
-            <span className="wordmark-sign" aria-hidden="true">§</span>
-            <span>CalltheSaul</span>
+            <img {...logo} alt="Call the Saul" />
           </a>
           <a href="#top">Back to top</a>
         </div>
