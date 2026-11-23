@@ -20,7 +20,7 @@ export default function Home() {
           </a>
           <nav aria-label="Main navigation">
             <a href="#process">How it works</a>
-            <a href="#firm">The firm</a>
+            <a href="#firm">Contracts</a>
             <a href="#partnership">Partnership</a>
           </nav>
           <a className="button button-outline header-cta" href="#waitlist">Join the waitlist</a>
@@ -176,22 +176,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="shell section-space firm" id="firm" aria-labelledby="firm-title">
-          <div className="firm-copy">
-            <h2 id="firm-title">A law firm for the contracts you sign as you grow.</h2>
-            <p>CalltheSaul focuses on commercial contracts. We bring together AI preparation and lawyer review for the agreements you sign with customers, suppliers, and partners.</p>
-          </div>
-          <div className="scope">
-            <dl>
-              <div>
-                <dt>Commercial agreements</dt>
-                <dd>Agreements that support day-to-day operations and new business.</dd>
-              </div>
-              <div>
-                <dt>One fee per contract</dt>
-                <dd>The fee, scope, and turnaround terms are set before work begins.</dd>
-              </div>
-            </dl>
+        <section className="section-space contracts" id="firm" aria-labelledby="contracts-title">
+          <div className="shell">
+            <h2 id="contracts-title">We review your commercial contracts <span>in Europe</span></h2>
+            <ul className="contract-types" role="list">
+              {["Master services agreements", "Sales agreements", "Purchasing agreements", "NDAs", "Terms & conditions", "DPAs"].map((name) => (
+                <li key={name}><span aria-hidden="true">✓</span>{name}</li>
+              ))}
+            </ul>
           </div>
         </section>
 
