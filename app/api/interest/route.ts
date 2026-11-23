@@ -48,21 +48,18 @@ export async function POST(request: Request) {
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return respond(request, "Enter a valid work email address.", 400);
   }
-  if (interest !== "waitlist" && interest !== "investor") {
-    return respond(request, "Select early access or investor inquiry.", 400);
+  if (interest !== null && interest !== "waitlist") {
+    return respond(request, "Please use the waitlist form.", 400);
   }
 
   try {
     await getDb()
       .insert(inquiries)
-      .values({ email, interest, name, company, submittedAt: new Date().toISOString() })
+      .values({ email, interest: "waitlist", name, company, submittedAt: new Date().toISOString() })
       .onConflictDoNothing();
   } catch {
     return respond(request, "We couldn’t save your request. Please try again.", 503);
   }
 
-  const message = interest === "investor"
-    ? "Thanks. We’ve received your investor inquiry."
-    : "You’re on the waitlist. Thanks for signing up.";
-  return respond(request, message, 200);
+  return respond(request, "You’re on the waitlist. Thanks for signing up.", 200);
 }

@@ -20,7 +20,7 @@ export default function Home() {
           <nav aria-label="Main navigation">
             <a href="#process">How it works</a>
             <a href="#firm">The firm</a>
-            <a href="#investors">For investors</a>
+            <a href="#partnership">Partnership</a>
           </nav>
           <a className="button button-outline header-cta" href="#waitlist">Join the waitlist</a>
         </div>
@@ -188,28 +188,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="investors section-space" id="investors" aria-labelledby="investor-title">
-          <div className="shell investor-grid">
-            <div>
-              <p className="eyebrow">For investors</p>
-              <h2 id="investor-title">A per-contract model for recurring work.</h2>
-              <p className="investor-description">As companies grow, every new customer, supplier, and partner can bring another agreement to review. CalltheSaul is built around that recurring work.</p>
-              <a className="button button-light" href="#investor-inquiry">Make an investor inquiry</a>
-            </div>
-            <dl className="investor-details">
-              <div>
-                <dt>Who we serve</dt>
-                <dd>Fast-growing companies with commercial agreements to review and deals to close.</dd>
-              </div>
-              <div>
-                <dt>What customers pay for</dt>
-                <dd>One transparent fee for a defined scope of lawyer-reviewed contract work.</dd>
-              </div>
-              <div>
-                <dt>How we deliver</dt>
-                <dd>AI prepares the work so lawyers can focus their time on reviewing terms and edits.</dd>
-              </div>
-            </dl>
+        <section className="partnership section-space" id="partnership" aria-labelledby="partnership-title">
+          <div className="shell partnership-grid">
+            <h2 id="partnership-title">Partnership</h2>
+            <p>We welcome partnerships with teams that support fast-growing companies. The businesses you work with can send us an agreement to review or a brief for a new one. A lawyer reviews the work before we send it back.</p>
           </div>
         </section>
 
