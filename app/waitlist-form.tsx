@@ -39,7 +39,6 @@ export default function WaitlistForm() {
   return (
     <>
       <div className="contact-copy">
-        <p className="eyebrow">Early access</p>
         <h2 id="contact-title">Join the waitlist.</h2>
         <p>Tell us a little about your company and we’ll be in touch about early access.</p>
       </div>

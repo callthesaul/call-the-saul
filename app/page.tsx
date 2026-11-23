@@ -29,7 +29,6 @@ export default function Home() {
 
       <main id="main" tabIndex={-1}>
         <section className="hero shell" aria-labelledby="hero-title">
-          <p className="eyebrow">Commercial contracting</p>
           <h1 id="hero-title">Lawyer-reviewed contracts within <span className="keep-together">12 hours.</span> <span className="hero-accent">One transparent fee.</span></h1>
           <p className="hero-description">We are an AI law firm specialized in commercial contracting, built for fast-growing companies.</p>
           <div className="hero-actions">
@@ -41,7 +40,6 @@ export default function Home() {
         <section className="process section-space" id="process" aria-labelledby="process-title">
           <WorkflowCarousel>
             <header className="process-heading">
-              <p className="eyebrow">How it works</p>
               <h2 id="process-title" aria-label="AI prepares. Expert lawyer reviews and Confirms.">
                 <span className="process-heading-display" aria-hidden="true">
                   <span>AI prepares.</span>{" "}
@@ -180,12 +178,10 @@ export default function Home() {
 
         <section className="shell section-space firm" id="firm" aria-labelledby="firm-title">
           <div className="firm-copy">
-            <p className="eyebrow">Who we are</p>
             <h2 id="firm-title">A law firm for the contracts you sign as you grow.</h2>
             <p>CalltheSaul focuses on commercial contracts. We bring together AI preparation and lawyer review for the agreements you sign with customers, suppliers, and partners.</p>
           </div>
           <div className="scope">
-            <p className="eyebrow">Scope and pricing</p>
             <dl>
               <div>
                 <dt>Commercial agreements</dt>
