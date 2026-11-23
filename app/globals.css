@@ -6,6 +6,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Falcon Medium";
+  src: url("/fonts/falcon-medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --paper: #fcfcf8;
@@ -19,6 +27,7 @@
   --line: #d5ddd2;
   --lime: #d9e8a5;
   --sans: Aspekta, "Segoe UI", Arial, sans-serif;
+  --display: "Falcon Medium", var(--sans);
   --mono: "Consolas", "Liberation Mono", monospace;
   --serif: Georgia, "Times New Roman", serif;
 }
@@ -34,7 +43,7 @@ body {
 }
 a { color: inherit; }
 h1, h2, h3, p, figure, dl, dd { margin: 0; }
-h1, h2, h3 { font-weight: 500; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; }
 h1, h2 { letter-spacing: -.048em; text-wrap: balance; }
 h1 { font-size: clamp(3rem, 4.65vw, 4.85rem); line-height: 1.055; }
 h2 { font-size: clamp(2.4rem, 4vw, 3.75rem); line-height: 1.075; }
