@@ -214,6 +214,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   border-block: 1px solid var(--line);
   background: #f1f4ee;
 }
+.process:has(.workflow-scroll[data-pinned]) { padding-bottom: 0; }
 .process-heading { text-align: center; }
 .process-heading h2 { max-width: 68rem; margin-inline: auto; word-spacing: .04em; }
 .process-heading-display { display: block; }
@@ -278,7 +279,8 @@ section[id] { scroll-margin-top: 1.5rem; }
 .workflow-scroll[data-pinned] {
   --workflow-top: 0px;
   --workflow-columns: minmax(0, .86fr) minmax(0, 1.14fr);
-  min-height: calc(100svh - var(--workflow-top) + clamp(40rem, 144svh, 108rem));
+  /* Each of the three steps gets about one screen of scroll distance. */
+  min-height: calc(100svh - var(--workflow-top) + 261svh);
 }
 .workflow-scroll[data-pinned] .workflow-sticky {
   position: sticky;
@@ -527,9 +529,11 @@ dd { margin-top: .22rem; color: var(--muted); }
   .masthead nav { grid-row: 2; grid-column: 1 / -1; flex-wrap: wrap; gap: .35rem 1.15rem; }
   .masthead nav a { font-size: .9rem; }
 }
-@media (min-width: 36rem) and (max-width: 53rem) {
+@media (min-width: 36rem) and (max-width: 53rem),
+       (min-width: 36rem) and (max-height: 50rem) {
   .workflow-scroll[data-pinned] { --workflow-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
   .workflow-scroll[data-pinned] .workflow-sticky { padding-block: .75rem; }
+  .workflow-scroll[data-pinned] .process-heading h2 { font-size: clamp(2.15rem, 4vw, 3rem); }
   .workflow-scroll[data-pinned] .process-expert { padding-top: calc(.58em + var(--annotation-offset)); }
   .workflow-scroll[data-pinned] .workflow { margin-top: 1rem; }
   .workflow-scroll[data-pinned] .workflow-stage { align-content: center; }
