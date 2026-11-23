@@ -289,6 +289,7 @@ dd { margin-top: .3rem; color: var(--muted); }
 @media (max-width: 34rem) {
   .shell { width: calc(100% - 2rem); }
   .section-space { padding-block: 3.55rem; }
+  .hero h1 em { font-size: clamp(1.875rem, 9.8vw, 1em); }
   .steps, .field-row { grid-template-columns: minmax(0, 1fr); }
   .field-row { gap: 0; }
   .steps p { max-width: unset; }

@@ -13,8 +13,10 @@ export default function WaitlistForm() {
 
   useEffect(() => {
     function setFromHash(hash: string) {
-      if (hash === "#investor-inquiry") setInterest("investor");
-      if (hash === "#waitlist") setInterest("waitlist");
+      if (hash === "#investor-inquiry" || hash === "#waitlist") {
+        setInterest(hash === "#investor-inquiry" ? "investor" : "waitlist");
+        setStatus(null);
+      }
     }
 
     function onHashChange() {
