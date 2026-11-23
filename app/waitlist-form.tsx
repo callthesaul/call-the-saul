@@ -71,7 +71,7 @@ export default function WaitlistForm() {
     <>
       <div className="contact-copy" id="investor-inquiry">
         <p className="eyebrow">{isInvestor ? "For investors" : "Early access"}</p>
-        <h2 id="contact-title">{isInvestor ? <>Get in <em>touch.</em></> : <>Join the <em>waitlist.</em></>}</h2>
+        <h2 id="contact-title">{isInvestor ? "Get in touch." : "Join the waitlist."}</h2>
         <p>{isInvestor
           ? "Leave your details to start a conversation about CalltheSaul."
           : "Tell us a little about your company and we’ll be in touch about early access."}</p>

@@ -23,44 +23,71 @@ export default function Home() {
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="hero-content">
             <p className="eyebrow">Commercial contracting</p>
-            <h1 id="hero-title">Lawyer-reviewed contracts within <span className="keep-together">12 hours.</span> <em>One transparent fee.</em></h1>
+            <h1 id="hero-title">Lawyer-reviewed contracts within <span className="keep-together">12 hours.</span> <span className="hero-accent">One transparent fee.</span></h1>
             <p className="hero-description">CalltheSaul is an AI law firm specialized in commercial contracting, built for fast-growing companies.</p>
-            <a className="button button-primary" href="#waitlist">Join the waitlist</a>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#waitlist">Join the waitlist</a>
+              <a className="text-link" href="#process">See how it works</a>
+            </div>
           </div>
-          <figure className="hero-figure">
-            <img className="hero-image" src="/contract-review.jpg" alt="A hand marking a printed contract at a walnut desk" width="1000" height="1250" fetchPriority="high" />
-            <figcaption className="review-note">
-              <span className="review-note-label">Illustrative review</span>
-              <span className="review-note-clause">§ 4.2 &nbsp; Renewal terms</span>
-              <span className="review-note-text">Confirm the notice period before signing.</span>
+          <figure className="review-example">
+            <figcaption className="example-caption">
+              Illustrative contract review
             </figcaption>
+            <div className="document">
+              <div className="document-header">
+                <span className="document-symbol" aria-hidden="true">§</span>
+                <p>Services agreement</p>
+              </div>
+              <div className="document-clause">
+                <p className="clause-title">4.2 · Renewal and termination</p>
+                <p className="clause-text">
+                  This agreement renews for a further term unless either party gives written notice at least{" "}
+                  <span className="redline">
+                    <span className="visually-hidden">[Replace </span><del>7 days</del>{" "}
+                    <span className="visually-hidden">with </span><ins>30 days</ins><span className="visually-hidden">]</span>
+                  </span>{" "}
+                  before the end of the current term.
+                </p>
+              </div>
+            </div>
+            <div className="review-note">
+              <span className="note-marker" aria-hidden="true" />
+              <div>
+                <p className="note-label">Lawyer’s note</p>
+                <p>Ask for 30 days’ notice so your team has time to decide whether to renew.</p>
+              </div>
+            </div>
           </figure>
         </section>
 
         <section className="process section-space" id="process" aria-labelledby="process-title">
-          <div className="shell">
-            <div className="opening-grid">
-              <div>
-                <p className="eyebrow">How it works</p>
-                <h2 id="process-title">AI prepares.<br /><em>Expert lawyer reviews.</em></h2>
-              </div>
-              <p className="section-intro">From the first draft to the final review, you get a clear view of what needs attention before you sign.</p>
+          <div className="shell process-grid">
+            <div>
+              <p className="eyebrow">How it works</p>
+              <h2 id="process-title">AI prepares.<br />Expert lawyer reviews.</h2>
             </div>
             <ol className="steps">
               <li>
-                <span className="step-number" aria-hidden="true">01</span>
-                <h3>Share the agreement</h3>
-                <p>Tell us what the contract is for, where you are in the deal, and what matters to your team.</p>
+                <span className="step-number" aria-hidden="true">1</span>
+                <div>
+                  <h3>Share the agreement</h3>
+                  <p>Tell us what you’re signing and which terms matter to your team.</p>
+                </div>
               </li>
               <li>
-                <span className="step-number" aria-hidden="true">02</span>
-                <h3>AI prepares the work</h3>
-                <p>AI organizes the agreement and prepares a first pass against the details you’ve shared.</p>
+                <span className="step-number" aria-hidden="true">2</span>
+                <div>
+                  <h3>AI prepares the work</h3>
+                  <p>AI prepares a first pass using the agreement and the context you’ve shared.</p>
+                </div>
               </li>
               <li>
-                <span className="step-number" aria-hidden="true">03</span>
-                <h3>A lawyer reviews it</h3>
-                <p>An expert lawyer reviews the agreement and the proposed edits before the work comes back to you.</p>
+                <span className="step-number" aria-hidden="true">3</span>
+                <div>
+                  <h3>A lawyer reviews it</h3>
+                  <p>An expert lawyer reviews the agreement and proposed edits before the work comes back to you.</p>
+                </div>
               </li>
             </ol>
           </div>
@@ -69,19 +96,19 @@ export default function Home() {
         <section className="shell section-space firm" id="firm" aria-labelledby="firm-title">
           <div className="firm-copy">
             <p className="eyebrow">Who we are</p>
-            <h2 id="firm-title">A law firm for companies <em>that move quickly.</em></h2>
-            <p>Commercial agreements are where growing companies turn conversations into commitments. We built CalltheSaul around that moment, with AI handling preparation and lawyers applying their judgment to the terms that matter.</p>
+            <h2 id="firm-title">A law firm for the contracts you sign as you grow.</h2>
+            <p>CalltheSaul focuses on commercial contracts. We bring together AI preparation and lawyer review for the agreements you sign with customers, suppliers, and partners.</p>
           </div>
           <div className="scope">
             <p className="eyebrow">Scope and pricing</p>
             <dl>
               <div>
                 <dt>Commercial agreements</dt>
-                <dd>For the contracts teams encounter while working with customers, vendors, and partners.</dd>
+                <dd>Agreements that support day-to-day operations and new business.</dd>
               </div>
               <div>
                 <dt>One fee per contract</dt>
-                <dd>See the fee, review scope, and turnaround terms before you book.</dd>
+                <dd>The fee, scope, and turnaround terms are set before work begins.</dd>
               </div>
             </dl>
           </div>
@@ -91,7 +118,7 @@ export default function Home() {
           <div className="shell investor-grid">
             <div>
               <p className="eyebrow">For investors</p>
-              <h2 id="investor-title">A repeat need.<br /><em>A per-contract model.</em></h2>
+              <h2 id="investor-title">A per-contract model for recurring work.</h2>
               <p className="investor-description">As companies grow, every new customer, supplier, and partner can bring another agreement to review. CalltheSaul is built around that recurring work.</p>
               <a className="button button-light" href="#investor-inquiry">Make an investor inquiry</a>
             </div>
@@ -123,7 +150,6 @@ export default function Home() {
             <span className="wordmark-sign" aria-hidden="true">§</span>
             <span>CalltheSaul</span>
           </a>
-          <span>Commercial contracting for fast-growing companies.</span>
           <a href="#top">Back to top</a>
         </div>
       </footer>
