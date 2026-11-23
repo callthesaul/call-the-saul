@@ -1,8 +1,8 @@
 @font-face {
-  font-family: Manrope;
-  src: url("/fonts/manrope-latin.woff2") format("woff2");
+  font-family: Aspekta;
+  src: url("/fonts/aspekta-variable.woff2") format("woff2");
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 50 1000;
   font-display: swap;
 }
 
@@ -18,7 +18,7 @@
   --sage-strong: #e0e8dc;
   --line: #d5ddd2;
   --lime: #d9e8a5;
-  --sans: Manrope, "Segoe UI", Arial, sans-serif;
+  --sans: Aspekta, "Segoe UI", Arial, sans-serif;
   --mono: "Consolas", "Liberation Mono", monospace;
   --serif: Georgia, "Times New Roman", serif;
 }
@@ -34,8 +34,8 @@ body {
 }
 a { color: inherit; }
 h1, h2, h3, p, figure, dl, dd { margin: 0; }
-h1, h2, h3 { font-weight: 680; }
-h1, h2 { letter-spacing: -.063em; text-wrap: balance; }
+h1, h2, h3 { font-weight: 500; }
+h1, h2 { letter-spacing: -.048em; text-wrap: balance; }
 h1 { font-size: clamp(3rem, 4.65vw, 4.85rem); line-height: 1.055; }
 h2 { font-size: clamp(2.4rem, 4vw, 3.75rem); line-height: 1.075; }
 h3 { font-size: 1.1875rem; line-height: 1.35; letter-spacing: -.025em; }

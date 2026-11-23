@@ -23,7 +23,7 @@ export default function Home() {
         <section className="hero shell" aria-labelledby="hero-title">
           <p className="eyebrow">Commercial contracting</p>
           <h1 id="hero-title">Lawyer-reviewed contracts within <span className="keep-together">12 hours.</span> <span className="hero-accent">One transparent fee.</span></h1>
-          <p className="hero-description">CalltheSaul is an AI law firm specialized in commercial contracting, built for fast-growing companies.</p>
+          <p className="hero-description">We are an AI law firm specialized in commercial contracting, built for fast-growing companies.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#waitlist">Join the waitlist</a>
             <a className="text-link" href="#process">See how it works</a>
