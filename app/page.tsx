@@ -77,7 +77,7 @@ export default function Home() {
                         <span className="intake-avatar intake-avatar-saul"><img {...logo} alt="" /></span>
                         <div>
                           <p className="note-label">Saul</p>
-                          <p>Done ✅ Redlined doc attached, plus a draft reply you can forward straight to them. Signed off by Sahar, your lead lawyer.</p>
+                          <p>Done ✅ Redlined doc attached, plus a draft reply you can forward straight to them. Signed off by a lawyer.</p>
                         </div>
                       </div>
                       <div className="intake-typing card-cycle" aria-hidden="true">
