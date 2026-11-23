@@ -14,17 +14,19 @@ export default function Home() {
     <>
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="site-header" id="top">
-        <div className="shell masthead">
+        <nav className="masthead" aria-label="Main navigation">
+          <div className="masthead-links">
+            <a className="masthead-link" href="#process">How it works</a>
+            <a className="masthead-link" href="#firm">Contracts</a>
+          </div>
           <a className="wordmark" href="#top" aria-label="Call the Saul home">
             <img {...logo} alt="" />
           </a>
-          <nav aria-label="Main navigation">
-            <a href="#process">How it works</a>
-            <a href="#firm">Contracts</a>
-            <a href="#partnership">Partnership</a>
-          </nav>
-          <a className="button button-outline header-cta" href="#waitlist">Join the waitlist</a>
-        </div>
+          <div className="masthead-actions">
+            <a className="masthead-link masthead-partnership" href="#partnership">Partnership</a>
+            <a className="button button-primary header-cta" href="#waitlist">Join the waitlist</a>
+          </div>
+        </nav>
       </header>
 
       <main id="main" tabIndex={-1}>

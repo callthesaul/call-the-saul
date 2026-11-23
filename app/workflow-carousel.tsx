@@ -5,11 +5,13 @@ import { useEffect, useRef, type ReactNode } from "react";
 export default function WorkflowCarousel({ id, children }: { id: string; children: ReactNode }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const scrollArea = scrollRef.current;
     const frame = frameRef.current;
-    if (!scrollArea || !frame) return;
+    const track = trackRef.current;
+    if (!scrollArea || !frame || !track) return;
 
     const list = frame.querySelector<HTMLOListElement>(".workflow");
     const steps = Array.from(scrollArea.querySelectorAll<HTMLElement>(".workflow-stage"));
@@ -18,14 +20,23 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
     let activeStep: HTMLElement | undefined;
     let animationFrame = 0;
     let frameOffset = 0;
+    let stepTravel = 0;
+    let exitTravel = 0;
+    let exitProgress = 0;
     let disposed = false;
 
     const updateStep = () => {
-      if (!scrollArea.hasAttribute("data-pinned")) return;
-      const travel = scrollArea.offsetHeight - frame.offsetHeight;
-      if (travel <= 0) return;
+      if (stepTravel <= 0) return;
 
-      const progress = (-scrollArea.getBoundingClientRect().top - frameOffset) / travel;
+      const distance = -scrollArea.getBoundingClientRect().top - frameOffset;
+      const progress = distance / stepTravel;
+      if (exitTravel > 0) {
+        const nextExitProgress = Math.max(0, Math.min(1, (distance - stepTravel) / exitTravel));
+        if (nextExitProgress !== exitProgress) {
+          frame.style.setProperty("--workflow-exit-progress", String(nextExitProgress));
+          exitProgress = nextExitProgress;
+        }
+      }
       const index = Math.max(0, Math.min(steps.length - 1, Math.floor(progress * steps.length)));
       const step = steps[index];
       if (step === activeStep) return;
@@ -52,6 +63,12 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
         }
       }
 
+      stepTravel = track.offsetHeight;
+      exitTravel = scrollArea.offsetHeight - frame.offsetHeight - stepTravel;
+      if (exitTravel <= 0 && exitProgress > 0) {
+        frame.style.removeProperty("--workflow-exit-progress");
+        exitProgress = 0;
+      }
       updateStep();
     };
 
@@ -77,6 +94,7 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
       window.cancelAnimationFrame(animationFrame);
       scrollArea.removeAttribute("data-pinned");
       scrollArea.style.removeProperty("--workflow-top");
+      frame.style.removeProperty("--workflow-exit-progress");
       activeStep?.removeAttribute("data-active");
     };
   }, []);
@@ -84,6 +102,7 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
   return (
     <div className="shell workflow-scroll" id={id} ref={scrollRef}>
       <div className="workflow-sticky" ref={frameRef}>{children}</div>
+      <div className="workflow-track" ref={trackRef} aria-hidden="true" />
     </div>
   );
 }
