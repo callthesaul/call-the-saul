@@ -81,7 +81,14 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
       });
     };
 
+    const cardVisibility = new IntersectionObserver((entries) => {
+      for (const { target, intersectionRatio } of entries) {
+        target.toggleAttribute("data-card-visible", intersectionRatio >= 0.35);
+      }
+    }, { threshold: 0.35 });
+
     fitFrame();
+    steps.forEach((step) => cardVisibility.observe(step));
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", fitFrame);
     void document.fonts.ready.then(() => {
@@ -90,6 +97,8 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
 
     return () => {
       disposed = true;
+      cardVisibility.disconnect();
+      steps.forEach((step) => step.removeAttribute("data-card-visible"));
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", fitFrame);
       window.cancelAnimationFrame(animationFrame);

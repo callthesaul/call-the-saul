@@ -62,10 +62,9 @@ export default function Home() {
                   <h3>Better Call Saul</h3>
                   <p>We work where you work: Slack, Teams, Trello or Email. Drop the contract or request in your channel and the work starts.</p>
                 </div>
-                <figure className="example-panel">
-                  <figcaption className="example-caption">Example intake</figcaption>
+                <figure className="example-panel" aria-label="Request and reply">
                   <div className="example-card intake-thread">
-                    <div className="intake-message">
+                    <div className="intake-message card-cycle">
                       <span className="intake-avatar" aria-hidden="true">T</span>
                       <div>
                         <p className="note-label">Your team</p>
@@ -73,11 +72,16 @@ export default function Home() {
                         <span className="intake-attachment"><span aria-hidden="true">§</span> Supplier_MSA.docx</span>
                       </div>
                     </div>
-                    <div className="intake-message">
-                      <span className="intake-avatar intake-avatar-saul"><img {...logo} alt="" /></span>
-                      <div>
-                        <p className="note-label">Call the Saul</p>
-                        <p>Ready. Here’s the lawyer-reviewed redline, with notes on what to raise before signing.</p>
+                    <div className="intake-response">
+                      <div className="intake-message intake-answer card-cycle">
+                        <span className="intake-avatar intake-avatar-saul"><img {...logo} alt="" /></span>
+                        <div>
+                          <p className="note-label">Saul</p>
+                          <p>Done ✅ Redlined doc attached, plus a draft reply you can forward straight to them. Signed off by Sahar, your lead lawyer.</p>
+                        </div>
+                      </div>
+                      <div className="intake-typing card-cycle" aria-hidden="true">
+                        Saul is typing<span className="typing-dots">...</span>
                       </div>
                     </div>
                   </div>
@@ -89,16 +93,15 @@ export default function Home() {
                   <h3>Our AI runs the first review, adapted to your context</h3>
                   <p>We learn your standards once and apply them to every contract.</p>
                 </div>
-                <figure className="example-panel prep-example">
-                  <figcaption className="example-caption">Example first pass</figcaption>
+                <figure className="example-panel prep-example" aria-label="Legal profile">
                   <div className="example-card">
                     <div className="example-card-heading">
                       <p>Your legal profile</p>
                     </div>
                     <ul className="profile-standards" role="list">
-                      <li><span aria-hidden="true">✓</span> Payment terms of 30 days or less</li>
-                      <li><span aria-hidden="true">✓</span> Liability capped at 12 months of fees</li>
-                      <li><span aria-hidden="true">✓</span> Flag auto-renewals with less than 30 days’ notice</li>
+                      <li className="card-cycle"><span aria-hidden="true">✓</span> Payment terms of 30 days or less</li>
+                      <li className="card-cycle"><span aria-hidden="true">✓</span> Liability capped at 12 months of fees</li>
+                      <li className="card-cycle profile-restriction"><span aria-hidden="true">×</span> No unlimited liability</li>
                     </ul>
                   </div>
                 </figure>
@@ -109,12 +112,11 @@ export default function Home() {
                   <h3>An expert lawyer reviews and signs off</h3>
                   <p>No contract leaves without a qualified lawyer reading it line by line.</p>
                 </div>
-                <figure className="example-panel review-example">
-                  <figcaption className="example-caption">Example lawyer review</figcaption>
+                <figure className="example-panel review-example" aria-label="Signed-off contract">
                   <div className="example-card">
                     <div className="example-card-heading">
                       <p>Supplier MSA</p>
-                      <span className="signoff-stamp"><span aria-hidden="true">✓</span> Signed off</span>
+                      <span className="signoff-stamp card-cycle"><span aria-hidden="true">✓</span> Signed off</span>
                     </div>
                     <div className="document-clause">
                       <p className="clause-title">4.2 · Renewal and termination</p>
