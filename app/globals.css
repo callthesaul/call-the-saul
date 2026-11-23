@@ -250,7 +250,7 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .review-word {
   position: absolute;
-  bottom: calc(.66em + var(--annotation-offset));
+  bottom: calc(.66em + var(--annotation-offset) - 5px);
   left: 16px;
   font: 700 .9em/.88 Caveat, "Segoe Print", cursive;
   letter-spacing: 0;
@@ -275,6 +275,38 @@ section[id] { scroll-margin-top: 1.5rem; }
 .workflow-stage:last-child { padding-bottom: 0; }
 .workflow-stage:nth-child(even) { grid-template-columns: minmax(0, 1.14fr) minmax(0, .86fr); }
 .workflow-stage:nth-child(even) .example-panel { grid-column: 1; grid-row: 1; }
+.workflow-scroll[data-pinned] {
+  --workflow-top: 0px;
+  --workflow-columns: minmax(0, .86fr) minmax(0, 1.14fr);
+  min-height: calc(100svh - var(--workflow-top) + clamp(40rem, 144svh, 108rem));
+}
+.workflow-scroll[data-pinned] .workflow-sticky {
+  position: sticky;
+  top: var(--workflow-top, 0px);
+  display: grid;
+  align-content: center;
+  min-height: calc(100svh - var(--workflow-top));
+  padding-block: 1.4rem;
+}
+.workflow-scroll[data-pinned="panels"] .workflow-sticky { align-content: start; }
+.workflow-scroll[data-pinned] .workflow { display: grid; }
+.workflow-scroll[data-pinned] .workflow-stage {
+  grid-area: 1 / 1;
+  grid-template-columns: var(--workflow-columns);
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  transform: translateY(22px);
+  pointer-events: none;
+  transition: opacity .36s ease, transform .46s ease;
+}
+.workflow-scroll[data-pinned] .workflow-stage .example-panel { grid-area: auto; }
+.workflow-scroll[data-pinned] .workflow-stage[data-active] {
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 .stage-copy h3 {
   margin-top: .85rem;
   font-size: clamp(1.9rem, 3.6vw, 3rem);
@@ -473,6 +505,16 @@ dd { margin-top: .22rem; color: var(--muted); }
     gap: 1.5rem;
   }
   .workflow-stage:nth-child(even) .example-panel { grid-column: auto; grid-row: auto; }
+  .workflow-scroll[data-pinned] { --workflow-columns: minmax(0, 1fr); }
+  .workflow-scroll[data-pinned] .workflow-sticky { padding-block: 1rem; }
+  .workflow-scroll[data-pinned] .workflow { margin-top: 1.25rem; }
+  .workflow-scroll[data-pinned] .workflow-stage { align-content: start; gap: .85rem; }
+  .workflow-scroll[data-pinned] .stage-copy h3 { margin-top: .6rem; }
+  .workflow-scroll[data-pinned] .stage-copy > p { margin-top: .55rem; }
+  .workflow-scroll[data-pinned] .example-panel { gap: .75rem; padding-block: .9rem; }
+  .workflow-scroll[data-pinned] .example-card-heading,
+  .workflow-scroll[data-pinned] .document-clause,
+  .workflow-scroll[data-pinned] .request-body { padding-block: .75rem; }
   .hero { padding-block: 3.25rem; }
   .hero h1 { font-size: clamp(2.7rem, 7.65vw, 4.1rem); max-width: 38rem; }
   .hero-description { margin-top: 1.05rem; }
@@ -505,8 +547,13 @@ dd { margin-top: .22rem; color: var(--muted); }
   .process-heading h2 { font-size: 2.15rem; }
   .header-cta { padding-inline: .61rem; font-size: .875rem; }
   .clause-text { font-size: 1rem; }
+  .workflow-scroll[data-pinned] .stage-copy h3 { font-size: 1.65rem; }
+  .workflow-scroll[data-pinned] .stage-copy > p { font-size: 1rem; line-height: 1.45; }
+  .workflow-scroll[data-pinned] .example-panel { padding-inline: .75rem; }
+  .workflow-scroll[data-pinned] .clause-text { line-height: 1.55; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .button { transition: none; }
+  .workflow-scroll[data-pinned] .workflow-stage { transition: none; transform: none; }
 }

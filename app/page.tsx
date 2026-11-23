@@ -1,4 +1,5 @@
 import WaitlistForm from "./waitlist-form";
+import WorkflowCarousel from "./workflow-carousel";
 
 const logo = { src: "/call-the-saul-logo.webp", width: 480, height: 233 };
 
@@ -38,7 +39,7 @@ export default function Home() {
         </section>
 
         <section className="process section-space" id="process" aria-labelledby="process-title">
-          <div className="shell">
+          <WorkflowCarousel>
             <header className="process-heading">
               <p className="eyebrow">How it works</p>
               <h2 id="process-title" aria-label="AI prepares. Expert lawyer reviews and Confirms.">
@@ -139,7 +140,7 @@ export default function Home() {
                 </figure>
               </li>
             </ol>
-          </div>
+          </WorkflowCarousel>
         </section>
 
         <section className="comparison section-space" id="comparison" aria-labelledby="comparison-title">
