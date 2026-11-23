@@ -22,8 +22,8 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
     let pinTop = 0;
     let frameOffset = 0;
     let stepTravel = 0;
-    let exitTravel = 0;
-    let exitProgress = 0;
+    let releaseDistance = 0;
+    let releaseShift = 0;
     let disposed = false;
 
     const updateStep = () => {
@@ -31,12 +31,13 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
 
       const distance = pinTop - scrollArea.getBoundingClientRect().top - frameOffset;
       const progress = distance / stepTravel;
-      if (exitTravel > 0) {
-        const nextExitProgress = Math.max(0, Math.min(1, (distance - stepTravel) / exitTravel));
-        if (nextExitProgress !== exitProgress) {
-          frame.style.setProperty("--workflow-exit-progress", String(nextExitProgress));
-          exitProgress = nextExitProgress;
-        }
+      const releaseStart = stepTravel - releaseDistance;
+      const releaseProgress = Math.max(0, Math.min(1, (distance - releaseStart) / releaseDistance));
+      // Match native scroll speed as the sticky frame releases.
+      const nextReleaseShift = -releaseDistance * releaseProgress ** 2 / 2;
+      if (nextReleaseShift !== releaseShift) {
+        frame.style.setProperty("--workflow-release-shift", `${nextReleaseShift}px`);
+        releaseShift = nextReleaseShift;
       }
       const index = Math.max(0, Math.min(steps.length - 1, Math.floor(progress * steps.length)));
       const step = steps[index];
@@ -68,11 +69,7 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
       }
 
       stepTravel = track.offsetHeight;
-      exitTravel = scrollArea.offsetHeight - frame.offsetHeight - stepTravel;
-      if (exitTravel <= 0 && exitProgress > 0) {
-        frame.style.removeProperty("--workflow-exit-progress");
-        exitProgress = 0;
-      }
+      releaseDistance = Math.min(96, stepTravel / steps.length / 5);
       updateStep();
     };
 
@@ -98,7 +95,7 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
       window.cancelAnimationFrame(animationFrame);
       scrollArea.removeAttribute("data-pinned");
       scrollArea.style.removeProperty("--workflow-top");
-      frame.style.removeProperty("--workflow-exit-progress");
+      frame.style.removeProperty("--workflow-release-shift");
       activeStep?.removeAttribute("data-active");
     };
   }, []);
