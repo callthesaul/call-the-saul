@@ -19,6 +19,7 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
 
     let activeStep: HTMLElement | undefined;
     let animationFrame = 0;
+    let pinTop = 0;
     let frameOffset = 0;
     let stepTravel = 0;
     let exitTravel = 0;
@@ -28,7 +29,7 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
     const updateStep = () => {
       if (stepTravel <= 0) return;
 
-      const distance = -scrollArea.getBoundingClientRect().top - frameOffset;
+      const distance = pinTop - scrollArea.getBoundingClientRect().top - frameOffset;
       const progress = distance / stepTravel;
       if (exitTravel > 0) {
         const nextExitProgress = Math.max(0, Math.min(1, (distance - stepTravel) / exitTravel));
@@ -50,11 +51,14 @@ export default function WorkflowCarousel({ id, children }: { id: string; childre
       scrollArea.setAttribute("data-pinned", "");
       scrollArea.style.removeProperty("--workflow-top");
       frameOffset = 0;
+      const frameStyle = getComputedStyle(frame);
+      pinTop = parseFloat(frameStyle.top);
+      const availableHeight = window.innerHeight - pinTop;
 
-      if (frame.offsetHeight > window.innerHeight) {
-        // On shorter screens, scroll the title past the top before pinning the panels.
-        const inset = parseFloat(getComputedStyle(frame).paddingTop);
-        if (list.offsetHeight + 2 * inset <= window.innerHeight) {
+      if (frame.offsetHeight > Math.ceil(availableHeight)) {
+        // On shorter screens, scroll the title past the menu before pinning the panels.
+        const inset = parseFloat(frameStyle.paddingTop);
+        if (list.offsetHeight + 2 * inset <= availableHeight) {
           frameOffset = list.offsetTop - inset;
           scrollArea.setAttribute("data-pinned", "panels");
           scrollArea.style.setProperty("--workflow-top", `${-frameOffset}px`);

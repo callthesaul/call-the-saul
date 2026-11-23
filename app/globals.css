@@ -38,10 +38,13 @@
   --display: "Falcon Medium", var(--sans);
   --mono: "Consolas", "Liberation Mono", monospace;
   --serif: Georgia, "Times New Roman", serif;
+  --masthead-inset: .5rem;
+  --masthead-height: 5.25rem;
+  --header-clearance: calc(var(--masthead-inset) + var(--masthead-height) + .5rem);
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-clearance); }
 body {
   margin: 0;
   background: var(--paper);
@@ -82,24 +85,32 @@ section[id] { scroll-margin-top: 1.5rem; }
   background: var(--paper);
   padding: .65rem 1rem;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   left: 1rem;
   top: 1rem;
   transform: translateY(-180%);
 }
 .skip-link:focus { transform: none; }
 
-.site-header { padding: .45rem clamp(.55rem, 1.4vw, 1.25rem) 0; }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: var(--masthead-inset) clamp(.55rem, 1.4vw, 1.25rem) 0;
+  pointer-events: none;
+}
 .masthead {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: clamp(.65rem, 1.4vw, 1.4rem);
-  min-height: 4.8rem;
+  min-height: var(--masthead-height);
   padding: .5rem clamp(.8rem, 2.15vw, 2rem);
   border: 1px solid var(--line);
   border-radius: .55rem;
   background: #f7f9f3;
+  box-shadow: 0 .25rem 1rem rgb(23 50 41 / 10%);
+  pointer-events: auto;
 }
 .masthead-links, .masthead-actions {
   display: flex;
@@ -310,10 +321,10 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .workflow-scroll[data-pinned] .workflow-sticky {
   position: sticky;
-  top: var(--workflow-top, 0px);
+  top: calc(var(--header-clearance) + var(--workflow-top));
   display: grid;
   align-content: center;
-  min-height: calc(100svh - var(--workflow-top));
+  min-height: calc(100svh - var(--header-clearance) - var(--workflow-top));
   padding-block: 1.4rem;
   opacity: calc(1 - var(--workflow-exit-progress, 0));
 }
@@ -568,6 +579,7 @@ dd { margin-top: .22rem; color: var(--muted); }
   .contact-copy { padding-top: 0; }
 }
 @media (max-width: 48rem) {
+  :root { --masthead-height: 4.8rem; }
   .masthead-link { font-size: .875rem; }
   .masthead > .wordmark { width: 6.5rem; }
   .masthead .header-cta { padding-inline: .55rem; font-size: .85rem; }
@@ -576,6 +588,7 @@ dd { margin-top: .22rem; color: var(--muted); }
   .contract-types { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 38rem) {
+  :root { --masthead-height: 6.65rem; }
   .masthead { row-gap: .65rem; padding-block: .6rem; }
   .masthead > .wordmark { grid-area: 1 / 2; width: 6.2rem; }
   .masthead-links { grid-area: 2 / 1 / auto / 3; flex-wrap: wrap; gap: .3rem .95rem; }
@@ -588,6 +601,9 @@ dd { margin-top: .22rem; color: var(--muted); }
   .masthead > .wordmark { grid-column: 1; justify-self: start; }
   .masthead .header-cta { grid-column: 2 / 4; }
   .masthead-links { column-gap: .75rem; }
+}
+@media (max-width: 19rem) {
+  :root { --masthead-height: 8.2rem; }
 }
 @media (min-width: 36rem) and (max-width: 53rem),
        (min-width: 36rem) and (max-height: 50rem) {
@@ -607,6 +623,15 @@ dd { margin-top: .22rem; color: var(--muted); }
   .workflow-scroll[data-pinned] .terms > div { grid-template-columns: minmax(5rem, .4fr) minmax(0, 1fr); }
   .workflow-scroll[data-pinned] .clause-text { font-size: 1rem; line-height: 1.5; }
   .workflow-scroll[data-pinned] .review-note { padding: .65rem; }
+}
+@media (min-width: 36rem) and (max-height: 43rem) {
+  .workflow-scroll[data-pinned] .workflow-sticky { padding-block: .375rem; }
+  .workflow-scroll[data-pinned] .process-expert { padding-top: calc(.32em + var(--annotation-offset)); }
+  .workflow-scroll[data-pinned] .process-heading > p:last-child { margin-top: .45rem; }
+  .workflow-scroll[data-pinned] .workflow { margin-top: .6rem; }
+  .workflow-scroll[data-pinned] .example-panel { gap: .55rem; }
+  .workflow-scroll[data-pinned] .clause-text { line-height: 1.4; }
+  .workflow-scroll[data-pinned] .review-note { padding-block: .55rem; line-height: 1.4; }
 }
 @media (max-width: 34rem) {
   .shell { width: calc(100% - 2rem); }

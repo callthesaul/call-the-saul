@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <header className="site-header" id="top">
+      <header className="site-header">
         <nav className="masthead" aria-label="Main navigation">
           <div className="masthead-links">
             <a className="masthead-link" href="#process">How it works</a>
