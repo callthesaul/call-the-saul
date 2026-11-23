@@ -77,7 +77,7 @@ export default function Home() {
                         <span className="intake-avatar intake-avatar-saul"><img {...logo} alt="" /></span>
                         <div>
                           <p className="note-label">Saul</p>
-                          <p>Done ✅ Redlined doc attached, plus a draft reply you can forward straight to them. Signed off by a lawyer.</p>
+                          <p>Done ✅ Redlined doc attached, plus a draft reply you can forward straight to them. Signed off by Sahar, your lead lawyer.</p>
                         </div>
                       </div>
                       <div className="intake-typing card-cycle" aria-hidden="true">
@@ -116,7 +116,7 @@ export default function Home() {
                   <div className="example-card">
                     <div className="example-card-heading">
                       <p>Supplier MSA</p>
-                      <span className="signoff-stamp card-cycle"><span aria-hidden="true">✓</span> Signed off</span>
+                      <span className="signoff-stamp card-cycle"><span aria-hidden="true">✓</span> Signed off by a lawyer</span>
                     </div>
                     <div className="document-clause">
                       <p className="clause-title">4.2 · Renewal and termination</p>

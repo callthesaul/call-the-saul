@@ -465,7 +465,6 @@ section[id] { scroll-margin-top: 1.5rem; }
 .profile-standards .profile-restriction { background: #f3eeeb; }
 .profile-standards .profile-restriction > span { color: #8a473d; }
 .signoff-stamp {
-  flex-shrink: 0;
   margin-inline-start: auto;
   padding: .27rem .48rem;
   border: 1px solid var(--green);
@@ -475,7 +474,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   font: 700 .75rem/1.2 var(--sans);
   letter-spacing: .035em;
   text-transform: uppercase;
-  white-space: nowrap;
+  text-align: center;
   transform: rotate(-5deg);
 }
 @media (prefers-reduced-motion: no-preference) {
