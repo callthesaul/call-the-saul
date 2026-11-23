@@ -60,18 +60,25 @@ export default function Home() {
                 <div className="stage-copy">
                   <span className="step-number" aria-hidden="true">1</span>
                   <h3>Better Call Saul</h3>
-                  <p>We work where you work: Slack, Teams, Trello or e-mail. Drop the contract or request in your channel and the work starts.</p>
+                  <p>We work where you work: Slack, Teams, Trello or Email. Drop the contract or request in your channel and the work starts.</p>
                 </div>
                 <figure className="example-panel">
                   <figcaption className="example-caption">Example intake</figcaption>
-                  <div className="example-card">
-                    <div className="example-card-heading">
-                      <span className="document-symbol" aria-hidden="true">§</span>
-                      <p>Supplier services agreement</p>
+                  <div className="example-card intake-thread">
+                    <div className="intake-message">
+                      <span className="intake-avatar" aria-hidden="true">T</span>
+                      <div>
+                        <p className="note-label">Your team</p>
+                        <p>Can you review this supplier MSA? We’re especially concerned about the renewal and notice terms.</p>
+                        <span className="intake-attachment"><span aria-hidden="true">§</span> Supplier_MSA.docx</span>
+                      </div>
                     </div>
-                    <div className="request-body">
-                      <p className="note-label">From your team</p>
-                      <p>We’re about to sign with a new supplier. Can you check how the agreement renews and how much notice we need to give?</p>
+                    <div className="intake-message">
+                      <span className="intake-avatar intake-avatar-saul"><img {...logo} alt="" /></span>
+                      <div>
+                        <p className="note-label">Call the Saul</p>
+                        <p>Ready. Here’s the lawyer-reviewed redline, with notes on what to raise before signing.</p>
+                      </div>
                     </div>
                   </div>
                 </figure>
@@ -86,22 +93,13 @@ export default function Home() {
                   <figcaption className="example-caption">Example first pass</figcaption>
                   <div className="example-card">
                     <div className="example-card-heading">
-                      <p>Renewal terms · Clause 4.2</p>
+                      <p>Your legal profile</p>
                     </div>
-                    <dl className="terms">
-                      <div>
-                        <dt>Renewal</dt>
-                        <dd>Automatic</dd>
-                      </div>
-                      <div>
-                        <dt>Notice period</dt>
-                        <dd>7 days before the term ends</dd>
-                      </div>
-                      <div>
-                        <dt>For the lawyer</dt>
-                        <dd>Is 7 days enough time for the team to decide whether to renew?</dd>
-                      </div>
-                    </dl>
+                    <ul className="profile-standards" role="list">
+                      <li><span aria-hidden="true">✓</span> Payment terms of 30 days or less</li>
+                      <li><span aria-hidden="true">✓</span> Liability capped at 12 months of fees</li>
+                      <li><span aria-hidden="true">✓</span> Flag auto-renewals with less than 30 days’ notice</li>
+                    </ul>
                   </div>
                 </figure>
               </li>
@@ -115,8 +113,8 @@ export default function Home() {
                   <figcaption className="example-caption">Example lawyer review</figcaption>
                   <div className="example-card">
                     <div className="example-card-heading">
-                      <span className="document-symbol" aria-hidden="true">§</span>
-                      <p>Supplier services agreement</p>
+                      <p>Supplier MSA</p>
+                      <span className="signoff-stamp"><span aria-hidden="true">✓</span> Signed off</span>
                     </div>
                     <div className="document-clause">
                       <p className="clause-title">4.2 · Renewal and termination</p>
