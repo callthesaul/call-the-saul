@@ -14,6 +14,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: Caveat;
+  src: url("/fonts/caveat-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --paper: #fcfcf8;
@@ -207,7 +215,42 @@ section[id] { scroll-margin-top: 1.5rem; }
   background: #f1f4ee;
 }
 .process-heading { text-align: center; }
-.process-heading h2 { max-width: 54rem; margin-inline: auto; word-spacing: .04em; }
+.process-heading h2 { max-width: 68rem; margin-inline: auto; word-spacing: .04em; }
+.process-heading-display, .process-expert, .process-confirmation {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+.process-heading-display { flex-wrap: wrap; gap: .12em .24em; }
+.process-expert { padding-top: 1.5em; gap: .09em; white-space: nowrap; }
+.process-confirmation { gap: .04em; }
+.review-mark {
+  position: relative;
+  width: .67em;
+  height: 0;
+  color: #173da6;
+}
+.review-mark::before, .review-mark::after {
+  position: absolute;
+  bottom: .86em;
+  left: 50%;
+  width: .06em;
+  height: .7em;
+  border-radius: 1em;
+  background: currentColor;
+  content: "";
+  transform-origin: center bottom;
+}
+.review-mark::before { transform: translateX(-50%) rotate(-32deg); }
+.review-mark::after { transform: translateX(-50%) rotate(28deg); }
+.review-word {
+  position: absolute;
+  bottom: 1.78em;
+  left: 50%;
+  font: 700 .9em/.88 Caveat, "Segoe Print", cursive;
+  letter-spacing: 0;
+  transform: translateX(-50%) rotate(-6deg);
+}
 .process-heading > p:last-child {
   max-width: 31rem;
   margin: .9rem auto 0;
@@ -440,6 +483,9 @@ dd { margin-top: .22rem; color: var(--muted); }
   .shell { width: calc(100% - 2rem); }
   .hero { padding-block: 2.65rem; }
   .section-space { padding-block: 3.35rem; }
+  .process-heading-display, .process-expert { flex-direction: column; align-items: center; }
+  .process-expert { padding-top: 0; }
+  .process-confirmation { padding-top: 1.68em; }
   .hero-accent { font-size: clamp(1.8rem, 8.9vw, 1em); }
   .field-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .example-panel, .example-card-heading, .document-clause, .request-body, .terms { padding-inline: 1rem; }
@@ -450,6 +496,7 @@ dd { margin-top: .22rem; color: var(--muted); }
 }
 @media (max-width: 22rem) {
   .hero h1 { font-size: 2.35rem; }
+  .process-heading h2 { font-size: 2.15rem; }
   .header-cta { padding-inline: .61rem; font-size: .875rem; }
   .clause-text { font-size: 1rem; }
 }

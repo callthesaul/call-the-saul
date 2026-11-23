@@ -41,7 +41,18 @@ export default function Home() {
           <div className="shell">
             <header className="process-heading">
               <p className="eyebrow">How it works</p>
-              <h2 id="process-title">AI prepares. Expert lawyer reviews.</h2>
+              <h2 id="process-title" aria-label="AI prepares. Expert lawyer reviews and Confirms.">
+                <span className="process-heading-display" aria-hidden="true">
+                  <span>AI prepares.</span>{" "}
+                  <span className="process-expert">
+                    <span>Expert lawyer</span>{" "}
+                    <span className="process-confirmation">
+                      <span className="review-mark"><span className="review-word">reviews</span></span>{" "}
+                      <span>and Confirms.</span>
+                    </span>
+                  </span>
+                </span>
+              </h2>
               <p>Follow a sample services agreement from your first request to the lawyer’s edits.</p>
             </header>
             <ol className="workflow" role="list">
