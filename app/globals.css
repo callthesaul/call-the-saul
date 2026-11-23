@@ -222,7 +222,12 @@ section[id] { scroll-margin-top: 1.5rem; }
   justify-content: center;
 }
 .process-heading-display { flex-wrap: wrap; gap: .12em .24em; }
-.process-expert { padding-top: calc(.81em + 34px); gap: .19em; white-space: nowrap; }
+.process-expert {
+  --annotation-offset: 42px;
+  padding-top: calc(.81em + var(--annotation-offset));
+  gap: .19em;
+  white-space: nowrap;
+}
 .process-review-line { white-space: nowrap; }
 .review-mark {
   position: relative;
@@ -235,18 +240,18 @@ section[id] { scroll-margin-top: 1.5rem; }
 .review-mark::before {
   position: absolute;
   bottom: .59em;
-  left: 0;
-  width: 36px;
-  height: 30px;
+  left: -11px;
+  width: 61px;
+  height: 39px;
   background: currentColor;
   content: "";
-  clip-path: path("M 1 3 Q 2 1 3.7 2.5 C 8.8 12.9 13.8 22.7 17.4 25.7 C 20.7 22.7 26.3 11.7 32.8 1.7 Q 34 0 35.6 1.2 Q 36.2 1.9 35.3 3.6 C 29.5 13.9 23.2 25.4 18.5 29.1 Q 17.4 30 16.4 29 C 12.1 25.1 5.7 14.9 .9 5 Q .3 3.8 1 3 Z");
-  transform: translateX(-50%);
+  clip-path: path("M 1.2 15.4 Q .4 13.9 1.8 13.2 Q 3.3 12.6 4.1 14.2 C 7.7 21 10 28.6 11 34 C 17.6 21 33.8 7.9 57.7 .8 Q 59.9 .2 60.4 1.6 Q 60.9 2.9 58.8 3.6 C 35.7 10.9 19.5 24.7 12.2 37.6 Q 11.5 39 10.3 38.7 Q 9.3 38.5 9.1 37.3 C 7.9 30.2 4.7 22 1.2 15.4 Z");
+  transform-origin: 11px bottom;
 }
 .review-word {
   position: absolute;
-  bottom: calc(.66em + 34px);
-  left: 0;
+  bottom: calc(.66em + var(--annotation-offset));
+  left: 16px;
   font: 700 .9em/.88 Caveat, "Segoe Print", cursive;
   letter-spacing: 0;
   transform: translateX(-50%) rotate(-6deg);
@@ -484,9 +489,9 @@ dd { margin-top: .22rem; color: var(--muted); }
   .hero { padding-block: 2.65rem; }
   .section-space { padding-block: 3.35rem; }
   .process-heading-display, .process-expert { flex-direction: column; align-items: center; }
-  .process-expert { padding-top: calc(.81em + 28px); gap: .12em; }
-  .review-mark::before { transform: translateX(-50%) scale(.8); transform-origin: center bottom; }
-  .review-word { bottom: calc(.66em + 28px); }
+  .process-expert { --annotation-offset: 35px; gap: .12em; }
+  .review-mark::before { transform: scale(.8); }
+  .review-word { left: 12px; }
   .hero-accent { font-size: clamp(1.8rem, 8.9vw, 1em); }
   .field-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .example-panel, .example-card-heading, .document-clause, .request-body, .terms { padding-inline: 1rem; }
