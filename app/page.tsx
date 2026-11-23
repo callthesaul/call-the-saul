@@ -37,8 +37,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="process section-space" id="process" aria-labelledby="process-title">
-          <WorkflowCarousel>
+        <section className="process section-space" aria-labelledby="process-title">
+          <WorkflowCarousel id="process">
             <header className="process-heading">
               <h2 id="process-title" aria-label="AI prepares. Expert lawyer reviews and Confirms.">
                 <span className="process-heading-display" aria-hidden="true">
@@ -57,8 +57,8 @@ export default function Home() {
               <li className="workflow-stage">
                 <div className="stage-copy">
                   <span className="step-number" aria-hidden="true">1</span>
-                  <h3>Share the agreement.</h3>
-                  <p>Send the contract and tell us what’s at stake. Your priorities give the review a starting point.</p>
+                  <h3>Better Call Saul</h3>
+                  <p>We work where you work: Slack, Teams, Trello or e-mail. Drop the contract or request in your channel and the work starts.</p>
                 </div>
                 <figure className="example-panel">
                   <figcaption className="example-caption">Example intake</figcaption>
@@ -77,8 +77,8 @@ export default function Home() {
               <li className="workflow-stage">
                 <div className="stage-copy">
                   <span className="step-number" aria-hidden="true">2</span>
-                  <h3>AI makes the first pass.</h3>
-                  <p>AI identifies the relevant clauses and pulls out the terms your lawyer needs to check against your priorities.</p>
+                  <h3>Our AI runs the first review, adapted to your context</h3>
+                  <p>We learn your standards once and apply them to every contract.</p>
                 </div>
                 <figure className="example-panel prep-example">
                   <figcaption className="example-caption">Example first pass</figcaption>
@@ -106,8 +106,8 @@ export default function Home() {
               <li className="workflow-stage">
                 <div className="stage-copy">
                   <span className="step-number" aria-hidden="true">3</span>
-                  <h3>Get the lawyer’s edits.</h3>
-                  <p>A lawyer reviews the agreement and proposed changes. You get a marked-up contract with notes explaining what to raise before signing.</p>
+                  <h3>An expert lawyer reviews and signs off</h3>
+                  <p>No contract leaves without a qualified lawyer reading it line by line.</p>
                 </div>
                 <figure className="example-panel review-example">
                   <figcaption className="example-caption">Example lawyer review</figcaption>

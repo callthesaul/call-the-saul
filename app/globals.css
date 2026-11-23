@@ -527,6 +527,23 @@ dd { margin-top: .22rem; color: var(--muted); }
   .masthead nav { grid-row: 2; grid-column: 1 / -1; flex-wrap: wrap; gap: .35rem 1.15rem; }
   .masthead nav a { font-size: .9rem; }
 }
+@media (min-width: 36rem) and (max-width: 53rem) {
+  .workflow-scroll[data-pinned] { --workflow-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+  .workflow-scroll[data-pinned] .workflow-sticky { padding-block: .75rem; }
+  .workflow-scroll[data-pinned] .process-expert { padding-top: calc(.58em + var(--annotation-offset)); }
+  .workflow-scroll[data-pinned] .workflow { margin-top: 1rem; }
+  .workflow-scroll[data-pinned] .workflow-stage { align-content: center; }
+  .workflow-scroll[data-pinned] .stage-copy h3 { font-size: clamp(1.65rem, 3.6vw, 2rem); }
+  .workflow-scroll[data-pinned] .example-panel { gap: .65rem; padding: .75rem; }
+  .workflow-scroll[data-pinned] .example-card-heading,
+  .workflow-scroll[data-pinned] .document-clause,
+  .workflow-scroll[data-pinned] .request-body { padding: .65rem .75rem; }
+  .workflow-scroll[data-pinned] .example-card-heading { line-height: 1.35; }
+  .workflow-scroll[data-pinned] .terms { padding-inline: .75rem; }
+  .workflow-scroll[data-pinned] .terms > div { grid-template-columns: minmax(5rem, .4fr) minmax(0, 1fr); }
+  .workflow-scroll[data-pinned] .clause-text { font-size: 1rem; line-height: 1.5; }
+  .workflow-scroll[data-pinned] .review-note { padding: .65rem; }
+}
 @media (max-width: 34rem) {
   .shell { width: calc(100% - 2rem); }
   .hero { padding-block: 2.65rem; }

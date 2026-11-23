@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
-export default function WorkflowCarousel({ children }: { children: ReactNode }) {
+export default function WorkflowCarousel({ id, children }: { id: string; children: ReactNode }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
 
@@ -82,7 +82,7 @@ export default function WorkflowCarousel({ children }: { children: ReactNode }) 
   }, []);
 
   return (
-    <div className="shell workflow-scroll" ref={scrollRef}>
+    <div className="shell workflow-scroll" id={id} ref={scrollRef}>
       <div className="workflow-sticky" ref={frameRef}>{children}</div>
     </div>
   );
