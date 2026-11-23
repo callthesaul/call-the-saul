@@ -189,9 +189,16 @@ export default function Home() {
         </section>
 
         <section className="partnership section-space" id="partnership" aria-labelledby="partnership-title">
-          <div className="shell partnership-grid">
+          <div className="shell">
             <h2 id="partnership-title">Partnership</h2>
-            <p>We welcome partnerships with teams that support fast-growing companies. The businesses you work with can send us an agreement to review or a brief for a new one. A lawyer reviews the work before we send it back.</p>
+            <div className="partnership-grid">
+              <section id="lawyers" aria-labelledby="lawyers-title">
+                <h3 id="lawyers-title">Lawyers</h3>
+              </section>
+              <section id="investors" aria-labelledby="investors-title">
+                <h3 id="investors-title">Investors</h3>
+              </section>
+            </div>
           </div>
         </section>
 

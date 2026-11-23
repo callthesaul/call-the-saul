@@ -369,8 +369,12 @@ dt { font-weight: 740; }
 dd { margin-top: .22rem; color: var(--muted); }
 
 .partnership { background: var(--green-dark); color: var(--paper); }
-.partnership-grid { align-items: center; }
-.partnership-grid > p { max-width: 33rem; color: #d8e4d9; font-size: 1.075rem; }
+.partnership-grid {
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: clamp(1.6rem, 3.6vw, 2.75rem);
+}
+.partnership-grid > section { padding-top: 1rem; border-top: 1px solid #5c7769; }
+.partnership-grid h3 { font-size: clamp(1.65rem, 3vw, 2.35rem); }
 
 .contact { align-items: start; }
 .contact-copy { padding-top: .35rem; }
