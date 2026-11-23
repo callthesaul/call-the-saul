@@ -216,37 +216,37 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .process-heading { text-align: center; }
 .process-heading h2 { max-width: 68rem; margin-inline: auto; word-spacing: .04em; }
-.process-heading-display, .process-expert, .process-confirmation {
+.process-heading-display, .process-expert {
   display: flex;
   align-items: baseline;
   justify-content: center;
 }
 .process-heading-display { flex-wrap: wrap; gap: .12em .24em; }
-.process-expert { padding-top: 1.5em; gap: .09em; white-space: nowrap; }
-.process-confirmation { gap: .04em; }
+.process-expert { padding-top: calc(.81em + 34px); gap: .19em; white-space: nowrap; }
+.process-review-line { white-space: nowrap; }
 .review-mark {
   position: relative;
-  width: .67em;
+  display: inline-block;
+  left: -.09em;
+  width: 0;
   height: 0;
   color: #173da6;
 }
-.review-mark::before, .review-mark::after {
+.review-mark::before {
   position: absolute;
-  bottom: .86em;
-  left: 50%;
-  width: .06em;
-  height: .7em;
-  border-radius: 1em;
+  bottom: .59em;
+  left: 0;
+  width: 36px;
+  height: 30px;
   background: currentColor;
   content: "";
-  transform-origin: center bottom;
+  clip-path: path("M 1 3 Q 2 1 3.7 2.5 C 8.8 12.9 13.8 22.7 17.4 25.7 C 20.7 22.7 26.3 11.7 32.8 1.7 Q 34 0 35.6 1.2 Q 36.2 1.9 35.3 3.6 C 29.5 13.9 23.2 25.4 18.5 29.1 Q 17.4 30 16.4 29 C 12.1 25.1 5.7 14.9 .9 5 Q .3 3.8 1 3 Z");
+  transform: translateX(-50%);
 }
-.review-mark::before { transform: translateX(-50%) rotate(-32deg); }
-.review-mark::after { transform: translateX(-50%) rotate(28deg); }
 .review-word {
   position: absolute;
-  bottom: 1.78em;
-  left: 50%;
+  bottom: calc(.66em + 34px);
+  left: 0;
   font: 700 .9em/.88 Caveat, "Segoe Print", cursive;
   letter-spacing: 0;
   transform: translateX(-50%) rotate(-6deg);
@@ -484,8 +484,9 @@ dd { margin-top: .22rem; color: var(--muted); }
   .hero { padding-block: 2.65rem; }
   .section-space { padding-block: 3.35rem; }
   .process-heading-display, .process-expert { flex-direction: column; align-items: center; }
-  .process-expert { padding-top: 0; }
-  .process-confirmation { padding-top: 1.68em; }
+  .process-expert { padding-top: calc(.81em + 28px); gap: .12em; }
+  .review-mark::before { transform: translateX(-50%) scale(.8); transform-origin: center bottom; }
+  .review-word { bottom: calc(.66em + 28px); }
   .hero-accent { font-size: clamp(1.8rem, 8.9vw, 1em); }
   .field-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .example-panel, .example-card-heading, .document-clause, .request-body, .terms { padding-inline: 1rem; }

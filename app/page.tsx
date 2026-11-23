@@ -45,11 +45,10 @@ export default function Home() {
                 <span className="process-heading-display" aria-hidden="true">
                   <span>AI prepares.</span>{" "}
                   <span className="process-expert">
-                    <span>Expert lawyer</span>{" "}
-                    <span className="process-confirmation">
-                      <span className="review-mark"><span className="review-word">reviews</span></span>{" "}
-                      <span>and Confirms.</span>
-                    </span>
+                    <span className="process-review-line">
+                      <span>Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews</span></span><span>and</span>
+                    </span>{" "}
+                    <span>Confirms.</span>
                   </span>
                 </span>
               </h2>
