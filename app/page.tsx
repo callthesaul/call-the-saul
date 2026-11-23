@@ -47,13 +47,13 @@ export default function Home() {
                   <span>AI prepares.</span>{" "}
                   <span className="process-expert">
                     <span className="process-review-line">
-                      <span>Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews</span></span><span>and</span>
+                      <span className="process-accent">Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews</span></span><span>and</span>
                     </span>{" "}
                     <span>Confirms.</span>
                   </span>
                 </span>
               </h2>
-              <p>Follow a sample services agreement from your first request to the lawyer’s edits.</p>
+              <p>Legal AI tools want to make you faster. We do the work for you.</p>
             </header>
             <ol className="workflow" role="list">
               <li className="workflow-stage">

@@ -146,7 +146,8 @@ section[id] { scroll-margin-top: 1.5rem; }
   margin-inline: auto;
   word-spacing: .04em;
 }
-.hero-accent { display: block; color: var(--green); }
+.hero-accent, .process-accent { color: var(--green); }
+.hero-accent { display: block; }
 .keep-together, .redline { white-space: nowrap; }
 .hero-description {
   max-width: 34rem;
@@ -216,13 +217,11 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .process-heading { text-align: center; }
 .process-heading h2 { max-width: 68rem; margin-inline: auto; word-spacing: .04em; }
-.process-heading-display, .process-expert {
+.process-heading-display { display: block; }
+.process-expert {
   display: flex;
   align-items: baseline;
   justify-content: center;
-}
-.process-heading-display { flex-wrap: wrap; gap: .12em .24em; }
-.process-expert {
   --annotation-offset: 42px;
   padding-top: calc(.81em + var(--annotation-offset));
   gap: .19em;
@@ -257,10 +256,12 @@ section[id] { scroll-margin-top: 1.5rem; }
   transform: translateX(-50%) rotate(-6deg);
 }
 .process-heading > p:last-child {
-  max-width: 31rem;
+  max-width: 42rem;
   margin: .9rem auto 0;
   color: var(--muted);
-  font-size: 1.075rem;
+  font-size: clamp(1.125rem, 2.1vw, 1.5rem);
+  line-height: 1.4;
+  text-wrap: balance;
 }
 .workflow { margin: clamp(2rem, 3.25vw, 3rem) 0 0; padding: 0; list-style: none; }
 .workflow-stage {
@@ -530,7 +531,7 @@ dd { margin-top: .22rem; color: var(--muted); }
   .shell { width: calc(100% - 2rem); }
   .hero { padding-block: 2.65rem; }
   .section-space { padding-block: 3.35rem; }
-  .process-heading-display, .process-expert { flex-direction: column; align-items: center; }
+  .process-expert { flex-direction: column; align-items: center; }
   .process-expert { --annotation-offset: 35px; gap: .12em; }
   .review-mark::before { transform: scale(.8); }
   .review-word { left: 12px; }
