@@ -21,73 +21,105 @@ export default function Home() {
 
       <main id="main" tabIndex={-1}>
         <section className="hero shell" aria-labelledby="hero-title">
-          <div className="hero-content">
-            <p className="eyebrow">Commercial contracting</p>
-            <h1 id="hero-title">Lawyer-reviewed contracts within <span className="keep-together">12 hours.</span> <span className="hero-accent">One transparent fee.</span></h1>
-            <p className="hero-description">CalltheSaul is an AI law firm specialized in commercial contracting, built for fast-growing companies.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#waitlist">Join the waitlist</a>
-              <a className="text-link" href="#process">See how it works</a>
-            </div>
+          <p className="eyebrow">Commercial contracting</p>
+          <h1 id="hero-title">Lawyer-reviewed contracts within <span className="keep-together">12 hours.</span> <span className="hero-accent">One transparent fee.</span></h1>
+          <p className="hero-description">CalltheSaul is an AI law firm specialized in commercial contracting, built for fast-growing companies.</p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#waitlist">Join the waitlist</a>
+            <a className="text-link" href="#process">See how it works</a>
           </div>
-          <figure className="review-example">
-            <figcaption className="example-caption">
-              Illustrative contract review
-            </figcaption>
-            <div className="document">
-              <div className="document-header">
-                <span className="document-symbol" aria-hidden="true">§</span>
-                <p>Services agreement</p>
-              </div>
-              <div className="document-clause">
-                <p className="clause-title">4.2 · Renewal and termination</p>
-                <p className="clause-text">
-                  This agreement renews for a further term unless either party gives written notice at least{" "}
-                  <span className="redline">
-                    <span className="visually-hidden">[Replace </span><del>7 days</del>{" "}
-                    <span className="visually-hidden">with </span><ins>30 days</ins><span className="visually-hidden">]</span>
-                  </span>{" "}
-                  before the end of the current term.
-                </p>
-              </div>
-            </div>
-            <div className="review-note">
-              <span className="note-marker" aria-hidden="true" />
-              <div>
-                <p className="note-label">Lawyer’s note</p>
-                <p>Ask for 30 days’ notice so your team has time to decide whether to renew.</p>
-              </div>
-            </div>
-          </figure>
         </section>
 
         <section className="process section-space" id="process" aria-labelledby="process-title">
-          <div className="shell process-grid">
-            <div>
+          <div className="shell">
+            <header className="process-heading">
               <p className="eyebrow">How it works</p>
-              <h2 id="process-title">AI prepares.<br />Expert lawyer reviews.</h2>
-            </div>
-            <ol className="steps">
-              <li>
-                <span className="step-number" aria-hidden="true">1</span>
-                <div>
-                  <h3>Share the agreement</h3>
-                  <p>Tell us what you’re signing and which terms matter to your team.</p>
+              <h2 id="process-title">AI prepares. Expert lawyer reviews.</h2>
+              <p>Follow a sample services agreement from your first request to the lawyer’s edits.</p>
+            </header>
+            <ol className="workflow" role="list">
+              <li className="workflow-stage">
+                <div className="stage-copy">
+                  <span className="step-number" aria-hidden="true">1</span>
+                  <h3>Share the agreement.</h3>
+                  <p>Send the contract and tell us what’s at stake. Your priorities give the review a starting point.</p>
                 </div>
+                <figure className="example-panel">
+                  <figcaption className="example-caption">Example intake</figcaption>
+                  <div className="example-card">
+                    <div className="example-card-heading">
+                      <span className="document-symbol" aria-hidden="true">§</span>
+                      <p>Supplier services agreement</p>
+                    </div>
+                    <div className="request-body">
+                      <p className="note-label">From your team</p>
+                      <p>We’re about to sign with a new supplier. Can you check how the agreement renews and how much notice we need to give?</p>
+                    </div>
+                  </div>
+                </figure>
               </li>
-              <li>
-                <span className="step-number" aria-hidden="true">2</span>
-                <div>
-                  <h3>AI prepares the work</h3>
-                  <p>AI prepares a first pass using the agreement and the context you’ve shared.</p>
+              <li className="workflow-stage">
+                <div className="stage-copy">
+                  <span className="step-number" aria-hidden="true">2</span>
+                  <h3>AI makes the first pass.</h3>
+                  <p>AI identifies the relevant clauses and pulls out the terms your lawyer needs to check against your priorities.</p>
                 </div>
+                <figure className="example-panel prep-example">
+                  <figcaption className="example-caption">Example first pass</figcaption>
+                  <div className="example-card">
+                    <div className="example-card-heading">
+                      <p>Renewal terms · Clause 4.2</p>
+                    </div>
+                    <dl className="terms">
+                      <div>
+                        <dt>Renewal</dt>
+                        <dd>Automatic</dd>
+                      </div>
+                      <div>
+                        <dt>Notice period</dt>
+                        <dd>7 days before the term ends</dd>
+                      </div>
+                      <div>
+                        <dt>For the lawyer</dt>
+                        <dd>Is 7 days enough time for the team to decide whether to renew?</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </figure>
               </li>
-              <li>
-                <span className="step-number" aria-hidden="true">3</span>
-                <div>
-                  <h3>A lawyer reviews it</h3>
-                  <p>An expert lawyer reviews the agreement and proposed edits before the work comes back to you.</p>
+              <li className="workflow-stage">
+                <div className="stage-copy">
+                  <span className="step-number" aria-hidden="true">3</span>
+                  <h3>Get the lawyer’s edits.</h3>
+                  <p>A lawyer reviews the agreement and proposed changes. You get a marked-up contract with notes explaining what to raise before signing.</p>
                 </div>
+                <figure className="example-panel review-example">
+                  <figcaption className="example-caption">Example lawyer review</figcaption>
+                  <div className="example-card">
+                    <div className="example-card-heading">
+                      <span className="document-symbol" aria-hidden="true">§</span>
+                      <p>Supplier services agreement</p>
+                    </div>
+                    <div className="document-clause">
+                      <p className="clause-title">4.2 · Renewal and termination</p>
+                      <p className="clause-text">
+                        This agreement renews for a further term unless either party gives written notice at least{" "}
+                        <span className="redline">
+                          <span className="visually-hidden">[Replace </span><del>7 days</del>{" "}
+                          <span className="visually-hidden">with </span><ins>30 days</ins><span className="visually-hidden">]</span>
+                        </span>{" "}
+                        before the end of the current term.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="review-note">
+                    <span className="note-marker" aria-hidden="true" />
+                    <div>
+                      <p className="note-label">Lawyer’s note</p>
+                      <p>Ask for 30 days’ notice so your team has time to decide whether to renew.</p>
+                    </div>
+                  </div>
+                </figure>
               </li>
             </ol>
           </div>
