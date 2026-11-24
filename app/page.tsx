@@ -121,13 +121,13 @@ export default function Home() {
                     <div className="document-clause">
                       <p className="clause-title">4.2 · Renewal and termination</p>
                       <p className="clause-text">
-                        This agreement renews <span className="redline"><del>automatically</del></span>{" "}
-                        for a further term unless either party gives written notice at least{" "}
+                        This agreement renews unless either party gives written notice of non-renewal at least{" "}
                         <span className="redline">
                           <del>7 days</del>{" "}
                           <ins>30 days</ins>
                         </span>{" "}
-                        before the end of the current term.
+                        before the term ends.{" "}
+                        <span className="redline"><del>The customer must pay a non-renewal fee.</del></span>
                       </p>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function Home() {
                     <span className="note-marker" aria-hidden="true" />
                     <div>
                       <p className="note-label">Lawyer’s note</p>
-                      <p>Ask for 30 days’ notice so your team has time to decide whether to renew.</p>
+                      <p>Require 30 days’ notice and remove the fee for opting out of renewal.</p>
                     </div>
                   </div>
                 </figure>
