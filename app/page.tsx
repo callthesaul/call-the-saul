@@ -180,7 +180,7 @@ export default function Home() {
 
         <section className="section-space contracts" id="firm" aria-labelledby="contracts-title">
           <div className="shell">
-            <h2 id="contracts-title">We review your commercial contracts <span>in Europe</span></h2>
+            <h2 id="contracts-title">We review your commercial contracts</h2>
             <ul className="contract-types" role="list">
               {["Master services agreements", "Sales agreements", "Purchasing agreements", "NDAs", "Terms & conditions", "DPAs"].map((name) => (
                 <li key={name}><span aria-hidden="true">✓</span>{name}</li>

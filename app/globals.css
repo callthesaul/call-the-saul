@@ -564,7 +564,6 @@ section[id] { scroll-margin-top: 1.5rem; }
 
 .contracts { text-align: center; }
 .contracts h2 { max-width: 53rem; margin-inline: auto; }
-.contracts h2 > span { color: var(--red); white-space: nowrap; }
 .contract-types {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
