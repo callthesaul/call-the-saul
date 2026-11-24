@@ -133,7 +133,7 @@ export default function Home() {
                     <span className="note-marker" aria-hidden="true" />
                     <div>
                       <p className="note-label">Lawyer’s note</p>
-                      <p>Limit use to the project. Remove the subcontractor exception.</p>
+                      <p>Your source code is a company asset. The NDA limits its use to this project.</p>
                     </div>
                   </div>
                 </figure>
