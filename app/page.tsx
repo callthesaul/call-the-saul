@@ -1,7 +1,7 @@
 import WaitlistForm from "./waitlist-form";
 import WorkflowCarousel from "./workflow-carousel";
 
-const logo = { src: "/call-the-saul-logo.webp", width: 480, height: 233 };
+const logo = { src: "/call-the-saul-logo-red.webp", width: 640, height: 311 };
 
 const comparisonRows = [
   { question: "Who does the work", tools: "You", firm: "We do" },
