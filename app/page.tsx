@@ -121,7 +121,8 @@ export default function Home() {
                     <div className="document-clause">
                       <p className="clause-title">4.2 · Renewal and termination</p>
                       <p className="clause-text">
-                        This agreement renews for a further term unless either party gives written notice at least{" "}
+                        This agreement renews <span className="redline"><del>automatically</del></span>{" "}
+                        for a further term unless either party gives written notice at least{" "}
                         <span className="redline">
                           <del>7 days</del>{" "}
                           <ins>30 days</ins>
