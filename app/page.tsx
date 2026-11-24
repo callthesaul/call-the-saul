@@ -135,7 +135,7 @@ export default function Home() {
                     <span className="note-marker" aria-hidden="true" />
                     <div>
                       <p className="note-label">Lawyer’s note</p>
-                      <p>Require 30 days’ notice and remove the fee for opting out of renewal.</p>
+                      <p>Require 30 days’ notice. Remove the fee.</p>
                     </div>
                   </div>
                 </figure>
