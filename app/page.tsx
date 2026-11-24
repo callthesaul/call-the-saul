@@ -47,7 +47,7 @@ export default function Home() {
                   <span>AI prepares.</span>{" "}
                   <span className="process-expert">
                     <span className="process-review-line">
-                      <span className="process-accent">Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews</span></span><span>and</span>
+                      <span className="process-accent">Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews and</span></span>
                     </span>{" "}
                     <span>Confirms.</span>
                   </span>
