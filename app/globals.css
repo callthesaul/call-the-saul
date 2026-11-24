@@ -541,10 +541,10 @@ section[id] { scroll-margin-top: 1.5rem; }
   text-decoration-thickness: 1px;
 }
 .redline ins {
-  background: #f2e3c5;
-  color: #634320;
+  background: #e6f1e5;
+  color: #24523b;
   text-decoration: none;
-  border-bottom: 1px solid #b88e5d;
+  border-bottom: 1px solid #76a083;
 }
 .review-note {
   display: grid;

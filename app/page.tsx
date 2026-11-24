@@ -123,8 +123,8 @@ export default function Home() {
                       <p className="clause-text">
                         This agreement renews for a further term unless either party gives written notice at least{" "}
                         <span className="redline">
-                          <span className="visually-hidden">[Replace </span><del>7 days</del>{" "}
-                          <span className="visually-hidden">with </span><ins>30 days</ins><span className="visually-hidden">]</span>
+                          <del>7 days</del>{" "}
+                          <ins>30 days</ins>
                         </span>{" "}
                         before the end of the current term.
                       </p>
