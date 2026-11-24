@@ -441,18 +441,6 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .intake-avatar-saul { background: #fff3ed; }
 .intake-avatar img { width: 100%; height: auto; padding: .12rem; }
-.intake-attachment {
-  display: inline-flex;
-  align-items: baseline;
-  gap: .33rem;
-  margin-top: .45rem;
-  padding: .2rem .45rem;
-  border-radius: .24rem;
-  background: var(--blush);
-  color: var(--red-dark);
-  font-size: .8125rem;
-  font-weight: 650;
-}
 .profile-standards { gap: .45rem; list-style: none; }
 .profile-standards li {
   display: grid;

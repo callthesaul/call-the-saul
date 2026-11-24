@@ -68,8 +68,7 @@ export default function Home() {
                       <span className="intake-avatar" aria-hidden="true">T</span>
                       <div>
                         <p className="note-label">Your team</p>
-                        <p>Can you review this supplier MSA? We’re especially concerned about the renewal and notice terms.</p>
-                        <span className="intake-attachment"><span aria-hidden="true">§</span> Supplier_MSA.docx</span>
+                        <p>We’re bringing on a new developer. Can you draft an NDA before we share our source code?</p>
                       </div>
                     </div>
                     <div className="intake-response">
@@ -77,7 +76,7 @@ export default function Home() {
                         <span className="intake-avatar intake-avatar-saul"><img {...logo} alt="" /></span>
                         <div>
                           <p className="note-label">Saul</p>
-                          <p>Done ✅ Redlined doc attached, plus a draft reply you can forward straight to them. Signed off by Sahar, your lead lawyer.</p>
+                          <p>Done ✅ The NDA is ready to send to your developer. Signed off by Sahar, your lead lawyer.</p>
                         </div>
                       </div>
                       <div className="intake-typing card-cycle" aria-hidden="true">
@@ -91,7 +90,7 @@ export default function Home() {
                 <div className="stage-copy">
                   <span className="step-number" aria-hidden="true">2</span>
                   <h3>Our AI runs the first review, adapted to your context</h3>
-                  <p>We learn your standards once and apply them to every contract.</p>
+                  <p>We apply your confidentiality rules to the first draft of the NDA.</p>
                 </div>
                 <figure className="example-panel prep-example" aria-label="Legal profile">
                   <div className="example-card">
@@ -99,9 +98,9 @@ export default function Home() {
                       <p>Your legal profile</p>
                     </div>
                     <ul className="profile-standards" role="list">
-                      <li className="card-cycle"><span aria-hidden="true">✓</span> Payment terms of 30 days or less</li>
-                      <li className="card-cycle"><span aria-hidden="true">✓</span> Liability capped at 12 months of fees</li>
-                      <li className="card-cycle profile-restriction"><span aria-hidden="true">×</span> No unlimited liability</li>
+                      <li className="card-cycle"><span aria-hidden="true">✓</span> Protect source code and technical docs</li>
+                      <li className="card-cycle"><span aria-hidden="true">✓</span> Limit use to the agreed project</li>
+                      <li className="card-cycle profile-restriction"><span aria-hidden="true">×</span> No sharing without written consent</li>
                     </ul>
                   </div>
                 </figure>
@@ -110,24 +109,23 @@ export default function Home() {
                 <div className="stage-copy">
                   <span className="step-number" aria-hidden="true">3</span>
                   <h3>An expert lawyer reviews and signs off</h3>
-                  <p>No contract leaves without a qualified lawyer reading it line by line.</p>
+                  <p>A qualified lawyer checks the NDA line by line and signs off before it’s sent.</p>
                 </div>
                 <figure className="example-panel review-example" aria-label="Signed-off contract">
                   <div className="example-card">
                     <div className="example-card-heading">
-                      <p>Supplier MSA</p>
+                      <p>Developer NDA</p>
                       <span className="signoff-stamp card-cycle"><span aria-hidden="true">✓</span> Signed off by a lawyer</span>
                     </div>
                     <div className="document-clause">
-                      <p className="clause-title">4.2 · Renewal and termination</p>
+                      <p className="clause-title">3.1 · Use and disclosure</p>
                       <p className="clause-text">
-                        This agreement renews unless either party gives written notice of non-renewal at least{" "}
+                        The developer may use confidential information for{" "}
                         <span className="redline">
-                          <del>7 days</del>{" "}
-                          <ins>30 days</ins>
-                        </span>{" "}
-                        before the term ends.{" "}
-                        <span className="redline"><del>The customer must pay a non-renewal fee.</del></span>
+                          <del>any business purpose</del>{" "}
+                          <ins>the agreed project only</ins>
+                        </span>. Sharing requires written consent.{" "}
+                        <span className="redline"><del>Subcontractors are exempt.</del></span>
                       </p>
                     </div>
                   </div>
@@ -135,7 +133,7 @@ export default function Home() {
                     <span className="note-marker" aria-hidden="true" />
                     <div>
                       <p className="note-label">Lawyer’s note</p>
-                      <p>Require 30 days’ notice. Remove the fee.</p>
+                      <p>Limit use to the project. Remove the subcontractor exception.</p>
                     </div>
                   </div>
                 </figure>
