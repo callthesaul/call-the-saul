@@ -181,7 +181,7 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .hero-accent, .process-accent { color: var(--red); }
 .hero-accent { display: block; }
-.keep-together, .redline { white-space: nowrap; }
+.keep-together { white-space: nowrap; }
 .hero-description {
   max-width: 34rem;
   margin: 1.4rem auto 0;
@@ -456,6 +456,7 @@ section[id] { scroll-margin-top: 1.5rem; }
 .profile-standards .profile-restriction { background: #f1ebe7; }
 .profile-standards .profile-restriction > span { color: #8f302f; }
 .signoff-stamp {
+  max-inline-size: 100%;
   margin-inline-start: auto;
   padding: .27rem .48rem;
   border: 1px solid var(--approval-ink);
@@ -466,6 +467,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   letter-spacing: .035em;
   text-transform: uppercase;
   text-align: center;
+  overflow-wrap: anywhere;
   transform: rotate(-5deg);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -520,11 +522,13 @@ section[id] { scroll-margin-top: 1.5rem; }
 .clause-title { margin-bottom: .7rem; color: var(--red); }
 .clause-text {
   font: 1.1rem/1.75 var(--serif);
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 .redline del, .redline ins {
   padding: .1em .2em;
   border-radius: .16rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 .redline del {
   background: #f7e2de;
@@ -539,7 +543,7 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .review-note {
   display: grid;
-  grid-template-columns: .2rem 1fr;
+  grid-template-columns: .2rem minmax(0, 1fr);
   align-items: stretch;
   gap: .78rem;
   padding: .82rem .95rem;
@@ -547,6 +551,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   border: 1px solid #e1cbc4;
   border-radius: .38rem;
   color: var(--muted);
+  overflow-wrap: anywhere;
   font-size: .9375rem;
   line-height: 1.5;
 }
