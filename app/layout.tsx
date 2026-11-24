@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { siteDescription, siteLogo, siteTitle } from "../lib/site-metadata";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CalltheSaul | Commercial contracts, reviewed by lawyers",
-  description: "Lawyer-reviewed contracts within 12 hours. One transparent fee. Join the CalltheSaul waitlist.",
+  title: siteTitle,
+  description: siteDescription,
   icons: {
-    icon: { url: "/call-the-saul-logo-red.webp", type: "image/webp" },
+    icon: { url: siteLogo.src, type: "image/webp" },
   },
 };
 

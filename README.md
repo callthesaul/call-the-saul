@@ -2,6 +2,13 @@
 
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
+## Static landing page deployments
+
+These builds serve the landing page and animated walkthrough without the waitlist form. They share the same page source as the Sites build.
+
+- **GitHub Pages:** The `Deploy GitHub Pages` workflow publishes `dist/github` from `main`. Set the Pages publishing source to **GitHub Actions**. To build locally, run `npm ci` and `npm run build:github`. The project path defaults to `/call-the-saul`. Set `PAGES_BASE_PATH` to an empty string for a root site.
+- **Cloudflare Pages:** Connect this repository in **Workers & Pages → Create → Pages → Connect to Git**. Select `main` as the production branch, **None** as the framework preset, `npm run build:cloudflare` as the build command, and `dist/cloudflare` as the output directory. Use Node.js 24. For a Direct Upload project, run `npm ci`, `npm run build:cloudflare`, and `npx wrangler pages deploy dist/cloudflare --project-name <project-name> --branch main` after signing into Wrangler.
+
 ## Prerequisites
 
 - Node.js `>=22.13.0`
