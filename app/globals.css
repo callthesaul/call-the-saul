@@ -803,6 +803,39 @@ html:has(.waitlist-dialog[open]) { overflow: hidden; }
   font-size: .875rem;
 }
 .waitlist-fallback a { color: var(--ink); text-underline-offset: .2em; }
+.waitlist-joined { padding: 24px 28px 28px; }
+.waitlist-details {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--paper);
+}
+.waitlist-details div { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; }
+.waitlist-details dt { color: var(--muted); font-size: .875rem; }
+.waitlist-details dd { margin: 0; overflow-wrap: anywhere; font-size: .9375rem; }
+.waitlist-joined-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 24px;
+}
+.waitlist-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: 500 .9375rem/1.4 var(--sans);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: .28em;
+  cursor: pointer;
+}
+.waitlist-link:hover { text-decoration-color: currentColor; }
+.waitlist-reset { display: block; margin-top: 20px; color: var(--muted); font-size: .875rem; }
 @media (prefers-reduced-motion: no-preference) {
   .waitlist-dialog[open] { animation: waitlist-in .28s var(--ease); }
   .waitlist-dialog[open]::backdrop { animation: waitlist-backdrop-in .2s ease; }
