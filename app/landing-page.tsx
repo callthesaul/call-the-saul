@@ -1,5 +1,5 @@
 import { Check, PenLine, X } from "lucide-react";
-import WaitlistForm from "./waitlist-form";
+import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
 import WorkflowCarousel from "./workflow-carousel";
 import { siteLogo } from "../lib/site-metadata";
 
@@ -43,7 +43,7 @@ export default function LandingPage({
           <div className="masthead-actions">
             <a className="masthead-link masthead-partnership" href="#partnership">Partnership</a>
             {showWaitlist ? (
-              <a className="button button-primary header-cta" href="#waitlist">Join the waitlist</a>
+              <WaitlistButton className="button button-primary header-cta">Join the waitlist</WaitlistButton>
             ) : (
               <a className="button button-primary header-cta" href="#comparison">Compare</a>
             )}
@@ -62,7 +62,7 @@ export default function LandingPage({
             <div className="hero-actions">
               {showWaitlist ? (
                 <>
-                  <a className="button button-primary" href="#waitlist">Join the waitlist</a>
+                  <WaitlistButton className="button button-primary">Join the waitlist</WaitlistButton>
                   <a className="text-link" href="#process">See how it works</a>
                 </>
               ) : (
@@ -289,12 +289,9 @@ export default function LandingPage({
           </div>
         </section>
 
-        {showWaitlist && (
-          <section className="shell section-space contact" id="waitlist" aria-labelledby="contact-title">
-            <WaitlistForm />
-          </section>
-        )}
       </main>
+
+      {showWaitlist && <WaitlistDialog />}
 
       <footer className="site-footer">
         <div className="shell footer-inner">
