@@ -5,7 +5,7 @@ import "../app/globals.css";
 export const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 export function PublicLandingPage() {
-  return <LandingPage basePath={basePath} showWaitlist={false} />;
+  return <LandingPage basePath={basePath} />;
 }
 
 if (!import.meta.env.SSR) {
