@@ -39,7 +39,7 @@ export default function WaitlistForm() {
   return (
     <>
       <div className="contact-copy">
-        <h2 id="contact-title">Join the waitlist.</h2>
+        <h2 id="contact-title">Join the waitlist</h2>
         <p>Tell us a little about your company and we’ll be in touch about early access.</p>
       </div>
       <form className="contact-form" method="post" action="/api/interest" onSubmit={submit} aria-busy={pending}>
