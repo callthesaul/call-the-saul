@@ -40,8 +40,24 @@
     .credit { margin-top: 24px; padding: 16px 20px; border: 1px solid rgb(35 27 26 / 10%); border-radius: 10px; background: #faf7f2; }
     .credit strong { display: block; color: #a52d34; font-size: 1.75rem; font-weight: 600; line-height: 1.2; }
     .credit span { color: #6c615c; font-size: .875rem; }
-    .countdown { margin-top: 24px; color: #6c615c; font-size: .875rem; font-variant-numeric: tabular-nums; }
-    .countdown a { color: #231b1a; text-underline-offset: .2em; }
+    .done {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      margin-top: 28px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 8px;
+      background: #a52d34;
+      color: #fff;
+      font: 500 .9375rem/1.25 Aspekta, "Segoe UI", Arial, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color .15s cubic-bezier(.22, 1, .36, 1);
+    }
+    .done:hover { background: #8a232a; }
+    .done:focus-visible { outline: 2px solid #a52d34; outline-offset: 4px; }
   </style>
 </head>
 <body>
@@ -50,11 +66,10 @@
     <h1 id="title">You’re on the waitlist</h1>
     <p id="message">Thanks for joining. A confirmation email is on its way.</p>
     <div class="credit"><span>Your early access credit</span><strong>$200 reserved</strong></div>
-    <p class="countdown" id="countdown"></p>
+    <a class="done" id="done" href="https://callthesaul.com/">Back to callthesaul.com</a>
   </main>
   <script>
     (function () {
-      var home = "https://callthesaul.com/";
       // Formaloo appends the submitted answers by field alias. Limits mirror app/waitlist-dialog.tsx.
       var params = new URLSearchParams(location.search);
       var clean = function (key, max) { return (params.get(key) || "").trim().slice(0, max); };
@@ -75,47 +90,25 @@
           "You’re on the waitlist. A confirmation email is on its way to " + joiner.email + ".";
       }
 
-      var countdown = document.getElementById("countdown");
+      var done = document.getElementById("done");
       var inPopup = window.parent !== window;
+      // Only talk to Call the Saul's own pages, never to another site embedding the form.
+      var origins = ["https://callthesaul.com", "https://call-the-saul.pages.dev", "https://jalaliamirreza.github.io"];
+      var tellPopup = function (message) {
+        origins.forEach(function (origin) { window.parent.postMessage(message, origin); });
+      };
 
-      if (inPopup && !valid) {
-        // Without the answers the popup can't be told to close, so don't promise a countdown.
-        countdown.textContent = "You can close this window now.";
-        return;
-      }
-
-      if (valid && inPopup) {
-        // Only hand the answers to Call the Saul's own pages, never to another site embedding the form.
-        ["https://callthesaul.com", "https://call-the-saul.pages.dev", "https://jalaliamirreza.github.io"]
-          .forEach(function (origin) {
-            window.parent.postMessage({ type: "callthesaul:waitlist-joined", joiner: joiner }, origin);
-          });
+      if (inPopup) {
+        done.textContent = "Close";
+        done.addEventListener("click", function (event) {
+          event.preventDefault();
+          tellPopup({ type: "callthesaul:waitlist-close" });
+        });
+        if (valid) tellPopup({ type: "callthesaul:waitlist-joined", joiner: joiner });
       } else if (valid) {
         // Opened in its own tab on callthesaul.com: remember the joiner for the site's popup directly.
         try { localStorage.setItem("callthesaul:waitlist", JSON.stringify(joiner)); } catch (error) { /* storage blocked */ }
       }
-
-      var seconds = 5;
-      function render() {
-        if (inPopup) {
-          countdown.textContent = "This window closes in " + seconds + "s";
-          return;
-        }
-        var link = document.createElement("a");
-        link.href = home;
-        link.textContent = "callthesaul.com";
-        countdown.replaceChildren("Taking you to ", link, " in " + seconds + "s");
-      }
-      render();
-      var timer = setInterval(function () {
-        seconds -= 1;
-        if (seconds <= 0) {
-          clearInterval(timer);
-          if (!inPopup) location.href = home;
-          return;
-        }
-        render();
-      }, 1000);
     })();
   </script>
 </body>
