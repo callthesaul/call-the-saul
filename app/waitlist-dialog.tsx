@@ -41,7 +41,7 @@ export default function WaitlistDialog() {
     >
       <div className="waitlist-dialog-header">
         <div>
-          <h2 id="waitlist-title">Join the waitlist</h2>
+          <h2 id="waitlist-title">Join the waitlist and claim $200 credit</h2>
           <p>Tell us a little about your company and we’ll be in touch about early access.</p>
         </div>
         <button className="waitlist-close" type="button" onClick={close} aria-label="Close">
