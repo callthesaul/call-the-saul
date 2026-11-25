@@ -8,10 +8,11 @@ const dialogId = "waitlist-dialog";
 const storageKey = "callthesaul:waitlist";
 const storageEvent = "callthesaul:waitlist-change";
 const joinedMessage = "callthesaul:waitlist-joined";
+const closeMessage = "callthesaul:waitlist-close";
 // Formaloo redirects the form iframe to https://callthesaul.com/waitlist-thanks.html after a
-// submission; that page posts the answers here, so only messages from its origin are accepted.
+// submission; that page posts the joiner's answers and close requests here, so only messages
+// from its origin are accepted.
 const thanksOrigin = "https://callthesaul.com";
-const autoCloseMs = 5000;
 
 // Field alias -> max length. Mirrors the limits in public/waitlist-thanks.html.
 const joinerLimits = { name: 100, company: 120, country: 80, role: 80, email: 254 } as const;
@@ -100,7 +101,6 @@ export function WaitlistButton({ className, children }: { className?: string; ch
 
 export default function WaitlistDialog() {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const closeTimer = useRef<number | undefined>(undefined);
   const joiner = parseJoiner(useSyncExternalStore(subscribe, readStorage, () => null));
   // Fixed when "Edit my details" is clicked, so a newly saved joiner can't reload the form mid-flow.
   const [editUrl, setEditUrl] = useState<string | null>(null);
@@ -108,30 +108,33 @@ export default function WaitlistDialog() {
   const [formVersion, setFormVersion] = useState(0);
 
   const close = () => dialogRef.current?.close();
+  // Each view change starts at the top, even if the visitor had scrolled down to reach a button.
+  const scrollToTop = () => dialogRef.current?.scrollTo({ top: 0 });
 
   useEffect(() => {
     function onMessage(event: MessageEvent) {
       if (event.origin !== thanksOrigin) return;
       const data: unknown = event.data;
-      if (!data || typeof data !== "object" || (data as { type?: unknown }).type !== joinedMessage) return;
-      const next = toJoiner((data as { joiner?: unknown }).joiner);
-      if (!next) return;
+      if (!data || typeof data !== "object") return;
+      const { type, joiner: received } = data as { type?: unknown; joiner?: unknown };
 
+      if (type === closeMessage) {
+        dialogRef.current?.close();
+        return;
+      }
+      if (type !== joinedMessage) return;
+      const next = toJoiner(received);
+      if (!next) return;
       writeJoiner(next);
       setShowingThanks(true);
-      window.clearTimeout(closeTimer.current);
-      closeTimer.current = window.setTimeout(() => dialogRef.current?.close(), autoCloseMs);
+      dialogRef.current?.scrollTo({ top: 0 });
     }
     window.addEventListener("message", onMessage);
-    return () => {
-      window.removeEventListener("message", onMessage);
-      window.clearTimeout(closeTimer.current);
-    };
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
   // Reset to the right view whenever the popup closes, however it was closed.
   function onClose() {
-    window.clearTimeout(closeTimer.current);
     setShowingThanks(false);
     setEditUrl(null);
     setFormVersion((version) => version + 1);
@@ -149,7 +152,7 @@ export default function WaitlistDialog() {
   let intro = "Tell us a little about your company and we’ll be in touch about early access.";
   if (showingThanks) {
     title = "You’re on the waitlist";
-    intro = "Thanks for joining. This window closes on its own.";
+    intro = "Thanks for joining. Your place and your $200 credit are saved.";
   } else if (editUrl) {
     title = "Edit your details";
     intro = "Change anything that’s out of date and submit again.";
@@ -201,11 +204,11 @@ export default function WaitlistDialog() {
           </dl>
           <div className="waitlist-joined-actions">
             <button className="button button-primary" type="button" onClick={close}>Done</button>
-            <button className="waitlist-link" type="button" onClick={() => setEditUrl(prefilledFormUrl(joiner))}>
+            <button className="waitlist-link" type="button" onClick={() => { setEditUrl(prefilledFormUrl(joiner)); scrollToTop(); }}>
               Edit my details
             </button>
           </div>
-          <button className="waitlist-link waitlist-reset" type="button" onClick={() => writeJoiner(null)}>
+          <button className="waitlist-link waitlist-reset" type="button" onClick={() => { writeJoiner(null); scrollToTop(); }}>
             Join with a different email
           </button>
         </div>
