@@ -56,6 +56,7 @@
       cursor: pointer;
       transition: background-color .15s cubic-bezier(.22, 1, .36, 1);
     }
+    .done[hidden] { display: none; }
     .done:hover { background: #8a232a; }
     .done:focus-visible { outline: 2px solid #a52d34; outline-offset: 4px; }
   </style>
@@ -66,7 +67,8 @@
     <h1 id="title">You’re on the waitlist</h1>
     <p id="message">Thanks for joining. A confirmation email is on its way.</p>
     <div class="credit"><span>Your early access credit</span><strong>$200 reserved</strong></div>
-    <a class="done" id="done" href="https://callthesaul.com/">Back to callthesaul.com</a>
+    <a class="done" id="back" href="https://callthesaul.com/">Back to callthesaul.com</a>
+    <button class="done" id="close" type="button" hidden>Close</button>
   </main>
   <script>
     (function () {
@@ -90,21 +92,24 @@
           "You’re on the waitlist. A confirmation email is on its way to " + joiner.email + ".";
       }
 
-      var done = document.getElementById("done");
       var inPopup = window.parent !== window;
-      // Only talk to Call the Saul's own pages, never to another site embedding the form.
-      var origins = ["https://callthesaul.com", "https://call-the-saul.pages.dev", "https://jalaliamirreza.github.io"];
-      var tellPopup = function (message) {
-        origins.forEach(function (origin) { window.parent.postMessage(message, origin); });
-      };
 
       if (inPopup) {
-        done.textContent = "Close";
-        done.addEventListener("click", function (event) {
-          event.preventDefault();
-          tellPopup({ type: "callthesaul:waitlist-close" });
+        // In the popup, a real button asks the site to close it. The request carries no data,
+        // so any parent may receive it; the site only acts on messages from callthesaul.com.
+        var close = document.getElementById("close");
+        document.getElementById("back").hidden = true;
+        close.hidden = false;
+        close.addEventListener("click", function () {
+          window.parent.postMessage({ type: "callthesaul:waitlist-close" }, "*");
         });
-        if (valid) tellPopup({ type: "callthesaul:waitlist-joined", joiner: joiner });
+        if (valid) {
+          // The answers are personal, so only hand them to Call the Saul's own pages.
+          ["https://callthesaul.com", "https://call-the-saul.pages.dev", "https://jalaliamirreza.github.io"]
+            .forEach(function (origin) {
+              window.parent.postMessage({ type: "callthesaul:waitlist-joined", joiner: joiner }, origin);
+            });
+        }
       } else if (valid) {
         // Opened in its own tab on callthesaul.com: remember the joiner for the site's popup directly.
         try { localStorage.setItem("callthesaul:waitlist", JSON.stringify(joiner)); } catch (error) { /* storage blocked */ }

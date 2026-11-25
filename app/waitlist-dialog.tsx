@@ -10,7 +10,8 @@ const storageEvent = "callthesaul:waitlist-change";
 const joinedMessage = "callthesaul:waitlist-joined";
 const closeMessage = "callthesaul:waitlist-close";
 // Formaloo redirects the form iframe to https://callthesaul.com/waitlist-thanks.html after a
-// submission; that page posts the answers here, so only messages from its origin are accepted.
+// submission; that page posts the joiner's answers and close requests here, so only messages
+// from its origin are accepted.
 const thanksOrigin = "https://callthesaul.com";
 
 // Field alias -> max length. Mirrors the limits in public/waitlist-thanks.html.
@@ -107,7 +108,7 @@ export default function WaitlistDialog() {
   const [formVersion, setFormVersion] = useState(0);
 
   const close = () => dialogRef.current?.close();
-  // New content always starts at the top, even if the visitor had scrolled down to submit.
+  // Each view change starts at the top, even if the visitor had scrolled down to reach a button.
   const scrollToTop = () => dialogRef.current?.scrollTo({ top: 0 });
 
   useEffect(() => {
