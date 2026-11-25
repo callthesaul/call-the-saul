@@ -773,11 +773,11 @@ section[id] { scroll-margin-top: 1.5rem; }
 .waitlist-embed {
   display: block;
   width: 100%;
-  height: 560px;
+  height: 680px;
   border: 0;
 }
 @media (max-width: 34rem) {
-  .waitlist-embed { height: 600px; }
+  .waitlist-embed { height: 720px; }
 }
 .waitlist-fallback {
   margin-top: 12px;
