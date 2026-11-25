@@ -55,7 +55,7 @@ export default function LandingPage({
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">
-              Lawyer-reviewed contracts within <span className="keep-together">12 hours</span>{" "}
+              Lawyer-reviewed contracts within <span className="keep-together">24 hours</span>{" "}
               <span className="hero-accent">One transparent fee</span>
             </h1>
             <p className="hero-description">We are an AI law firm specializing in commercial contracts, built for fast-growing companies</p>
