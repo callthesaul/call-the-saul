@@ -6,7 +6,7 @@ export function renderPage() {
   const head = renderToStaticMarkup(
     <>
       <title>{siteTitle}</title>
-      <meta name="description" content="Lawyer-reviewed commercial contracts within 12 hours. One transparent fee." />
+      <meta name="description" content="Lawyer-reviewed commercial contracts within 24 hours. One transparent fee." />
       <link rel="icon" href={`${basePath}${siteLogo.src}`} type="image/webp" />
     </>,
   );
