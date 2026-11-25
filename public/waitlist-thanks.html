@@ -54,7 +54,8 @@
   </main>
   <script>
     (function () {
-      // Formaloo appends the submitted answers by field alias.
+      var home = "https://callthesaul.com/";
+      // Formaloo appends the submitted answers by field alias. Limits mirror app/waitlist-dialog.tsx.
       var params = new URLSearchParams(location.search);
       var clean = function (key, max) { return (params.get(key) || "").trim().slice(0, max); };
       var joiner = {
@@ -65,48 +66,52 @@
         email: clean("email", 254),
         joinedAt: new Date().toISOString()
       };
+      var valid = joiner.name !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(joiner.email);
 
       var firstName = joiner.name.split(/\s+/)[0];
       if (firstName) document.getElementById("title").textContent = "Thanks, " + firstName;
-      if (joiner.email) {
+      if (valid) {
         document.getElementById("message").textContent =
           "You’re on the waitlist. A confirmation email is on its way to " + joiner.email + ".";
       }
 
       var countdown = document.getElementById("countdown");
-      var seconds = 5;
       var inPopup = window.parent !== window;
 
-      if (inPopup) {
-        // Only hand the answers to Call the Saul's own pages, never to another site embedding the form.
-        var origins = [
-          "https://callthesaul.com",
-          "https://call-the-saul.pages.dev",
-          "https://jalaliamirreza.github.io"
-        ];
-        origins.forEach(function (origin) {
-          window.parent.postMessage({ type: "callthesaul:waitlist-joined", joiner: joiner }, origin);
-        });
+      if (inPopup && !valid) {
+        // Without the answers the popup can't be told to close, so don't promise a countdown.
+        countdown.textContent = "You can close this window now.";
+        return;
       }
 
+      if (valid && inPopup) {
+        // Only hand the answers to Call the Saul's own pages, never to another site embedding the form.
+        ["https://callthesaul.com", "https://call-the-saul.pages.dev", "https://jalaliamirreza.github.io"]
+          .forEach(function (origin) {
+            window.parent.postMessage({ type: "callthesaul:waitlist-joined", joiner: joiner }, origin);
+          });
+      } else if (valid) {
+        // Opened in its own tab on callthesaul.com: remember the joiner for the site's popup directly.
+        try { localStorage.setItem("callthesaul:waitlist", JSON.stringify(joiner)); } catch (error) { /* storage blocked */ }
+      }
+
+      var seconds = 5;
       function render() {
         if (inPopup) {
           countdown.textContent = "This window closes in " + seconds + "s";
-        } else {
-          countdown.innerHTML = "";
-          countdown.append("Taking you to ");
-          var link = document.createElement("a");
-          link.href = "https://callthesaul.com/";
-          link.textContent = "callthesaul.com";
-          countdown.append(link, " in " + seconds + "s");
+          return;
         }
+        var link = document.createElement("a");
+        link.href = home;
+        link.textContent = "callthesaul.com";
+        countdown.replaceChildren("Taking you to ", link, " in " + seconds + "s");
       }
       render();
       var timer = setInterval(function () {
         seconds -= 1;
         if (seconds <= 0) {
           clearInterval(timer);
-          if (!inPopup) location.href = "https://callthesaul.com/";
+          if (!inPopup) location.href = home;
           return;
         }
         render();
