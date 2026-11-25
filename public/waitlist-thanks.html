@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>You’re on the waitlist | Call the Saul</title>
+  <style>
+    @font-face { font-family: Aspekta; src: url("/fonts/aspekta-variable.woff2") format("woff2"); font-weight: 50 1000; font-display: swap; }
+    @font-face { font-family: "Falcon Medium"; src: url("/fonts/falcon-medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      align-content: start;
+      justify-items: center;
+      padding: 48px 28px;
+      background: #fff;
+      color: #231b1a;
+      font: 1rem/1.6 Aspekta, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { width: 100%; max-width: 440px; }
+    .stamp {
+      display: inline-block;
+      padding: 4px 8px;
+      border: 1px solid #24523b;
+      border-radius: 4px;
+      background: #e6f1e5;
+      color: #24523b;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+      transform: rotate(-4deg);
+    }
+    h1 { margin: 20px 0 12px; font: 500 2rem/1.1 "Falcon Medium", Aspekta, sans-serif; letter-spacing: -.02em; }
+    p { margin: 0; color: #574c48; }
+    .credit { margin-top: 24px; padding: 16px 20px; border: 1px solid rgb(35 27 26 / 10%); border-radius: 10px; background: #faf7f2; }
+    .credit strong { display: block; color: #a52d34; font-size: 1.75rem; font-weight: 600; line-height: 1.2; }
+    .credit span { color: #6c615c; font-size: .875rem; }
+    .countdown { margin-top: 24px; color: #6c615c; font-size: .875rem; font-variant-numeric: tabular-nums; }
+    .countdown a { color: #231b1a; text-underline-offset: .2em; }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="stamp">✓ Waitlist confirmed</span>
+    <h1 id="title">You’re on the waitlist</h1>
+    <p id="message">Thanks for joining. A confirmation email is on its way.</p>
+    <div class="credit"><span>Your early access credit</span><strong>$200 reserved</strong></div>
+    <p class="countdown" id="countdown"></p>
+  </main>
+  <script>
+    (function () {
+      // Formaloo appends the submitted answers by field alias.
+      var params = new URLSearchParams(location.search);
+      var clean = function (key, max) { return (params.get(key) || "").trim().slice(0, max); };
+      var joiner = {
+        name: clean("name", 100),
+        company: clean("company", 120),
+        country: clean("country", 80),
+        role: clean("role", 80),
+        email: clean("email", 254),
+        joinedAt: new Date().toISOString()
+      };
+
+      var firstName = joiner.name.split(/\s+/)[0];
+      if (firstName) document.getElementById("title").textContent = "Thanks, " + firstName;
+      if (joiner.email) {
+        document.getElementById("message").textContent =
+          "You’re on the waitlist. A confirmation email is on its way to " + joiner.email + ".";
+      }
+
+      var countdown = document.getElementById("countdown");
+      var seconds = 5;
+      var inPopup = window.parent !== window;
+
+      if (inPopup) {
+        // Only hand the answers to Call the Saul's own pages, never to another site embedding the form.
+        var origins = [
+          "https://callthesaul.com",
+          "https://call-the-saul.pages.dev",
+          "https://jalaliamirreza.github.io"
+        ];
+        origins.forEach(function (origin) {
+          window.parent.postMessage({ type: "callthesaul:waitlist-joined", joiner: joiner }, origin);
+        });
+      }
+
+      function render() {
+        if (inPopup) {
+          countdown.textContent = "This window closes in " + seconds + "s";
+        } else {
+          countdown.innerHTML = "";
+          countdown.append("Taking you to ");
+          var link = document.createElement("a");
+          link.href = "https://callthesaul.com/";
+          link.textContent = "callthesaul.com";
+          countdown.append(link, " in " + seconds + "s");
+        }
+      }
+      render();
+      var timer = setInterval(function () {
+        seconds -= 1;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          if (!inPopup) location.href = "https://callthesaul.com/";
+          return;
+        }
+        render();
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>
