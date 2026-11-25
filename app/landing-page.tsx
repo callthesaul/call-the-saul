@@ -55,7 +55,7 @@ export default function LandingPage({
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">
-              Lawyer-reviewed contracts within <span className="keep-together">12 hours</span>
+              Lawyer-reviewed contracts within <span className="keep-together">12 hours</span>{" "}
               <span className="hero-accent">One transparent fee</span>
             </h1>
             <p className="hero-description">We are an AI law firm specializing in commercial contracts, built for fast-growing companies</p>
@@ -198,7 +198,7 @@ export default function LandingPage({
                   <h3>An expert lawyer reviews and signs off</h3>
                   <p>A qualified lawyer checks the NDA line by line and signs off before it’s sent.</p>
                 </div>
-                <figure className="example-panel review-example" aria-label="Signed-off contract">
+                <figure className="example-panel" aria-label="Signed-off contract">
                   <div className="sheet">
                     <div className="sheet-heading">
                       <p>Developer NDA</p>
