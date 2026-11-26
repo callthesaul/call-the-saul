@@ -1100,31 +1100,6 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .hero-film-video[data-state="blocked"], .hero-film-video[data-state="error"] { visibility: hidden; }
 .hero-film-video::-webkit-media-controls-start-playback-button { display: none !important; }
 
-/* Pause control for the looping film */
-.hero-film-toggle {
-  position: absolute;
-  right: clamp(12px, 2vw, 24px);
-  bottom: clamp(12px, 2vw, 24px);
-  z-index: 1;
-  min-height: 36px;
-  padding: 0 12px;
-  border: 1px solid rgb(255 255 255 / 60%);
-  background: rgb(0 0 0 / 35%);
-  color: #fff;
-  font: 600 .75rem/1 var(--display);
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.hero-film-toggle:hover { background: rgb(0 0 0 / 55%); }
-.hero-film-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-/* Failed files: nothing to play. Blocked autoplay keeps the toggle, now reading "Play". */
-.hero-film-video[data-state="error"] + .hero-film-toggle { display: none; }
-@media (prefers-reduced-motion: reduce) { .hero-film-toggle { display: none; } }
-@media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
-  .hero-film-toggle { top: calc(var(--masthead-height) + 12px); bottom: auto; }
-}
-
 /* "AI tools" column head: normal case, larger, with the ChatGPT, Gemini and Claude marks under it */
 .comparison-table thead th.comparison-tools-head { vertical-align: middle; }
 .comparison-tools-label {
