@@ -42,6 +42,7 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
   }, []);
 
   const motionOk = "(prefers-reduced-motion: no-preference)";
+  const sharp = `${motionOk} and (min-width: 90rem), ${motionOk} and (min-width: 48rem) and (min-resolution: 1.5dppx)`;
   return (
     <>
       <video
@@ -59,8 +60,19 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
       >
         <source
           src={`${basePath}/video/hero-film-960.mp4`}
-          type='video/mp4; codecs="avc1.640028"'
+          type='video/mp4; codecs="avc1.64001f"'
           media={`${motionOk} and (max-width: 42rem)`}
+        />
+        {/* 1080p for large screens and high-density (retina) screens */}
+        <source
+          src={`${basePath}/video/hero-film-1080.webm`}
+          type='video/webm; codecs="vp9"'
+          media={sharp}
+        />
+        <source
+          src={`${basePath}/video/hero-film-1080.mp4`}
+          type='video/mp4; codecs="avc1.640032"'
+          media={sharp}
         />
         <source
           src={`${basePath}/video/hero-film.webm`}
@@ -69,7 +81,7 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
         />
         <source
           src={`${basePath}/video/hero-film.mp4`}
-          type='video/mp4; codecs="avc1.640028"'
+          type='video/mp4; codecs="avc1.64001f"'
           media={motionOk}
           onError={() => setState("error")}
         />
