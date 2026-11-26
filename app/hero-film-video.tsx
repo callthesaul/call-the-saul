@@ -11,43 +11,78 @@ type State = "playing" | "blocked" | "error";
 export default function HeroFilmVideo({ basePath }: { basePath: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [state, setState] = useState<State>("playing");
+  const [paused, setPaused] = useState(false);
+
+  function togglePause() {
+    const video = ref.current;
+    if (!video) return;
+    if (video.paused) {
+      video
+        .play()
+        .then(() => setPaused(false))
+        .catch(() => setState("error"));
+    } else {
+      video.pause();
+      setPaused(true);
+    }
+  }
 
   useEffect(() => {
     const video = ref.current;
-    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return;
     video.play().catch((error: unknown) => {
       // NotAllowedError = autoplay refused; anything else means the media could not play.
-      setState(error instanceof DOMException && error.name === "NotAllowedError" ? "blocked" : "error");
+      setState(
+        error instanceof DOMException && error.name === "NotAllowedError"
+          ? "blocked"
+          : "error",
+      );
     });
   }, []);
 
   const motionOk = "(prefers-reduced-motion: no-preference)";
   return (
-    <video
-      ref={ref}
-      className="hero-film-video"
-      data-state={state}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      disableRemotePlayback
-      disablePictureInPicture
-      poster={`${basePath}/images/hero-film-poster.webp`}
-      aria-hidden="true"
-    >
-      <source
-        src={`${basePath}/video/hero-film-960.mp4`}
-        type='video/mp4; codecs="avc1.640028"'
-        media={`${motionOk} and (max-width: 42rem)`}
-      />
-      <source src={`${basePath}/video/hero-film.webm`} type='video/webm; codecs="vp9"' media={motionOk} />
-      <source
-        src={`${basePath}/video/hero-film.mp4`}
-        type='video/mp4; codecs="avc1.640028"'
-        media={motionOk}
-        onError={() => setState("error")}
-      />
-    </video>
+    <>
+      <video
+        ref={ref}
+        className="hero-film-video"
+        data-state={state}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        disableRemotePlayback
+        disablePictureInPicture
+        poster={`${basePath}/images/hero-film-poster.webp`}
+        aria-hidden="true"
+      >
+        <source
+          src={`${basePath}/video/hero-film-960.mp4`}
+          type='video/mp4; codecs="avc1.640028"'
+          media={`${motionOk} and (max-width: 42rem)`}
+        />
+        <source
+          src={`${basePath}/video/hero-film.webm`}
+          type='video/webm; codecs="vp9"'
+          media={motionOk}
+        />
+        <source
+          src={`${basePath}/video/hero-film.mp4`}
+          type='video/mp4; codecs="avc1.640028"'
+          media={motionOk}
+          onError={() => setState("error")}
+        />
+      </video>
+      <button
+        type="button"
+        className="hero-film-toggle"
+        onClick={togglePause}
+        aria-pressed={paused}
+        aria-label="Pause background film"
+      >
+        {paused ? "Play" : "Pause"}
+      </button>
+    </>
   );
 }

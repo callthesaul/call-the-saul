@@ -852,13 +852,13 @@ html:has(.waitlist-dialog[open]) { overflow: hidden; }
 
 /* Design system v2: law-firm look, built on how large law firms' sites are made
    (studied from bakermckenzie.com's HTML and CSS), in Call the Saul's own logo colours and free fonts.
-   Values only: markup, copy and every animation stay as they are. */
+   Section markup and animations are unchanged; the hero is the full-screen film below. */
 
 html { scroll-padding-top: var(--masthead-height); }
 
 :root {
   --masthead-inset: 0px;
-  --masthead-height: 5.5rem;
+  --masthead-height: 5.75rem;
   /* Colour: white and greys carry the page; the logo red is used in big confident blocks, not tints */
   --paper: #ffffff;
   --surface: #f0f0f0;          /* grey module ground */
@@ -923,11 +923,9 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .button:active { transform: none; background: var(--red-deep); }
 .header-cta { min-height: 44px; padding-inline: 20px; font-size: .875rem; }
 
-/* Secondary actions: bold uppercase link, a red rule draws in and the chevron steps right */
 
 /* Paper: square, one solid grey line, no soft shadow */
 .sheet { border-radius: 0; border-color: var(--line); box-shadow: none; }
-.sheet-under { background: var(--surface); border-color: var(--line); }
 .sheet-heading { font-family: var(--display); font-weight: 600; font-size: 1rem; }
 .review-note { border-radius: 0; background: #f7f7f7; border-color: var(--line); }
 .note-marker { border-radius: 0; }
@@ -989,9 +987,6 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .masthead { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
 @media (min-width: 42.01rem) {
   .masthead { display: flex; align-items: center; gap: 20px; }
   .masthead > .wordmark { order: -1; margin-right: auto; }
@@ -1013,6 +1008,10 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .masthead .header-cta { grid-area: 1 / 2; grid-column: 2; justify-self: end; }
   .masthead-links { grid-area: 2 / 1; flex-wrap: wrap; gap: 4px 16px; }
   .masthead-partnership { grid-area: 2 / 2; justify-self: end; }
+}
+/* Very narrow phones: the links wrap to a second line, so the header is taller */
+@media (max-width: 23.5rem) {
+  :root { --masthead-height: 7.25rem; }
 }
 
 /* Over the hero film the header is transparent with white type; it turns into the white bar on scroll */
@@ -1080,3 +1079,25 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 @media (prefers-reduced-motion: reduce) {
   .hero-film-video { display: none; }
 }
+
+/* Pause control for the looping film */
+.hero-film-toggle {
+  position: absolute;
+  right: clamp(12px, 2vw, 24px);
+  bottom: clamp(12px, 2vw, 24px);
+  z-index: 1;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgb(255 255 255 / 60%);
+  background: rgb(0 0 0 / 35%);
+  color: #fff;
+  font: 600 .75rem/1 var(--display);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.hero-film-toggle:hover { background: rgb(0 0 0 / 55%); }
+.hero-film-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.hero-film-video[data-state="blocked"] + .hero-film-toggle,
+.hero-film-video[data-state="error"] + .hero-film-toggle { display: none; }
+@media (prefers-reduced-motion: reduce) { .hero-film-toggle { display: none; } }
