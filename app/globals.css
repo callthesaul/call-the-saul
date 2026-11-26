@@ -1037,11 +1037,19 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   height: 100%;
   object-fit: cover;
 }
+/* A dark layer over the whole film (as on legora.com): darker behind the header, light in the
+   middle so the film stays readable, strongest behind the headline at the bottom */
 .hero-film-scrim {
   position: absolute;
-  inset: auto 0 0;
-  height: 60%;
-  background: linear-gradient(to top, rgb(0 0 0 / 75%), rgb(0 0 0 / 0%));
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 60%) 0%,
+    rgb(0 0 0 / 35%) 20%,
+    rgb(0 0 0 / 35%) 40%,
+    rgb(0 0 0 / 75%) 70%,
+    rgb(0 0 0 / 90%) 100%
+  );
   pointer-events: none;
 }
 .hero-film-copy {
@@ -1065,6 +1073,10 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   gap: 16px 24px;
 }
 .hero-film-row p { margin: 0; color: #eee; font-size: 1.1875rem; line-height: 1.5; }
+.hero-film h1, .hero-film-row p { text-shadow: 0 1px 24px rgb(0 0 0 / 40%); }
+/* Autoplay refused or files failed: show the poster background, never a frozen frame with a play button */
+.hero-film-video[data-state="blocked"], .hero-film-video[data-state="error"] { display: none; }
+.hero-film-video::-webkit-media-controls-start-playback-button { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .hero-film-video { display: none; }
 }

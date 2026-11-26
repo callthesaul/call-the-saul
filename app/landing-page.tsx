@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { Check, X } from "lucide-react";
+import HeroFilmVideo from "./hero-film-video";
 import SiteHeader from "./site-header";
 import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
 import WorkflowCarousel from "./workflow-carousel";
@@ -39,23 +40,10 @@ export default function LandingPage({
         <section
           className="hero-film"
           aria-labelledby="hero-title"
-          style={{ "--hero-poster": `url(${basePath}/images/hero-film-poster.webp)` } as CSSProperties}
+          style={{ "--hero-poster": `url("${basePath}/images/hero-film-poster.webp")` } as CSSProperties}
         >
           {/* Muted, decorative loop: a founder's request in Slack, the lawyer signing, "Done" in the morning. */}
-          <video
-            className="hero-film-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={`${basePath}/images/hero-film-poster.webp`}
-            aria-hidden="true"
-          >
-            <source src={`${basePath}/video/hero-film-960.mp4`} type="video/mp4" media="(max-width: 42rem)" />
-            <source src={`${basePath}/video/hero-film.webm`} type="video/webm" />
-            <source src={`${basePath}/video/hero-film.mp4`} type="video/mp4" />
-          </video>
+          <HeroFilmVideo basePath={basePath} />
           <div className="hero-film-scrim" aria-hidden="true" />
           <div className="hero-film-copy">
             <h1 id="hero-title">Get your legal right from day one.</h1>
