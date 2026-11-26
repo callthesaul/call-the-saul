@@ -1036,40 +1036,58 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   height: 100%;
   object-fit: cover;
 }
-/* A dark layer over the whole film (as on legora.com): darker behind the header, light in the
-   middle so the film stays readable, strongest behind the headline at the bottom */
+/* Light shade at the top only, so the white menu stays readable over the film */
 .hero-film-scrim {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgb(0 0 0 / 60%) 0%,
-    rgb(0 0 0 / 35%) 20%,
-    rgb(0 0 0 / 35%) 40%,
-    rgb(0 0 0 / 75%) 70%,
-    rgb(0 0 0 / 90%) 100%
-  );
+  inset: 0 0 auto;
+  height: 28%;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 55%), rgb(0 0 0 / 0%));
   pointer-events: none;
 }
+/* The film plays clean; when it ends, this dark panel slides in from the left with the text.
+   Without JavaScript it slides in by itself after 30 s. */
 .hero-film-copy {
-  position: relative;
-  width: 100%;
-  padding: 0 24px clamp(40px, 8svh, 88px);
-  text-align: center;
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: min(36rem, 100%);
+  padding: var(--masthead-height) clamp(24px, 4vw, 56px) clamp(40px, 9svh, 96px);
+  background: rgb(0 0 0 / 62%);
+  transform: translateX(-100%);
+  animation: hero-copy-in .9s var(--ease) 30s forwards;
 }
+.hero-film[data-revealed] .hero-film-copy {
+  transform: none;
+  animation: none;
+  transition: transform .9s var(--ease);
+}
+@keyframes hero-copy-in { to { transform: none; } }
 .hero-film h1 {
-  max-width: 18ch;
-  margin: 0 auto 20px;
+  margin: 0 0 20px;
   color: #fff;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
   line-height: 1;
 }
 .hero-film-row {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 16px 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+@media (max-width: 42rem) {
+  .hero-film-copy {
+    inset: auto 0 0;
+    width: 100%;
+    padding: 28px 20px 72px;
+    background: rgb(0 0 0 / 70%);
+    transform: translateY(100%);
+  }
+  .hero-film h1 { font-size: clamp(2rem, 9vw, 2.75rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-film-copy, .hero-film[data-revealed] .hero-film-copy { transition: none; animation: none; transform: none; }
 }
 .hero-film-row p { margin: 0; color: #eee; font-size: 1.1875rem; line-height: 1.5; }
 .hero-film h1, .hero-film-row p { text-shadow: 0 1px 24px rgb(0 0 0 / 40%); }
