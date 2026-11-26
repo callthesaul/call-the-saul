@@ -186,9 +186,11 @@ export default function LandingPage({
                     <th scope="col"><span className="visually-hidden">Question</span></th>
                     <th scope="col" className="comparison-tools-head">
                       <span className="comparison-tools-label">AI tools</span>
-                      <span className="comparison-ai-logos">
+                      {/* Decorative: the header reads "AI tools"; the names show on hover. An empty alt
+                          also means a logo that fails to load leaves no broken icon or stray text. */}
+                      <span className="comparison-ai-logos" aria-hidden="true">
                         {aiTools.map(({ name, file, width, height }) => (
-                          <img key={name} src={`${basePath}/icons/${file}`} alt={name} title={name} width={width} height={height} />
+                          <img key={name} src={`${basePath}/icons/${file}`} alt="" title={name} width={width} height={height} />
                         ))}
                       </span>
                     </th>
