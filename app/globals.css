@@ -1,24 +1,40 @@
 @font-face {
-  font-family: Aspekta;
-  src: url("/fonts/aspekta-variable.woff2") format("woff2");
+  font-family: Caveat;
+  src: url("/fonts/caveat-latin.woff2") format("woff2");
   font-style: normal;
-  font-weight: 50 1000;
+  font-weight: 400 700;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Falcon Medium";
-  src: url("/fonts/falcon-medium.woff2") format("woff2");
+  font-family: "Fira Sans";
+  src: url("/fonts/fira-sans-400-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/fonts/fira-sans-500-latin.woff2") format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Caveat;
-  src: url("/fonts/caveat-latin.woff2") format("woff2");
+  font-family: "Fira Sans Condensed";
+  src: url("/fonts/fira-sans-condensed-600-latin.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fira Sans Condensed";
+  src: url("/fonts/fira-sans-condensed-700-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
   font-display: swap;
 }
 
@@ -54,8 +70,8 @@
   --del-ink: #962c32;
   --del-fill: #f5e3df;
 
-  --sans: Aspekta, "Segoe UI", Arial, sans-serif;
-  --display: "Falcon Medium", var(--sans);
+  --sans: "Fira Sans", Arial, sans-serif;
+  --display: "Fira Sans Condensed", "Arial Narrow", Arial, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
   --hand: Caveat, "Segoe Print", cursive;
 
@@ -156,7 +172,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   width: 100%;
   height: auto;
 }
-.masthead-link, .footer-inner > a:last-child, .text-link {
+.masthead-link, .footer-inner > a:last-child {
   color: var(--ink-2);
   font-size: .9375rem;
   font-weight: 500;
@@ -165,7 +181,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   transition: color .15s var(--ease);
 }
 .masthead-link { white-space: nowrap; }
-.masthead-link:hover, .footer-inner > a:last-child:hover, .text-link:hover { color: var(--ink); }
+.masthead-link:hover, .footer-inner > a:last-child:hover { color: var(--ink); }
 
 /* Buttons */
 .button {
@@ -187,43 +203,7 @@ section[id] { scroll-margin-top: 1.5rem; }
 .button-primary:hover { background: var(--red-hover); }
 .header-cta { min-height: 40px; padding-inline: 16px; white-space: nowrap; }
 
-/* Hero */
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: start;
-  align-content: start;
-  gap: clamp(40px, 5vw, 80px);
-  min-height: min(calc(100svh - var(--header-clearance)), 48rem);
-  padding-block: clamp(48px, 10vh, 112px) 64px;
-}
-.hero-copy { padding-top: 32px; }
-.hero h1 { max-width: 12em; font-size: clamp(2.5rem, 4vw, 3.5rem); }
-.hero-accent { display: block; margin-top: 4px; color: var(--red); }
-.keep-together { white-space: nowrap; }
-.hero-description {
-  max-width: 30rem;
-  margin-top: 24px;
-  color: var(--ink-2);
-  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 24px;
-  margin-top: 32px;
-}
-.hero-actions .text-link {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--line-strong);
-}
-.hero-actions .text-link:hover { text-decoration-color: currentColor; }
-
-/* Paper sheets, shared by the hero and the walkthrough */
+/* Paper sheets in the walkthrough */
 .sheet {
   overflow: hidden;
   background: var(--sheet);
@@ -249,110 +229,6 @@ section[id] { scroll-margin-top: 1.5rem; }
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.hero-document {
-  position: relative;
-  padding: 0 0 24px 24px;
-}
-.hero-document > .sheet:last-child {
-  position: relative;
-  box-shadow: 0 1px 2px rgb(35 27 26 / 6%), 0 16px 40px rgb(35 27 26 / 9%);
-}
-.sheet-under {
-  position: absolute;
-  inset: 24px 24px 0 0;
-  background: var(--surface);
-  box-shadow: none;
-  transform: rotate(-2deg);
-}
-.hero-document .review-note { margin: 0 20px; }
-/* Sign-off: "being reviewed" first, then the section opens and the lawyer signs */
-.signoff-status-wrap, .signoff-reveal { display: grid; }
-.signoff-reveal { margin-top: 16px; }
-.signoff-status-wrap { grid-template-rows: 0fr; }
-.signoff-reveal { grid-template-rows: 1fr; }
-.signoff-status-wrap > div, .signoff-reveal > div { min-height: 0; overflow: hidden; }
-.signoff-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 16px 20px;
-  border-top: 1px dashed var(--line-strong);
-  color: var(--muted);
-  font-size: .875rem;
-}
-.signoff-status > svg { color: var(--pen); }
-.sheet-signoff {
-  display: grid;
-  justify-items: start;
-  padding: 12px 20px 16px;
-  border-top: 1px dashed var(--line-strong);
-  color: var(--pen);
-  font-family: var(--hand);
-  letter-spacing: 0;
-}
-.signoff-label {
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.1;
-  transform: rotate(-2deg);
-  transform-origin: left center;
-}
-.signature {
-  width: 220px;
-  height: auto;
-  margin-top: 4px;
-  stroke: currentColor;
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.signature .signature-bar { fill: currentColor; stroke-width: 1; }
-.signature-role {
-  width: 220px;
-  margin-top: -4px;
-  padding-top: 2px;
-  border-top: 1px solid var(--line-strong);
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .signoff-status-wrap { animation: signoff-rows-close .4s var(--ease) 2.8s both; }
-  .signoff-status { animation: signoff-fade-out .3s ease 2.6s both; }
-  .signoff-status .typing-dots { animation: workflow-typing-dots .8s steps(3, end) infinite; }
-  .signoff-reveal { animation: signoff-rows-open .7s var(--ease) 2.9s both; }
-  .signoff-label { animation: signoff-write 1s linear 3.5s both; }
-  .signature path:not(.signature-bar) {
-    stroke-dasharray: 1;
-    animation: signature-draw var(--draw-time) cubic-bezier(.4, 0, .6, 1) var(--draw-at) both;
-  }
-  .signature-oval { --draw-at: 4.6s; --draw-time: .7s; }
-  .signature-letters { --draw-at: 5.3s; --draw-time: .6s; }
-  .signature-stroke { --draw-at: 5.95s; --draw-time: .2s; }
-  .signature .signature-bar {
-    transform-box: fill-box;
-    transform-origin: left center;
-    animation: signature-sweep .35s cubic-bezier(.3, 0, .2, 1) 6.25s both;
-  }
-  .signature-role { animation: signoff-write .5s linear 6.7s both; }
-
-  @keyframes signoff-rows-close { from { grid-template-rows: 1fr; } to { grid-template-rows: 0fr; } }
-  @keyframes signoff-rows-open { from { grid-template-rows: 0fr; } to { grid-template-rows: 1fr; } }
-  @keyframes signoff-fade-out { from { opacity: 1; } to { opacity: 0; } }
-  @keyframes signoff-write {
-    from { clip-path: inset(-8px 100% -8px -8px); }
-    to { clip-path: inset(-8px -8px -8px -8px); }
-  }
-  @keyframes signature-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-  @keyframes signature-sweep {
-    from { opacity: 0; transform: scaleX(0); }
-    20% { opacity: 1; }
-    to { opacity: 1; transform: scaleX(1); }
-  }
-}
-
 /* Clause and redlines */
 .document-clause { padding: 20px 20px 24px; }
 .clause-title {
@@ -869,10 +745,6 @@ html:has(.waitlist-dialog[open]) { overflow: hidden; }
   .workflow-stage { gap: 32px; }
 }
 @media (max-width: 60rem) {
-  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-block: 56px 64px; gap: 48px; }
-  .hero-copy { padding-top: 0; }
-  .hero h1 { max-width: 14em; }
-  .hero-document { max-width: 40rem; }
   .contracts-inner, .partnership-inner { grid-template-columns: minmax(0, 1fr); gap: 32px; }
 }
 @media (max-width: 53rem) {
@@ -950,18 +822,13 @@ html:has(.waitlist-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 34rem) {
   .shell { width: calc(100% - 2rem); }
-  .hero { padding-block: 40px 48px; gap: 40px; }
-  .hero h1 { font-size: clamp(2.25rem, 10vw, 2.75rem); }
-  .hero-document { padding: 0; }
-  .sheet-under { display: none; }
-  .hero-document .review-note { margin-inline: 16px; }
   .section-space { padding-block: 56px; }
   .process-expert { flex-direction: column; align-items: center; }
   .process-expert { --annotation-offset: 35px; gap: .12em; }
   .review-mark::before { transform: scale(.8); }
   .review-word { left: 12px; transform: translateX(-73%) rotate(-6deg); }
   .example-panel { padding-inline: 12px; }
-  .sheet-heading, .document-clause, .intake-thread, .sheet-signoff { padding-inline: 16px; }
+  .sheet-heading, .document-clause, .intake-thread { padding-inline: 16px; }
   .profile-standards { padding-inline: 16px; }
   .comparison-table { font-size: .9375rem; }
   .comparison-table th, .comparison-table td { padding-inline: 8px; }
@@ -969,7 +836,6 @@ html:has(.waitlist-dialog[open]) { overflow: hidden; }
   .partnership-grid { gap: 16px; }
 }
 @media (max-width: 22rem) {
-  .hero h1 { font-size: 2.125rem; }
   .process-heading h2 { font-size: 2.125rem; }
   .clause-text { font-size: 1rem; }
   .workflow-scroll[data-pinned] .stage-copy h3 { font-size: 1.625rem; }
@@ -979,7 +845,301 @@ html:has(.waitlist-dialog[open]) { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .button, .masthead-link, .text-link { transition: none; }
+  .button, .masthead-link { transition: none; }
   .workflow-scroll[data-pinned] .workflow-sticky { transform: none; }
   .workflow-scroll[data-pinned] .workflow-stage { transition: none; transform: none; }
+}
+
+/* Design system v2: law-firm look, built on how large law firms' sites are made
+   (studied from bakermckenzie.com's HTML and CSS), in Call the Saul's own logo colours and free fonts.
+   Section markup and animations are unchanged; the hero is the full-screen film below. */
+
+html { scroll-padding-top: var(--masthead-height); }
+
+:root {
+  --masthead-inset: 0px;
+  --masthead-height: 5.75rem;
+  /* Colour: white and greys carry the page; the logo red is used in big confident blocks, not tints */
+  --paper: #ffffff;
+  --surface: #f0f0f0;          /* grey module ground */
+  --panel: #f0f0f0;
+  --sheet: #ffffff;
+  --line: #d2d2d2;             /* solid grey hairlines, not transparent ink */
+  --line-strong: #cececd;
+
+  --ink: #141414;              /* headings: the logo's black */
+  --ink-2: #323232;            /* body copy: dark grey, not black */
+  --muted: #5f5f5f;
+
+  --red: #c3161c;              /* logo red, deepened so white text reads at 6:1 */
+  --red-hover: #8f0f15;
+  --red-deep: #7a0d12;
+  --oxblood: #c3161c;          /* the band becomes a red block */
+  --on-oxblood: #ffffff;
+  --on-oxblood-2: #f6d6d7;
+
+  /* Type: a condensed humanist sans, bold, set tight. No serif, no geometric display. */
+  --serif: Georgia, "Times New Roman", serif;   /* only inside the contract documents */
+
+  --ease: cubic-bezier(.86, 0, .07, 1);          /* slow, deliberate in-out */
+
+  --r-control: 0;
+  --r-card: 0;
+  --r-panel: 0;
+}
+
+body { font-family: var(--sans); color: var(--ink-2); font-size: 1.0625rem; }
+::selection { background: var(--red); color: #fff; }
+:focus-visible { outline-color: var(--red); border-radius: 0; }
+
+/* Headings: bold condensed, line-height 1, normal tracking */
+h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: 0; color: var(--ink); }
+h1 { line-height: 1; }
+h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
+.stage-copy h3 { font-size: clamp(2rem, 3.2vw, 2.75rem); line-height: 1.02; letter-spacing: 0; }
+.step-number, .clause-title, .sheet-meta { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .02em; font-size: .8125rem; }
+.contract-types li, .partnership-grid h3 { font-family: var(--display); font-weight: 600; letter-spacing: 0; }
+
+.masthead-link {
+  color: var(--ink-2);
+  font: 700 .875rem/1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  transition: color .4s var(--ease);
+}
+.masthead-link:hover { color: var(--red); }
+
+
+/* One square filled button for the one main action */
+.button {
+  min-height: 48px;
+  padding: 0 28px;
+  border-radius: 0;
+  font: 700 .9375rem/1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  transition: background-color .4s var(--ease);
+}
+.button:active { transform: none; background: var(--red-deep); }
+.header-cta { min-height: 44px; padding-inline: 20px; font-size: .875rem; }
+
+
+/* Paper: square, one solid grey line, no soft shadow */
+.sheet { border-radius: 0; border-color: var(--line); box-shadow: none; }
+.sheet-heading { font-family: var(--display); font-weight: 600; font-size: 1rem; }
+.review-note { border-radius: 0; background: #f7f7f7; border-color: var(--line); }
+.note-marker { border-radius: 0; }
+.redline del, .redline ins { border-radius: 0; }
+.intake-avatar { border-radius: 0; }
+
+/* How it works on the grey module ground; documents sit straight on it */
+.process { background: var(--surface); border-color: var(--line); }
+.example-panel { background: none; border: 0; border-radius: 0; padding: 0; }
+.review-note-card { background: #fff; }
+
+/* Comparison: a full red block, the table on white inside it */
+.comparison { background: linear-gradient(109deg, var(--red) 0%, var(--red-deep) 140%); }
+.comparison h2 { color: #fff; }
+.comparison-card { border-radius: 0; background: #fff; }
+.comparison-firm { background: var(--surface); }
+.comparison-table thead th { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; font-size: .8125rem; color: var(--muted); }
+.comparison-table tbody th { font-family: var(--display); font-weight: 600; font-size: 1.125em; color: var(--ink); }
+.comparison-table tbody tr > * { border-top-color: var(--line); }
+.comparison-table thead tr > :last-child { border-radius: 0; }
+
+/* Contract types: a ruled grid like an index */
+.contract-types { border-top: 2px solid var(--ink); }
+.contract-types li { font-size: clamp(1.25rem, 1.8vw, 1.5rem); color: var(--ink); border-bottom-color: var(--line); }
+
+/* Partnership on grey; footer becomes the red block */
+.partnership { background: var(--surface); border-color: var(--line); }
+.partnership-grid > section { border-top: 2px solid var(--ink); }
+.site-footer { background: linear-gradient(109deg, var(--red) 0%, var(--red-deep) 140%); border: 0; color: #fff; }
+.site-footer .footer-inner > a:last-child { color: #fff; font: 700 .875rem/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+.site-footer .wordmark img { filter: brightness(0) invert(1); }
+
+/* Dialog: square, a solid line */
+.waitlist-dialog { border-radius: 0; box-shadow: none; border-color: var(--line); }
+.waitlist-dialog::backdrop { background: rgb(20 20 20 / 60%); }
+.waitlist-details, .waitlist-close { border-radius: 0; }
+
+
+/* Header: no bar, no card. At the top it sits straight on the page; once you scroll it turns
+   white with one grey line under it. Logo left, links and the one button right. */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  padding: 0;
+  pointer-events: auto;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  transition: background-color .4s var(--ease), border-color .4s var(--ease);
+}
+.site-header.is-top { background: transparent; border-bottom-color: transparent; }
+.masthead {
+  min-height: 88px;
+  padding-block: 12px;
+  padding-inline: var(--edge);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+@media (min-width: 42.01rem) {
+  .masthead { display: flex; align-items: center; gap: 20px; }
+  .masthead > .wordmark { order: -1; margin-right: auto; }
+  .masthead-links, .masthead-actions { gap: 20px; }
+}
+@media (min-width: 64rem) {
+  .masthead, .masthead-links, .masthead-actions { gap: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
+/* Narrow screens: logo left, the button right, the links on a second row */
+@media (max-width: 42rem) {
+  :root { --masthead-height: 6.5rem; }
+  .masthead { display: grid; grid-template-columns: minmax(0, 1fr) auto; row-gap: 8px; column-gap: 16px; }
+  .masthead > .wordmark { grid-area: 1 / 1; justify-self: start; width: 6.25rem; }
+  .masthead-actions { display: contents; }
+  .masthead .header-cta { grid-area: 1 / 2; grid-column: 2; justify-self: end; }
+  .masthead-links { grid-area: 2 / 1; flex-wrap: wrap; gap: 4px 16px; }
+  .masthead-partnership { grid-area: 2 / 2; justify-self: end; }
+}
+/* Very narrow phones: the links wrap to a second line, so the header is taller */
+@media (max-width: 23.5rem) {
+  :root { --masthead-height: 7.25rem; }
+}
+
+/* Over the hero film the header is transparent with white type; it turns into the white bar on scroll */
+.site-header.is-top .masthead-link { color: #fff; }
+.site-header.is-top .masthead-link:hover { color: #fff; text-decoration: underline; text-underline-offset: .3em; }
+.site-header.is-top .wordmark img { filter: brightness(0) invert(1); }
+
+/* Hero: the film fills the screen; the text sits in a translucent dark panel on the left whose
+   text lines up with the logo (--edge). The panel stays under 46% of the frame, where the
+   film's Slack messages start. Phones and portrait tablets stack: film band, text below. */
+:root { --edge: clamp(1rem, 3.5vw, 4rem); }
+.hero-film {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #141414 var(--hero-poster) 30% 50% / cover no-repeat;
+  color: #fff;
+}
+.hero-film-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 50%;
+}
+/* Light shade at the top only, so the white menu stays readable over the film */
+.hero-film-scrim {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 28%;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 55%), rgb(0 0 0 / 0%));
+  pointer-events: none;
+}
+.hero-film-copy {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: max-content; /* the panel ends just after the headline's longest line */
+  padding: calc(var(--masthead-height) + 24px) clamp(24px, 2.5vw, 40px) clamp(48px, 12svh, 128px) var(--edge);
+  background: rgb(0 0 0 / 62%);
+  animation: hero-copy-in .9s var(--ease) .2s both;
+}
+@keyframes hero-copy-in { from { transform: translateX(-100%); } }
+.hero-film h1 {
+  margin: 0 0 clamp(16px, 2.5svh, 28px);
+  color: #fff;
+  font-size: clamp(2rem, 3.5vw, 4.5rem);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.hero-film-row {
+  width: 0;       /* the line and the button take the headline's width, never widen the panel */
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(16px, 2.5svh, 28px);
+}
+.hero-film-row p { margin: 0; color: #eee; font-size: clamp(1rem, 1.35vw, 1.3125rem); line-height: 1.5; text-wrap: balance; }
+.hero-film h1, .hero-film-row p { text-shadow: 0 1px 24px rgb(0 0 0 / 40%); }
+@media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
+  .hero-film {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding-top: var(--masthead-height);
+    background: #141414 var(--hero-poster) 0 var(--masthead-height) / 100% auto no-repeat;
+  }
+  .hero-film-video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; object-position: 50% 50%; }
+  .hero-film-scrim { display: none; }
+  .hero-film-copy {
+    container-type: inline-size;
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 28px var(--edge) 40px;
+    background: #141414;
+    animation: none;
+  }
+  .hero-film h1 { font-size: clamp(2rem, 9.5cqi, 3.5rem); }
+  .hero-film-row p { font-size: clamp(1rem, 4.2cqi, 1.25rem); }
+}
+@media (prefers-reduced-motion: reduce) { .hero-film-copy { animation: none; } }
+/* Autoplay refused or files failed: the poster behind shows instead of a frozen frame with a
+   play button. Reduced motion gets no matching <source>, so the element shows its poster. */
+.hero-film-video[data-state="blocked"], .hero-film-video[data-state="error"] { visibility: hidden; }
+.hero-film-video::-webkit-media-controls-start-playback-button { display: none !important; }
+
+/* Pause control for the looping film */
+.hero-film-toggle {
+  position: absolute;
+  right: clamp(12px, 2vw, 24px);
+  bottom: clamp(12px, 2vw, 24px);
+  z-index: 1;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgb(255 255 255 / 60%);
+  background: rgb(0 0 0 / 35%);
+  color: #fff;
+  font: 600 .75rem/1 var(--display);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.hero-film-toggle:hover { background: rgb(0 0 0 / 55%); }
+.hero-film-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* Failed files: nothing to play. Blocked autoplay keeps the toggle, now reading "Play". */
+.hero-film-video[data-state="error"] + .hero-film-toggle { display: none; }
+@media (prefers-reduced-motion: reduce) { .hero-film-toggle { display: none; } }
+@media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
+  .hero-film-toggle { top: calc(var(--masthead-height) + 12px); bottom: auto; }
+}
+
+/* "AI tools" column head: normal case, larger, with the ChatGPT, Gemini and Claude marks under it */
+.comparison-table thead th.comparison-tools-head { vertical-align: middle; }
+.comparison-tools-label {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.125rem, 1rem + .6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+.comparison-ai-logos { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.comparison-ai-logos img { display: block; width: auto; height: 28px; }
+@media (max-width: 42rem) {
+  .comparison-ai-logos { gap: 8px; margin-top: 8px; }
+  .comparison-ai-logos img { height: 20px; }
 }

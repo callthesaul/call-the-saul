@@ -1,0 +1,4 @@
+Fira Sans and Fira Sans Condensed
+Copyright (c) 2012-2018, The Mozilla Foundation and Telefonica S.A.
+Licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org
+Latin subsets served by Google Fonts, self-hosted here.

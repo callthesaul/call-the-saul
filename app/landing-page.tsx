@@ -1,4 +1,7 @@
-import { Check, PenLine, X } from "lucide-react";
+import type { CSSProperties } from "react";
+import { Check, X } from "lucide-react";
+import HeroFilmVideo from "./hero-film-video";
+import SiteHeader from "./site-header";
 import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
 import WorkflowCarousel from "./workflow-carousel";
 import { siteLogo } from "../lib/site-metadata";
@@ -18,6 +21,13 @@ const contractTypes = [
   "DPAs",
 ];
 
+// Official marks of the AI tools we compare against (nominative use; CC0 drawings, public/icons/icons-credits.json).
+const aiTools = [
+  { name: "ChatGPT", file: "openai.svg", width: 27, height: 28 },
+  { name: "Gemini", file: "gemini.svg", width: 28, height: 28 },
+  { name: "Claude", file: "claude.svg", width: 28, height: 28 },
+];
+
 const iconProps = { size: 16, strokeWidth: 1.5, "aria-hidden": true } as const;
 
 export default function LandingPage({
@@ -31,98 +41,28 @@ export default function LandingPage({
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <header className="site-header">
-        <nav className="masthead" aria-label="Main navigation">
-          <div className="masthead-links">
-            <a className="masthead-link" href="#process">How it works</a>
-            <a className="masthead-link" href="#firm">Contracts</a>
-          </div>
-          <a className="wordmark" href="#top" aria-label="Call the Saul home">
-            <img {...logo} alt="" />
-          </a>
-          <div className="masthead-actions">
-            <a className="masthead-link masthead-partnership" href="#partnership">Partnership</a>
-            {showWaitlist ? (
-              <WaitlistButton className="button button-primary header-cta">Join the waitlist</WaitlistButton>
-            ) : (
-              <a className="button button-primary header-cta" href="#comparison">Compare</a>
-            )}
-          </div>
-        </nav>
-      </header>
+      <SiteHeader logo={logo} showWaitlist={showWaitlist} />
 
       <main id="main" tabIndex={-1}>
-        <section className="hero shell" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <h1 id="hero-title">
-              Lawyer-reviewed contracts within <span className="keep-together">24 hours</span>{" "}
-              <span className="hero-accent">One transparent fee</span>
-            </h1>
-            <p className="hero-description">We are an AI law firm specializing in commercial contracts, built for fast-growing companies</p>
-            <div className="hero-actions">
+        <section
+          className="hero-film"
+          aria-labelledby="hero-title"
+          style={{ "--hero-poster": `url("${basePath}/images/hero-film-poster.webp")` } as CSSProperties}
+        >
+          {/* Muted, decorative loop: a founder's request in Slack, the lawyer signing, "Done" in the morning. */}
+          <HeroFilmVideo basePath={basePath} />
+          <div className="hero-film-scrim" aria-hidden="true" />
+          <div className="hero-film-copy">
+            <h1 id="hero-title">Get your legal<br /> right from day one.</h1>
+            <div className="hero-film-row">
+              <p>A lawyer handles it within 24 hours. One transparent fee.</p>
               {showWaitlist ? (
-                <>
-                  <WaitlistButton className="button button-primary">Join the waitlist</WaitlistButton>
-                  <a className="text-link" href="#process">See how it works</a>
-                </>
+                <WaitlistButton className="button button-primary">Join the waitlist</WaitlistButton>
               ) : (
-                <>
-                  <a className="button button-primary" href="#process">See how it works</a>
-                  <a className="text-link" href="#firm">View contracts</a>
-                </>
+                <a className="button button-primary" href="#process">See how it works</a>
               )}
             </div>
           </div>
-
-          <figure className="hero-document" aria-label="Example of a clause reviewed and signed off by a lawyer">
-            <div className="sheet sheet-under" aria-hidden="true" />
-            <div className="sheet">
-              <div className="sheet-heading">
-                <p>Shareholders’ agreement</p>
-                <span className="sheet-meta">Draft 2 · redlined</span>
-              </div>
-              <div className="document-clause">
-                <p className="clause-title">7.2 Founder vesting</p>
-                <p className="clause-text">
-                  Founder shares vest monthly over{" "}
-                  <span className="redline">
-                    <del>two years</del>{" "}
-                    <ins>four years with a one-year cliff</ins>
-                  </span>.{" "}
-                  <span className="redline"><del>Unvested shares are kept by a founder who leaves.</del></span>
-                </p>
-              </div>
-              <div className="review-note">
-                <span className="note-marker" aria-hidden="true" />
-                <div>
-                  <p className="note-label">Lawyer’s note</p>
-                  <p>Investors expect four-year vesting with a cliff. Setting it now protects the company if a co-founder leaves early and saves renegotiating at your seed round.</p>
-                </div>
-              </div>
-              <div className="signoff-status-wrap" aria-hidden="true">
-                <div>
-                  <p className="signoff-status">
-                    <PenLine {...iconProps} />
-                    <span>Being reviewed by your lead lawyer<span className="typing-dots">...</span></span>
-                  </p>
-                </div>
-              </div>
-              <div className="signoff-reveal">
-                <div>
-                  <div className="sheet-signoff">
-                    <span className="signoff-label">Reviewed and approved</span>
-                    <svg className="signature" viewBox="0 0 410 190" width="410" height="190" fill="none" aria-hidden="true">
-                      <path className="signature-oval" pathLength={1} d="M184 40c-6-4-18-2-34 6C110 66 52 110 26 146c-14 20-10 34 10 30 40-8 104-50 134-80 8-8 12-16 14-24" />
-                      <path className="signature-letters" pathLength={1} d="M170 96c4-8 10-24 14-30 2 10-2 26 2 28 6-4 10-22 16-30 2 12-2 26 4 26 6-2 10-18 16-26 2 10-2 22 4 22 10-4 22-20 36-44 4-8 6-12 10-16" />
-                      <path className="signature-stroke" pathLength={1} d="M214 150c8-36 18-82 30-142" />
-                      <path className="signature-bar" d="M176 106c62-6 136-12 226-18-84 9-150 15-224 22-4 0-6-3-2-4z" />
-                    </svg>
-                    <span className="signature-role">Lawyer</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </figure>
         </section>
 
         <section className="process section-space" aria-labelledby="process-title">
@@ -244,7 +184,16 @@ export default function LandingPage({
                 <thead>
                   <tr>
                     <th scope="col"><span className="visually-hidden">Question</span></th>
-                    <th scope="col">AI tools</th>
+                    <th scope="col" className="comparison-tools-head">
+                      <span className="comparison-tools-label">AI tools</span>
+                      {/* Decorative: the header reads "AI tools"; the names show on hover. An empty alt
+                          also means a logo that fails to load leaves no broken icon or stray text. */}
+                      <span className="comparison-ai-logos" aria-hidden="true">
+                        {aiTools.map(({ name, file, width, height }) => (
+                          <img key={name} src={`${basePath}/icons/${file}`} alt="" title={name} width={width} height={height} />
+                        ))}
+                      </span>
+                    </th>
                     <th scope="col">
                       <span className="comparison-brand"><img {...logo} alt="Call the Saul" /></span>
                     </th>
