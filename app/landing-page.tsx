@@ -21,6 +21,13 @@ const contractTypes = [
   "DPAs",
 ];
 
+// Official marks of the AI tools we compare against (nominative use; CC0 drawings, public/icons/icons-credits.json).
+const aiTools = [
+  { name: "ChatGPT", file: "openai.svg", width: 27, height: 28 },
+  { name: "Gemini", file: "gemini.svg", width: 28, height: 28 },
+  { name: "Claude", file: "claude.svg", width: 28, height: 28 },
+];
+
 const iconProps = { size: 16, strokeWidth: 1.5, "aria-hidden": true } as const;
 
 export default function LandingPage({
@@ -177,7 +184,14 @@ export default function LandingPage({
                 <thead>
                   <tr>
                     <th scope="col"><span className="visually-hidden">Question</span></th>
-                    <th scope="col">AI tools</th>
+                    <th scope="col" className="comparison-tools-head">
+                      <span className="comparison-tools-label">AI tools</span>
+                      <span className="comparison-ai-logos">
+                        {aiTools.map(({ name, file, width, height }) => (
+                          <img key={name} src={`${basePath}/icons/${file}`} alt={name} title={name} width={width} height={height} />
+                        ))}
+                      </span>
+                    </th>
                     <th scope="col">
                       <span className="comparison-brand"><img {...logo} alt="Call the Saul" /></span>
                     </th>

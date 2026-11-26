@@ -1124,3 +1124,22 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 @media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
   .hero-film-toggle { top: calc(var(--masthead-height) + 12px); bottom: auto; }
 }
+
+/* "AI tools" column head: normal case, larger, with the ChatGPT, Gemini and Claude marks under it */
+.comparison-table thead th.comparison-tools-head { vertical-align: middle; }
+.comparison-tools-label {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.125rem, 1rem + .6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+.comparison-ai-logos { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.comparison-ai-logos img { display: block; width: auto; height: 28px; }
+@media (max-width: 42rem) {
+  .comparison-ai-logos { gap: 8px; margin-top: 8px; }
+  .comparison-ai-logos img { height: 20px; }
+}
