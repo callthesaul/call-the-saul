@@ -979,7 +979,7 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .masthead {
   min-height: 88px;
   padding-block: 12px;
-  padding-inline: max(3rem, calc((100% - 76rem) / 2));
+  padding-inline: var(--edge);
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -995,9 +995,6 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 @media (min-width: 64rem) {
   .masthead, .masthead-links, .masthead-actions { gap: 32px; }
 }
-@media (max-width: 68rem) { .masthead { padding-inline: 2rem; } }
-@media (max-width: 53rem) { .masthead { padding-inline: 1.5rem; } }
-@media (max-width: 34rem) { .masthead { padding-inline: 1rem; } }
 @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
 /* Narrow screens: logo left, the button right, the links on a second row */
 @media (max-width: 42rem) {
@@ -1019,14 +1016,15 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .site-header.is-top .masthead-link:hover { color: #fff; text-decoration: underline; text-underline-offset: .3em; }
 .site-header.is-top .wordmark img { filter: brightness(0) invert(1); }
 
-/* Hero: one full-screen film, the line and the button centred at the bottom */
+/* Hero: the film fills the screen; the text sits in a translucent dark panel on the left whose
+   text lines up with the logo (--edge). The panel stays under 46% of the frame, where the
+   film's Slack messages start. Phones and portrait tablets stack: film band, text below. */
+:root { --edge: clamp(1rem, 3.5vw, 4rem); }
 .hero-film {
   position: relative;
-  display: flex;
-  align-items: flex-end;
   min-height: 100svh;
   overflow: hidden;
-  background: #141414 var(--hero-poster) center / cover no-repeat;
+  background: #141414 var(--hero-poster) 30% 50% / cover no-repeat;
   color: #fff;
 }
 .hero-film-video {
@@ -1035,6 +1033,7 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 30% 50%;
 }
 /* Light shade at the top only, so the white menu stays readable over the film */
 .hero-film-scrim {
@@ -1044,59 +1043,59 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   background: linear-gradient(to bottom, rgb(0 0 0 / 55%), rgb(0 0 0 / 0%));
   pointer-events: none;
 }
-/* The film plays clean; when it ends, this dark panel slides in from the left with the text.
-   Without JavaScript it slides in by itself after 30 s. */
 .hero-film-copy {
   position: absolute;
   inset: 0 auto 0 0;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: min(36rem, 100%);
-  padding: var(--masthead-height) clamp(24px, 4vw, 56px) clamp(40px, 9svh, 96px);
+  width: clamp(20rem, 40vw, 52rem);
+  padding: calc(var(--masthead-height) + 24px) clamp(24px, 3vw, 48px) clamp(48px, 12svh, 128px) var(--edge);
   background: rgb(0 0 0 / 62%);
-  transform: translateX(-100%);
-  animation: hero-copy-in .9s var(--ease) 30s forwards;
+  animation: hero-copy-in .9s var(--ease) .2s both;
 }
-.hero-film[data-revealed] .hero-film-copy {
-  transform: none;
-  animation: none;
-  transition: transform .9s var(--ease);
-}
-@keyframes hero-copy-in { to { transform: none; } }
+@keyframes hero-copy-in { from { transform: translateX(-100%); } }
 .hero-film h1 {
-  margin: 0 0 20px;
+  margin: 0 0 clamp(16px, 2.5svh, 28px);
   color: #fff;
-  font-size: clamp(2.25rem, 4vw, 3.75rem);
-  line-height: 1;
+  font-size: clamp(2rem, 10.5cqi, 4.5rem);
+  line-height: 1.02;
+  text-wrap: balance;
 }
 .hero-film-row {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: clamp(16px, 2.5svh, 28px);
 }
-@media (max-width: 42rem) {
-  .hero-film-copy {
-    inset: auto 0 0;
-    width: 100%;
-    padding: 28px 20px 72px;
-    background: rgb(0 0 0 / 70%);
-    transform: translateY(100%);
-  }
-  .hero-film h1 { font-size: clamp(2rem, 9vw, 2.75rem); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-film-copy, .hero-film[data-revealed] .hero-film-copy { transition: none; animation: none; transform: none; }
-}
-.hero-film-row p { margin: 0; color: #eee; font-size: 1.1875rem; line-height: 1.5; }
+.hero-film-row p { margin: 0; color: #eee; font-size: clamp(1rem, 4.2cqi, 1.3125rem); line-height: 1.5; text-wrap: balance; }
 .hero-film h1, .hero-film-row p { text-shadow: 0 1px 24px rgb(0 0 0 / 40%); }
-/* Autoplay refused or files failed: show the poster background, never a frozen frame with a play button */
-.hero-film-video[data-state="blocked"], .hero-film-video[data-state="error"] { display: none; }
-.hero-film-video::-webkit-media-controls-start-playback-button { display: none !important; }
-@media (prefers-reduced-motion: reduce) {
-  .hero-film-video { display: none; }
+@media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
+  .hero-film {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding-top: var(--masthead-height);
+    background: #141414 var(--hero-poster) 0 var(--masthead-height) / 100% auto no-repeat;
+  }
+  .hero-film-video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; object-position: 50% 50%; }
+  .hero-film-scrim { display: none; }
+  .hero-film-copy {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 28px var(--edge) 40px;
+    background: #141414;
+    animation: none;
+  }
+  .hero-film h1 { font-size: clamp(2rem, 9.5cqi, 3.5rem); }
 }
+@media (prefers-reduced-motion: reduce) { .hero-film-copy { animation: none; } }
+/* Autoplay refused or files failed: the poster behind shows instead of a frozen frame with a
+   play button. Reduced motion gets no matching <source>, so the element shows its poster. */
+.hero-film-video[data-state="blocked"], .hero-film-video[data-state="error"] { visibility: hidden; }
+.hero-film-video::-webkit-media-controls-start-playback-button { display: none !important; }
 
 /* Pause control for the looping film */
 .hero-film-toggle {
@@ -1119,3 +1118,6 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .hero-film-video[data-state="blocked"] + .hero-film-toggle,
 .hero-film-video[data-state="error"] + .hero-film-toggle { display: none; }
 @media (prefers-reduced-motion: reduce) { .hero-film-toggle { display: none; } }
+@media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
+  .hero-film-toggle { top: calc(var(--masthead-height) + 12px); bottom: auto; }
+}

@@ -27,25 +27,11 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
     }
   }
 
-  // Shows the text panel (it slides in from the left once the first play-through ends).
-  const reveal = () => ref.current?.closest(".hero-film")?.setAttribute("data-revealed", "");
-
-  function onEnded() {
-    reveal();
-    const video = ref.current;
-    if (!video) return;
-    video.loop = true;
-    video.play().catch(() => setState("error"));
-  }
-
   useEffect(() => {
     const video = ref.current;
-    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      reveal();
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
       return;
-    }
     video.play().catch((error: unknown) => {
-      reveal();
       // NotAllowedError = autoplay refused; anything else means the media could not play.
       setState(
         error instanceof DOMException && error.name === "NotAllowedError"
@@ -63,8 +49,8 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
         className="hero-film-video"
         data-state={state}
         muted
+        loop
         playsInline
-        onEnded={onEnded}
         preload="metadata"
         disableRemotePlayback
         disablePictureInPicture
@@ -85,10 +71,7 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
           src={`${basePath}/video/hero-film.mp4`}
           type='video/mp4; codecs="avc1.640028"'
           media={motionOk}
-          onError={() => {
-            reveal();
-            setState("error");
-          }}
+          onError={() => setState("error")}
         />
       </video>
       <button
