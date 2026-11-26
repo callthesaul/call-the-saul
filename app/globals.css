@@ -1046,12 +1046,11 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .hero-film-copy {
   position: absolute;
   inset: 0 auto 0 0;
-  container-type: inline-size;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: clamp(20rem, 40vw, 52rem);
-  padding: calc(var(--masthead-height) + 24px) clamp(24px, 3vw, 48px) clamp(48px, 12svh, 128px) var(--edge);
+  width: max-content; /* the panel ends just after the headline's longest line */
+  padding: calc(var(--masthead-height) + 24px) clamp(24px, 2.5vw, 40px) clamp(48px, 12svh, 128px) var(--edge);
   background: rgb(0 0 0 / 62%);
   animation: hero-copy-in .9s var(--ease) .2s both;
 }
@@ -1059,17 +1058,19 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .hero-film h1 {
   margin: 0 0 clamp(16px, 2.5svh, 28px);
   color: #fff;
-  font-size: clamp(2rem, 10.5cqi, 4.5rem);
+  font-size: clamp(2.25rem, 3.5vw, 4.5rem);
   line-height: 1.02;
   text-wrap: balance;
 }
 .hero-film-row {
+  width: 0;       /* the line and the button take the headline's width, never widen the panel */
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: clamp(16px, 2.5svh, 28px);
 }
-.hero-film-row p { margin: 0; color: #eee; font-size: clamp(1rem, 4.2cqi, 1.3125rem); line-height: 1.5; text-wrap: balance; }
+.hero-film-row p { margin: 0; color: #eee; font-size: clamp(1rem, 1.35vw, 1.3125rem); line-height: 1.5; text-wrap: balance; }
 .hero-film h1, .hero-film-row p { text-shadow: 0 1px 24px rgb(0 0 0 / 40%); }
 @media (max-width: 42rem), (orientation: portrait) and (max-width: 64rem) {
   .hero-film {
@@ -1082,6 +1083,7 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .hero-film-video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; object-position: 50% 50%; }
   .hero-film-scrim { display: none; }
   .hero-film-copy {
+    container-type: inline-size;
     position: relative;
     inset: auto;
     width: auto;
@@ -1090,6 +1092,7 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
     animation: none;
   }
   .hero-film h1 { font-size: clamp(2rem, 9.5cqi, 3.5rem); }
+  .hero-film-row p { font-size: clamp(1rem, 4.2cqi, 1.25rem); }
 }
 @media (prefers-reduced-motion: reduce) { .hero-film-copy { animation: none; } }
 /* Autoplay refused or files failed: the poster behind shows instead of a frozen frame with a
