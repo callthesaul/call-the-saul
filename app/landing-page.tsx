@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { Check, X } from "lucide-react";
+import CookieBanner from "./cookie-banner";
 import HeroFilmVideo from "./hero-film-video";
 import SiteHeader from "./site-header";
 import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
@@ -41,6 +42,8 @@ export default function LandingPage({
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
+      {/* First in reading order so keyboard and screen-reader users reach it first; shown fixed at the bottom. */}
+      <CookieBanner basePath={basePath} />
       <SiteHeader logo={logo} showWaitlist={showWaitlist} />
 
       <main id="main" tabIndex={-1}>
@@ -247,7 +250,11 @@ export default function LandingPage({
           <a className="wordmark" href="#top">
             <img {...logo} alt="Call the Saul" />
           </a>
-          <a href="#top">Back to top</a>
+          <nav className="footer-links" aria-label="Footer">
+            <a href={`${basePath}/privacy/#cookies`}>Cookies Statement</a>
+            <a href={`${basePath}/privacy/#cookies`} data-cookie-settings>Cookie settings</a>
+            <a href="#top">Back to top</a>
+          </nav>
         </div>
       </footer>
     </>
