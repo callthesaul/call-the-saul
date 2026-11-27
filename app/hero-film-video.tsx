@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cookieBannerEvent, cookieBannerOpen, cookieChoicePending } from "./cookie-banner";
 
 type State = "playing" | "blocked" | "error";
 
@@ -16,6 +17,8 @@ const errorName = (error: unknown) =>
    - Files fail (before or after playback starts): the video is hidden so the section's poster
      background shows cleanly, never a frozen frame with a native play button on top.
    - Reduced motion: no <source> matches, nothing is downloaded and the element shows its poster.
+   - Cookie banner: the film waits until the visitor has made a choice, and pauses while the
+     banner is reopened.
    The failure reason is kept in data-error for debugging (the project has no logger). */
 export default function HeroFilmVideo({ basePath }: { basePath: string }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -51,7 +54,14 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
       fail(video.error ? `MediaError${video.error.code}` : "NoSource");
       return;
     }
-    video.play().catch(onPlayRejected);
+    const start = () => { video.play().catch(onPlayRejected); };
+    const followBanner = () => {
+      if (cookieBannerOpen()) video.pause();
+      else if (video.paused) start();
+    };
+    window.addEventListener(cookieBannerEvent, followBanner);
+    if (!cookieChoicePending()) start();
+    return () => window.removeEventListener(cookieBannerEvent, followBanner);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once on mount
   }, []);
 

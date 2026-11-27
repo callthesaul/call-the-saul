@@ -7,6 +7,8 @@ type Consent = { choice: Choice; at: string; version: number };
 
 const storageKey = "callthesaul:cookie-consent";
 const storageEvent = "callthesaul:cookie-consent-change";
+/** Fired whenever the banner opens or closes; the hero film listens so it waits for a choice. */
+export const cookieBannerEvent = "callthesaul:cookie-banner-change";
 const consentVersion = 1;
 const dayMs = 24 * 60 * 60 * 1000;
 const maxAgeMs = 365 * dayMs; // ask again after 12 months
@@ -48,6 +50,16 @@ function parseConsent(raw: string): Consent | null {
   return { choice, at, version };
 }
 
+/** True while no valid choice is stored: the banner will ask, so the film should not start yet. */
+export function cookieChoicePending() {
+  return parseConsent(readStorage()) === null;
+}
+
+/** True while the banner is on screen (it marks <html data-cookie-banner="open">). */
+export function cookieBannerOpen() {
+  return document.documentElement.dataset.cookieBanner === "open";
+}
+
 function saveConsent(choice: Choice) {
   try {
     const consent: Consent = { choice, at: new Date().toISOString(), version: consentVersion };
@@ -59,9 +71,11 @@ function saveConsent(choice: Choice) {
 }
 
 /* Cookie banner, laid out like large law firms' banners: a white bar across the bottom with the
-   statement on the left and the two choices on the right. The site sets no optional cookies yet,
-   so both choices are stored for when it does. Any element with data-cookie-settings (the footer's
-   "Cookie settings" link) reopens it; without JavaScript that link simply opens the statement. */
+   statement on the left and the two choices on the right, over a dimmed page that cannot be used
+   until a choice is made (the rest of the page is inert, so this is a real modal dialog). The site
+   sets no optional cookies yet, so both choices are stored for when it does. Any element with
+   data-cookie-settings (the footer's "Cookie settings" link) reopens it; without JavaScript that
+   link simply opens the statement. */
 export default function CookieBanner({ basePath }: { basePath: string }) {
   const stored = useSyncExternalStore<string | null>(subscribe, readStorage, () => null);
   const [reopened, setReopened] = useState(false);
@@ -85,19 +99,23 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
   const undecided = stored !== null && parseConsent(stored) === null;
   const open = !dismissed && (reopened || undecided);
 
-  // While open, keep keyboard focus from scrolling under the banner (WCAG 2.4.11).
+  // While open: tell the film, make the rest of the page inert and move focus into the banner.
   useEffect(() => {
     const root = document.documentElement;
     const banner = bannerRef.current;
-    if (!open || !banner) {
-      root.style.removeProperty("--cookie-banner-h");
-      return;
-    }
-    const observer = new ResizeObserver(() => root.style.setProperty("--cookie-banner-h", `${banner.offsetHeight}px`));
-    observer.observe(banner);
+    if (!open || !banner) return;
+    root.dataset.cookieBanner = "open";
+    window.dispatchEvent(new Event(cookieBannerEvent));
+    const background = [...(banner.parentElement?.children ?? [])].filter(
+      (element): element is HTMLElement =>
+        element instanceof HTMLElement && element !== banner && !element.classList.contains("cookie-banner-backdrop") && !element.inert,
+    );
+    background.forEach((element) => { element.inert = true; });
+    banner.focus({ preventScroll: true });
     return () => {
-      observer.disconnect();
-      root.style.removeProperty("--cookie-banner-h");
+      background.forEach((element) => { element.inert = false; });
+      delete root.dataset.cookieBanner;
+      window.dispatchEvent(new Event(cookieBannerEvent));
     };
   }, [open]);
 
@@ -116,13 +134,15 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
   if (!open) return null;
 
   return (
-    <section ref={bannerRef} className="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-banner-title">
+    <>
+    <div className="cookie-banner-backdrop" aria-hidden="true" />
+    <section ref={bannerRef} className="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title" tabIndex={-1}>
       <div className="cookie-banner-copy">
         <h2 id="cookie-banner-title">About Your Privacy</h2>
         <p>
           This website uses cookies and similar storage. Necessary ones (essential to make our website work) are
-          always on; any others are only used if you accept them. You can change your choice at any time with the
-          &lsquo;Cookie settings&rsquo; link in the footer of our website.
+          always on; others are only used if you accept them. You can change your choice at any time with
+          &lsquo;Cookie settings&rsquo; in the footer.
         </p>
         <a className="cookie-banner-link" href={`${basePath}/privacy/#cookies`}>Cookies Statement</a>
       </div>
@@ -145,5 +165,6 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
         </svg>
       </button>
     </section>
+    </>
   );
 }
