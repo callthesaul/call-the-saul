@@ -42,6 +42,8 @@ export default function LandingPage({
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
+      {/* First in reading order so keyboard and screen-reader users reach it first; shown fixed at the bottom. */}
+      <CookieBanner basePath={basePath} />
       <SiteHeader logo={logo} showWaitlist={showWaitlist} />
 
       <main id="main" tabIndex={-1}>
@@ -250,12 +252,11 @@ export default function LandingPage({
           </a>
           <nav className="footer-links" aria-label="Footer">
             <a href={`${basePath}/privacy/#cookies`}>Cookies Statement</a>
-            <button type="button" data-cookie-settings>Cookie settings</button>
+            <a href={`${basePath}/privacy/#cookies`} data-cookie-settings>Cookie settings</a>
             <a href="#top">Back to top</a>
           </nav>
         </div>
       </footer>
-      <CookieBanner basePath={basePath} />
     </>
   );
 }

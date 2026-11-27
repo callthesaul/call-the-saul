@@ -84,7 +84,7 @@
       <li><strong>Targeting.</strong> Used to show advertising that matches your interests. We do not use any.</li>
       <li><strong>Social media.</strong> Set by social networks to let you share content. We do not use any.</li>
     </ul>
-    <p>If we add performance or functional cookies in the future, we will only use them if you choose &lsquo;Accept All Cookies&rsquo;, and we will update this statement first.</p>
+    <p>If we ever want to add performance or functional cookies, we will update this statement first and ask for your choice again. We will not rely on a choice you made before.</p>
 
     <div class="table-wrap">
       <table>
@@ -102,17 +102,17 @@
           <tr>
             <td><code>callthesaul:waitlist</code></td>
             <td>Necessary (local storage)</td>
-            <td>Set only after you join the waitlist, so the site shows you are already on it.</td>
+            <td>Set only after you join the waitlist. It holds the details you entered (name, email, company, country and role) so the site shows you are already on the list. It stays on your device and is not sent to us from there; &lsquo;Join with a different email&rsquo; removes it.</td>
             <td>Until you clear your browser storage</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p>Our waitlist form is provided by Formaloo and opens on its own page. When you use it, Formaloo&rsquo;s <a href="https://www.formaloo.com/privacy-policy" rel="noopener">privacy policy</a> applies to that page.</p>
+    <p>Our waitlist form is provided by Formaloo. It opens in a window on our site, loaded from Formaloo, and Formaloo may store its own cookies or data in that window. Formaloo&rsquo;s <a href="https://www.formaloo.com/privacy-policy" rel="noopener">privacy policy</a> applies to the form.</p>
 
     <h2>What are your options if you do not want cookies on your device?</h2>
-    <p>When you first visit our website, we ask for your choice before using any cookies that are not strictly necessary. You can change your choice at any time with the &lsquo;Cookie settings&rsquo; link in the footer of our website, or with this button:</p>
-    <button type="button" class="settings" id="change-choice">Change your cookie choice</button>
+    <p>When you first visit our website, we ask for your choice before using any cookies that are not strictly necessary. You can change your choice at any time with the &lsquo;Cookie settings&rsquo; link in the footer of our website, or with the button below.</p>
+    <button type="button" class="settings" id="change-choice" hidden>Change your cookie choice</button>
     <p>You can also set your browser to block cookies and site data, or to alert you before they are stored, and you can delete what is already stored. If you block necessary storage, parts of our website may not remember your choices. Your browser&rsquo;s help pages explain how:</p>
     <ul>
       <li><a href="https://support.google.com/chrome/answer/95647" rel="noopener">Google Chrome</a></li>
@@ -133,7 +133,9 @@
 
   <script>
     // Forget the stored choice and go back to the site, where the cookie banner asks again.
-    document.getElementById("change-choice").addEventListener("click", function () {
+    var changeChoice = document.getElementById("change-choice");
+    changeChoice.hidden = false; // shown only when this script runs, so it never appears as a dead button
+    changeChoice.addEventListener("click", function () {
       try { localStorage.removeItem("callthesaul:cookie-consent"); } catch (error) { /* storage blocked: nothing stored */ }
       window.location.href = "../";
     });

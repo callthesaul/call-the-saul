@@ -172,7 +172,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   width: 100%;
   height: auto;
 }
-.masthead-link, .footer-inner > a:last-child {
+.masthead-link {
   color: var(--ink-2);
   font-size: .9375rem;
   font-weight: 500;
@@ -181,7 +181,7 @@ section[id] { scroll-margin-top: 1.5rem; }
   transition: color .15s var(--ease);
 }
 .masthead-link { white-space: nowrap; }
-.masthead-link:hover, .footer-inner > a:last-child:hover { color: var(--ink); }
+.masthead-link:hover { color: var(--ink); }
 
 /* Buttons */
 .button {
@@ -1156,6 +1156,9 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .comparison-ai-logos { gap: 8px; margin-top: 8px; }
   .comparison-ai-logos img { height: 20px; }
 }
+
+/* While the cookie banner is open, focused elements scroll clear of it (set by cookie-banner.tsx). */
+html { scroll-padding-bottom: var(--cookie-banner-h, 0px); }
 
 /* Cookie banner: a white bar across the bottom, like large law firms' banners. Statement on the
    left, the two choices and the close button on the right; stacks on small screens. */
