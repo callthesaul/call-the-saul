@@ -69,10 +69,15 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
       disablePictureInPicture
       poster={`${basePath}/images/hero-film-poster.webp`}
       aria-hidden="true"
-      // Decode or network errors after a source was chosen land on the <video>, not a <source>.
-      onError={(event) =>
-        fail(`MediaError${event.currentTarget.error?.code ?? ""}`)
-      }
+      // Decode or network errors after a source was chosen land on the <video> and set
+      // video.error. React also passes up each <source>'s error event, which fires whenever the
+      // browser skips a source (a media query that does not match, e.g. the phone file on a
+      // desktop): those are normal and must not hide the film.
+      onError={(event) => {
+        const mediaError = event.currentTarget.error;
+        if (event.target !== event.currentTarget || !mediaError) return;
+        fail(`MediaError${mediaError.code}`);
+      }}
     >
       <source
         src={`${basePath}/video/hero-film-960.mp4`}
