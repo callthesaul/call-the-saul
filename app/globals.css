@@ -955,7 +955,20 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 .partnership { background: var(--surface); border-color: var(--line); }
 .partnership-grid > section { border-top: 2px solid var(--ink); }
 .site-footer { background: linear-gradient(109deg, var(--red) 0%, var(--red-deep) 140%); border: 0; color: #fff; }
-.site-footer .footer-inner > a:last-child { color: #fff; font: 700 .875rem/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+.footer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; }
+.site-footer .footer-links a, .site-footer .footer-links button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font: 700 .875rem/1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  text-decoration: none;
+  cursor: pointer;
+}
+.site-footer .footer-links a:hover, .site-footer .footer-links button:hover { text-decoration: underline; text-underline-offset: .3em; }
+.site-footer .footer-links :focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 .site-footer .wordmark img { filter: brightness(0) invert(1); }
 
 /* Dialog: square, a solid line */
@@ -1143,3 +1156,78 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .comparison-ai-logos { gap: 8px; margin-top: 8px; }
   .comparison-ai-logos img { height: 20px; }
 }
+
+/* Cookie banner: a white bar across the bottom, like large law firms' banners. Statement on the
+   left, the two choices and the close button on the right; stacks on small screens. */
+.cookie-banner {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(0, 46rem) auto auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  padding: 32px var(--edge) 36px;
+  border-top: 1px solid var(--ink);
+  background: #fff;
+  color: var(--ink-2);
+  animation: cookie-banner-in .5s var(--ease) both;
+}
+@keyframes cookie-banner-in { from { transform: translateY(100%); } }
+.cookie-banner h2 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font: 600 clamp(1.25rem, 1.1rem + .5vw, 1.5rem)/1.2 var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.cookie-banner p { margin: 0 0 8px; font-size: 1rem; line-height: 1.6; }
+.cookie-banner-link {
+  color: var(--red);
+  font-weight: 600;
+  text-decoration: none;
+}
+.cookie-banner-link:hover { color: var(--red-hover); text-decoration: underline; text-underline-offset: .2em; }
+.cookie-banner-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+.cookie-banner-button {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  background: var(--red);
+  color: #fff;
+  font: 600 1rem/1 var(--sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .2s var(--ease);
+}
+.cookie-banner-button:hover { background: var(--red-hover); }
+.cookie-banner-button:focus-visible, .cookie-banner-close:focus-visible, .cookie-banner-link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.cookie-banner-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.cookie-banner-close:hover { color: var(--red); }
+@media (max-width: 64rem) {
+  .cookie-banner { grid-template-columns: minmax(0, 1fr) auto; padding-top: 24px; padding-bottom: 24px; }
+  .cookie-banner-copy { grid-column: 1; }
+  .cookie-banner-close { grid-column: 2; grid-row: 1; align-self: start; margin: -8px -8px 0 0; }
+  .cookie-banner-actions { grid-column: 1 / -1; }
+}
+@media (max-width: 34rem) {
+  .cookie-banner { max-height: 85svh; overflow-y: auto; }
+  .cookie-banner p { font-size: .9375rem; }
+  .cookie-banner-actions { flex-direction: column; }
+  .cookie-banner-button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .cookie-banner { animation: none; } }

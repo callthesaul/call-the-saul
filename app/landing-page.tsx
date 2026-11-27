@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { Check, X } from "lucide-react";
+import CookieBanner from "./cookie-banner";
 import HeroFilmVideo from "./hero-film-video";
 import SiteHeader from "./site-header";
 import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
@@ -247,9 +248,14 @@ export default function LandingPage({
           <a className="wordmark" href="#top">
             <img {...logo} alt="Call the Saul" />
           </a>
-          <a href="#top">Back to top</a>
+          <nav className="footer-links" aria-label="Footer">
+            <a href={`${basePath}/privacy/#cookies`}>Cookies Statement</a>
+            <button type="button" data-cookie-settings>Cookie settings</button>
+            <a href="#top">Back to top</a>
+          </nav>
         </div>
       </footer>
+      <CookieBanner basePath={basePath} />
     </>
   );
 }
