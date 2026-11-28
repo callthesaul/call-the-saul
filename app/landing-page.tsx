@@ -119,7 +119,7 @@ export default function LandingPage({
               <li className="workflow-stage">
                 <div className="stage-copy">
                   <span className="step-number">Step 2</span>
-                  <h3>Our AI runs the first review, adapted to your context</h3>
+                  <h3>Our smart legal engine runs the first review, adapted to your context</h3>
                   <p>We apply your confidentiality rules to the first draft of the NDA.</p>
                 </div>
                 <figure className="example-panel" aria-label="Legal profile">
