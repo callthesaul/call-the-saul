@@ -1107,6 +1107,11 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .hero-film h1 { font-size: clamp(2rem, 9.5cqi, 3.5rem); }
   .hero-film-row p { font-size: clamp(1rem, 4.2cqi, 1.25rem); }
 }
+/* Phones: drop the desktop line break and let the headline balance itself, so no word is left alone on a line. */
+@media (max-width: 42rem) {
+  .hero-film h1 { text-wrap: balance; }
+  .hero-film h1 br { display: none; }
+}
 @media (prefers-reduced-motion: reduce) { .hero-film-copy { animation: none; } }
 /* Autoplay refused or files failed: the poster behind shows instead of a frozen frame with a
    play button. Reduced motion gets no matching <source>, so the element shows its poster. */
