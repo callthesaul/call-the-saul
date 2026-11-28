@@ -117,7 +117,7 @@ const blocks: Block[] = [
   {
     key: "activities",
     title: "Key activities",
-    headline: "Our engine reviews, a lawyer signs off in 24 hours",
+    headline: "Our legal engine reviews, a lawyer signs off in 24 hours",
     Icon: Zap,
     items: [
       {
@@ -127,8 +127,8 @@ const blocks: Block[] = [
       {
         label: "Build and grow",
         points: [
-          "Lawyers build and maintain the playbooks the engine follows",
-          "Every finished job improves the engine, the knowledge graph and the template library",
+          "Lawyers build and maintain the playbooks the legal engine follows",
+          "Every finished job improves the legal engine, the knowledge graph and the template library",
           "Recruit and train partner lawyers",
           "Win clients through investor and founder-community partnerships",
         ],
@@ -159,7 +159,7 @@ const blocks: Block[] = [
   {
     key: "costs",
     title: "Cost structure",
-    headline: "Lawyer fees first, engine and team second",
+    headline: "Lawyer fees first, legal engine and team second",
     Icon: Receipt,
     items: [
       {
@@ -172,7 +172,7 @@ const blocks: Block[] = [
       },
       {
         label: "Build and grow",
-        text: "A small product team to build the engine, the knowledge graph and the integrations; the waitlist credit and partner perks; marketing through founder communities.",
+        text: "A small product team to build the legal engine, the knowledge graph and the integrations; the waitlist credit and partner perks; marketing through founder communities.",
       },
     ],
   },
