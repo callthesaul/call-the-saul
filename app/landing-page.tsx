@@ -53,13 +53,16 @@ function ComparisonCell({ cell, label }: { cell: Cell; label: string }) {
   );
 }
 
-const contractTypes = [
-  "Master services agreements",
-  "Sales agreements",
-  "Purchasing agreements",
-  "NDAs",
-  "Terms & conditions",
-  "DPAs",
+// The legal work we take on, as the stops a startup passes through (same tiers as the deck).
+const journey: { stage: string; moment: string; items?: string[]; text?: string[] }[] = [
+  { stage: "Day zero", moment: "You start", items: ["Founders’ agreement", "IP assignment"] },
+  { stage: "Simple", moment: "You hire", items: ["NDA", "Consultancy agreement", "Employment contract"] },
+  {
+    stage: "Complex",
+    moment: "You raise",
+    items: ["MSA, T&Cs, DPA", "Shareholders’ agreement", "Investment agreement", "R&D NDA"],
+  },
+  { stage: "All-in", moment: "You grow", text: ["We take over all your legal work.", "You can stop worrying about it."] },
 ];
 
 // Official marks of the AI tools we compare against (nominative use; CC0 drawings, public/icons/icons-credits.json).
@@ -266,13 +269,22 @@ export default function LandingPage({
         </section>
 
         <section className="section-space contracts" id="firm" aria-labelledby="contracts-title">
-          <div className="shell contracts-inner">
-            <h2 id="contracts-title">We review your commercial contracts</h2>
-            <ul className="contract-types" role="list">
-              {contractTypes.map((name) => (
-                <li key={name}>{name}</li>
+          <div className="shell">
+            <h2 id="contracts-title">From day zero to all-in</h2>
+            <ol className="journey" role="list">
+              {journey.map(({ stage, moment, items, text }) => (
+                <li key={stage} className="journey-stop">
+                  <p className="journey-moment">{moment}</p>
+                  <h3>{stage}</h3>
+                  {items && (
+                    <ul role="list" className="journey-items">
+                      {items.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  )}
+                  {text?.map((line) => <p key={line} className="journey-text">{line}</p>)}
+                </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </section>
 
