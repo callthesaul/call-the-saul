@@ -1133,7 +1133,8 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
 }
 
 /* Cookie banner: a low white bar across the bottom over a dimmed page, like large law firms'
-   banners. Statement on the left, the two choices and the close button on the right. */
+   banners. Statement on the left, the two choices and the close button on the right; below
+   64rem the choices move under the statement. */
 .cookie-banner-backdrop {
   position: fixed;
   inset: 0;
@@ -1153,6 +1154,8 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   gap: 16px 32px;
   padding: 20px var(--edge) 20px;
   border-top: 1px solid var(--ink);
+  max-height: 85svh; /* the page behind is inert: the choices must stay reachable on short screens */
+  overflow-y: auto;
   background: #fff;
   color: var(--ink-2);
   animation: cookie-banner-in .5s var(--ease) both;
@@ -1210,7 +1213,7 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .cookie-banner-actions { grid-column: 1 / -1; }
 }
 @media (max-width: 34rem) {
-  .cookie-banner { gap: 12px; max-height: 85svh; overflow-y: auto; }
+  .cookie-banner { gap: 12px; }
   .cookie-banner p { font-size: .875rem; }
   .cookie-banner-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .cookie-banner-button { padding: 0 8px; font-size: .875rem; white-space: normal; line-height: 1.2; }

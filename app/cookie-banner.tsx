@@ -7,7 +7,7 @@ type Consent = { choice: Choice; at: string; version: number };
 
 const storageKey = "callthesaul:cookie-consent";
 const storageEvent = "callthesaul:cookie-consent-change";
-/** Fired whenever the banner opens or closes; the hero film listens so it waits for a choice. */
+/** Fired whenever the banner opens or closes; the hero film pauses while it is open and starts when it closes. */
 export const cookieBannerEvent = "callthesaul:cookie-banner-change";
 const consentVersion = 1;
 const dayMs = 24 * 60 * 60 * 1000;
@@ -50,7 +50,7 @@ function parseConsent(raw: string): Consent | null {
   return { choice, at, version };
 }
 
-/** True while no valid choice is stored: the banner will ask, so the film should not start yet. */
+/** True while no valid choice is stored (the banner is about to ask), so the film should not start yet. Read on mount only. */
 export function cookieChoicePending() {
   return parseConsent(readStorage()) === null;
 }
@@ -72,8 +72,10 @@ function saveConsent(choice: Choice) {
 
 /* Cookie banner, laid out like large law firms' banners: a white bar across the bottom with the
    statement on the left and the two choices on the right, over a dimmed page that cannot be used
-   until a choice is made (the rest of the page is inert, so this is a real modal dialog). The site
-   sets no optional cookies yet, so both choices are stored for when it does. Any element with
+   until a choice is made (the banner's siblings are inert, so this is a real modal dialog; it must stay a
+   direct child of the page root, beside the header, main and footer). The site
+   sets no optional cookies yet, so both choices are stored for when it does. Escape counts as the
+   close button (necessary cookies only). Any element with
    data-cookie-settings (the footer's "Cookie settings" link) reopens it; without JavaScript that
    link simply opens the statement. */
 export default function CookieBanner({ basePath }: { basePath: string }) {
@@ -82,6 +84,7 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
   const [dismissed, setDismissed] = useState(false); // closes the banner even when storage is blocked
   const bannerRef = useRef<HTMLElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
+  const pendingFocusRef = useRef<HTMLElement | null>(null); // focused once the page is no longer inert
 
   useEffect(() => {
     const reopen = (event: MouseEvent) => {
@@ -100,6 +103,7 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
   const open = !dismissed && (reopened || undecided);
 
   // While open: tell the film, make the rest of the page inert and move focus into the banner.
+  // Closing undoes all three and then gives focus back (an inert element cannot take focus).
   useEffect(() => {
     const root = document.documentElement;
     const banner = bannerRef.current;
@@ -108,12 +112,18 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
     window.dispatchEvent(new Event(cookieBannerEvent));
     const background = [...(banner.parentElement?.children ?? [])].filter(
       (element): element is HTMLElement =>
-        element instanceof HTMLElement && element !== banner && !element.classList.contains("cookie-banner-backdrop") && !element.inert,
+        element instanceof HTMLElement &&
+        element !== banner &&
+        !element.classList.contains("cookie-banner-backdrop") &&
+        !element.inert && // made inert by something else: leave it to its owner
+        !(element instanceof HTMLDialogElement && element.open), // an open modal (the waitlist) must stay usable
     );
     background.forEach((element) => { element.inert = true; });
     banner.focus({ preventScroll: true });
     return () => {
       background.forEach((element) => { element.inert = false; });
+      pendingFocusRef.current?.focus({ preventScroll: true });
+      pendingFocusRef.current = null;
       delete root.dataset.cookieBanner;
       window.dispatchEvent(new Event(cookieBannerEvent));
     };
@@ -124,10 +134,9 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
     saveConsent(choice);
     setReopened(false);
     setDismissed(true);
-    if (!focusWasInBanner) return;
-    // Give focus back to whatever opened the banner, or to the page itself on a first visit.
-    const target = returnFocusRef.current ?? document.getElementById("main");
-    target?.focus({ preventScroll: true });
+    // Give focus back to whatever opened the banner, or to the page itself on a first visit. The
+    // effect cleanup does it, after the page stops being inert.
+    pendingFocusRef.current = focusWasInBanner ? (returnFocusRef.current ?? document.getElementById("main")) : null;
     returnFocusRef.current = null;
   }
 
@@ -136,7 +145,13 @@ export default function CookieBanner({ basePath }: { basePath: string }) {
   return (
     <>
     <div className="cookie-banner-backdrop" aria-hidden="true" />
-    <section ref={bannerRef} className="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title" tabIndex={-1}>
+    <section ref={bannerRef} className="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title" tabIndex={-1}
+      onKeyDown={(event) => {
+        if (event.key !== "Escape") return;
+        event.preventDefault();
+        choose("necessary");
+      }}
+    >
       <div className="cookie-banner-copy">
         <h2 id="cookie-banner-title">About Your Privacy</h2>
         <p>
