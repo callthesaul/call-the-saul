@@ -42,7 +42,8 @@ export default function LandingPage({
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      {/* First in reading order so keyboard and screen-reader users reach it first; shown fixed at the bottom. */}
+      {/* Direct child of the page root beside header, main and footer: while open it makes those inert and
+          takes focus. Shown fixed at the bottom. */}
       <CookieBanner basePath={basePath} />
       <SiteHeader logo={logo} showWaitlist={showWaitlist} />
 

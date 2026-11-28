@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cookieBannerEvent, cookieBannerOpen, cookieChoicePending } from "./cookie-banner";
 
 type State = "playing" | "blocked" | "error";
 
@@ -16,22 +17,29 @@ const errorName = (error: unknown) =>
    - Files fail (before or after playback starts): the video is hidden so the section's poster
      background shows cleanly, never a frozen frame with a native play button on top.
    - Reduced motion: no <source> matches, nothing is downloaded and the element shows its poster.
+   - Cookie banner: the film waits until the visitor has made a choice, and pauses while the
+     banner is reopened. It relies on <CookieBanner> being on the same page: without it, a first
+     visit never gets the "closed" event and the poster stays.
    The failure reason is kept in data-error for debugging (the project has no logger). */
 export default function HeroFilmVideo({ basePath }: { basePath: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [state, setState] = useState<State>("playing");
   const [reason, setReason] = useState<string | undefined>();
+  const stateRef = useRef<State>("playing"); // read by the banner listener, which is set up once
 
   function fail(name: string) {
+    stateRef.current = "error";
     setReason(name);
     setState("error");
   }
 
-  // A play() interrupted (e.g. by the browser pausing an off-screen video) rejects with AbortError: not a failure.
+  // A play() interrupted (the browser pausing an off-screen video, or our own pause() when the
+  // cookie banner opens while play() is pending) rejects with AbortError: not a failure.
   function onPlayRejected(error: unknown) {
     const name = errorName(error);
     if (name === "AbortError") return;
     if (name === "NotAllowedError") {
+      stateRef.current = "blocked";
       setReason(name);
       setState("blocked");
       return;
@@ -51,7 +59,15 @@ export default function HeroFilmVideo({ basePath }: { basePath: string }) {
       fail(video.error ? `MediaError${video.error.code}` : "NoSource");
       return;
     }
-    video.play().catch(onPlayRejected);
+    const start = () => { video.play().catch(onPlayRejected); };
+    // Only a film that is still "playing" resumes: a blocked or failed one stays hidden behind the poster.
+    const followBanner = () => {
+      if (cookieBannerOpen()) video.pause();
+      else if (video.paused && stateRef.current === "playing") start();
+    };
+    window.addEventListener(cookieBannerEvent, followBanner);
+    if (!cookieChoicePending()) start();
+    return () => window.removeEventListener(cookieBannerEvent, followBanner);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once on mount
   }, []);
 

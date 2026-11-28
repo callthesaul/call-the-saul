@@ -1132,49 +1132,59 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .comparison-ai-logos img { height: 20px; }
 }
 
-/* While the cookie banner is open, focused elements scroll clear of it (set by cookie-banner.tsx). */
-html { scroll-padding-bottom: var(--cookie-banner-h, 0px); }
-
-/* Cookie banner: a white bar across the bottom, like large law firms' banners. Statement on the
-   left, the two choices and the close button on the right; stacks on small screens. */
+/* Cookie banner: a low white bar across the bottom over a dimmed page, like large law firms'
+   banners. Statement on the left, the two choices and the close button on the right; below
+   64rem the choices move under the statement. */
+.cookie-banner-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  background: rgb(0 0 0 / 55%);
+  animation: cookie-backdrop-in .4s var(--ease) both;
+}
+@keyframes cookie-backdrop-in { from { opacity: 0; } }
 .cookie-banner {
   position: fixed;
   inset: auto 0 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: minmax(0, 46rem) auto auto;
+  grid-template-columns: minmax(0, 62rem) auto auto;
   align-items: center;
   justify-content: space-between;
-  gap: 24px 40px;
-  padding: 32px var(--edge) 36px;
+  gap: 16px 32px;
+  padding: 20px var(--edge) 20px;
   border-top: 1px solid var(--ink);
+  max-height: 85svh; /* the page behind is inert: the choices must stay reachable on short screens */
+  overflow-y: auto;
   background: #fff;
   color: var(--ink-2);
   animation: cookie-banner-in .5s var(--ease) both;
 }
+.cookie-banner:focus { outline: none; }
 @keyframes cookie-banner-in { from { transform: translateY(100%); } }
 .cookie-banner h2 {
-  margin: 0 0 12px;
+  margin: 0 0 4px;
   color: var(--ink);
-  font: 600 clamp(1.25rem, 1.1rem + .5vw, 1.5rem)/1.2 var(--sans);
+  font: 600 1.25rem/1.3 var(--sans);
   letter-spacing: 0;
   text-transform: none;
 }
-.cookie-banner p { margin: 0 0 8px; font-size: 1rem; line-height: 1.6; }
+.cookie-banner p { margin: 0 0 4px; font-size: .9375rem; line-height: 1.5; }
 .cookie-banner-link {
   color: var(--red);
+  font-size: .9375rem;
   font-weight: 600;
   text-decoration: none;
 }
 .cookie-banner-link:hover { color: var(--red-hover); text-decoration: underline; text-underline-offset: .2em; }
-.cookie-banner-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+.cookie-banner-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .cookie-banner-button {
-  min-height: 48px;
-  padding: 0 20px;
+  min-height: 44px;
+  padding: 0 18px;
   border: 0;
   background: var(--red);
   color: #fff;
-  font: 600 1rem/1 var(--sans);
+  font: 600 .9375rem/1 var(--sans);
   white-space: nowrap;
   cursor: pointer;
   transition: background-color .2s var(--ease);
@@ -1187,8 +1197,8 @@ html { scroll-padding-bottom: var(--cookie-banner-h, 0px); }
 .cookie-banner-close {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 0;
   background: none;
@@ -1197,15 +1207,15 @@ html { scroll-padding-bottom: var(--cookie-banner-h, 0px); }
 }
 .cookie-banner-close:hover { color: var(--red); }
 @media (max-width: 64rem) {
-  .cookie-banner { grid-template-columns: minmax(0, 1fr) auto; padding-top: 24px; padding-bottom: 24px; }
+  .cookie-banner { grid-template-columns: minmax(0, 1fr) auto; padding-top: 16px; padding-bottom: 16px; }
   .cookie-banner-copy { grid-column: 1; }
   .cookie-banner-close { grid-column: 2; grid-row: 1; align-self: start; margin: -8px -8px 0 0; }
   .cookie-banner-actions { grid-column: 1 / -1; }
 }
 @media (max-width: 34rem) {
-  .cookie-banner { max-height: 85svh; overflow-y: auto; }
-  .cookie-banner p { font-size: .9375rem; }
-  .cookie-banner-actions { flex-direction: column; }
-  .cookie-banner-button { width: 100%; }
+  .cookie-banner { gap: 12px; }
+  .cookie-banner p { font-size: .875rem; }
+  .cookie-banner-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cookie-banner-button { padding: 0 8px; font-size: .875rem; white-space: normal; line-height: 1.2; }
 }
-@media (prefers-reduced-motion: reduce) { .cookie-banner { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .cookie-banner, .cookie-banner-backdrop { animation: none; } }
