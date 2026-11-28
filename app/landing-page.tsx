@@ -72,14 +72,14 @@ export default function LandingPage({
         <section className="process section-space" aria-labelledby="process-title">
           <WorkflowCarousel id="process">
             <header className="process-heading">
-              <h2 id="process-title" aria-label="AI prepares. Expert lawyer reviews and confirms.">
+              <h2 id="process-title" aria-label="Our smart legal engine prepares. Your lawyer reviews and signs off.">
                 <span className="process-heading-display" aria-hidden="true">
-                  <span>AI prepares</span>{" "}
+                  <span>Our smart legal engine prepares</span>{" "}
                   <span className="process-expert">
                     <span className="process-review-line">
-                      <span className="process-accent">Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews and</span></span>
+                      <span className="process-accent">Your lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews and</span></span>
                     </span>{" "}
-                    <span>confirms</span>
+                    <span>signs off</span>
                   </span>
                 </span>
               </h2>
