@@ -45,7 +45,7 @@ export default function LandingPage({
       {/* Direct child of the page root beside header, main and footer: while open it makes those inert and
           takes focus. Shown fixed at the bottom. */}
       <CookieBanner basePath={basePath} />
-      <SiteHeader logo={logo} showWaitlist={showWaitlist} />
+      <SiteHeader logo={logo} showWaitlist={showWaitlist} basePath={basePath} />
 
       <main id="main" tabIndex={-1}>
         <section
@@ -237,6 +237,8 @@ export default function LandingPage({
               </section>
               <section id="investors" aria-labelledby="investors-title">
                 <h3 id="investors-title">Investors</h3>
+                <p>Our business model, block by block.</p>
+                <a className="text-link" href={`${basePath}/investors/`}>See the business model</a>
               </section>
             </div>
           </div>
