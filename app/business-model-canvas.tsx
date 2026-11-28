@@ -110,25 +110,25 @@ const blocks: Block[] = [
       },
       {
         label: "Technology and data",
-        text: "The AI that does the first review, a legal knowledge graph linking each client’s company, contracts, clauses and past decisions, Saul’s connections to Slack, Teams, Trello and email, and a library of tested templates and clause positions.",
+        text: "The smart legal engine that does the first review, a legal knowledge graph linking each client’s company, contracts, clauses and past decisions, Saul’s connections to Slack, Teams, Trello and email, and a library of tested templates and clause positions.",
       },
     ],
   },
   {
     key: "activities",
     title: "Key activities",
-    headline: "AI first review, lawyer sign-off in 24 hours",
+    headline: "Our engine reviews, a lawyer signs off in 24 hours",
     Icon: Zap,
     items: [
       {
         label: "Deliver",
-        text: "Take requests in the client’s chat, run the AI first review against the knowledge graph and the client’s legal profile, then a lawyer checks, explains and signs off the work within 24 hours.",
+        text: "Take requests in the client’s chat, run our smart legal engine’s first review against the knowledge graph and the client’s legal profile, then a lawyer checks, explains and signs off the work within 24 hours.",
       },
       {
         label: "Build and grow",
         points: [
-          "Lawyers build and maintain the playbooks the AI follows",
-          "Every finished job improves the AI, the knowledge graph and the template library",
+          "Lawyers build and maintain the playbooks the engine follows",
+          "Every finished job improves the engine, the knowledge graph and the template library",
           "Recruit and train partner lawyers",
           "Win clients through investor and founder-community partnerships",
         ],
@@ -138,7 +138,7 @@ const blocks: Block[] = [
   {
     key: "partners",
     title: "Key partnerships",
-    headline: "Local lawyers, AI, chat tools and Formaloo",
+    headline: "Local lawyers, AI models, chat tools and Formaloo",
     Icon: Handshake,
     items: [
       {
@@ -159,7 +159,7 @@ const blocks: Block[] = [
   {
     key: "costs",
     title: "Cost structure",
-    headline: "Lawyer fees first, AI and team second",
+    headline: "Lawyer fees first, engine and team second",
     Icon: Receipt,
     items: [
       {
@@ -172,7 +172,7 @@ const blocks: Block[] = [
       },
       {
         label: "Build and grow",
-        text: "A small product team to build the AI, the knowledge graph and the integrations; the waitlist credit and partner perks; marketing through founder communities.",
+        text: "A small product team to build the engine, the knowledge graph and the integrations; the waitlist credit and partner perks; marketing through founder communities.",
       },
     ],
   },
@@ -185,6 +185,9 @@ export default function BusinessModelCanvas() {
   const [step, setStep] = useState<number | null>(null); // walk-through position, null when off
   const [playing, setPlaying] = useState(false);
   const blockRefs = useRef<Record<string, HTMLElement | null>>({});
+  const startRef = useRef<HTMLButtonElement>(null);
+  const playRef = useRef<HTMLButtonElement>(null);
+  const focusAfterRender = useRef<"tour" | "start" | null>(null); // keyboard focus follows the controls
 
   const touring = step !== null;
   const activeKey = touring ? blocks[step].key : openKey;
@@ -200,22 +203,34 @@ export default function BusinessModelCanvas() {
     return () => window.clearTimeout(id);
   }, [step, playing]);
 
-  // Keep the current tour block in view (matters on phones, where blocks stack).
+  // Keep the current tour block in view (matters on phones, where blocks stack), but only while
+  // the canvas is on screen: a visitor who scrolled away is not pulled back every step.
   useEffect(() => {
     if (step === null) return;
     const el = blockRefs.current[blocks[step].key];
+    const grid = el?.parentElement?.getBoundingClientRect();
+    if (!el || !grid || grid.bottom < 0 || grid.top > window.innerHeight) return;
     const smooth = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
-    el?.scrollIntoView({ block: "nearest", behavior: smooth ? "smooth" : "auto" });
+    el.scrollIntoView({ block: "nearest", behavior: smooth ? "smooth" : "auto" });
   }, [step]);
 
+  // The start and end buttons swap places, so move keyboard focus to whichever is now shown.
+  useEffect(() => {
+    const target = focusAfterRender.current === "tour" ? playRef.current : focusAfterRender.current === "start" ? startRef.current : null;
+    focusAfterRender.current = null;
+    target?.focus();
+  }, [touring]);
+
   function startTour() {
+    focusAfterRender.current = "tour";
     setOpenKey(null);
     setStep(0);
     // Reduced motion: no automatic advance; the visitor steps through with Next.
     setPlaying(window.matchMedia("(prefers-reduced-motion: no-preference)").matches);
   }
 
-  function stopTour() {
+  function stopTour(returnFocus = false) {
+    if (returnFocus) focusAfterRender.current = "start";
     setStep(null);
     setPlaying(false);
   }
@@ -233,28 +248,39 @@ export default function BusinessModelCanvas() {
   return (
     <div className="bmc" id="business-model">
       <div className="bmc-header">
-        <h3 className="bmc-title">Business model</h3>
+        <h2 className="bmc-title">Business model</h2>
         <div className="bmc-controls">
           {touring ? (
             <div className="bmc-tour" role="group" aria-label="Walk-through">
               <span className="bmc-tour-step" aria-live="polite">
                 {step + 1} / {blocks.length} · {blocks[step].title}
               </span>
-              <button type="button" className="bmc-control" onClick={() => go(-1)} disabled={step === 0} aria-label="Previous block">
+              {/* aria-disabled, not disabled: a disabled button would drop keyboard focus to the page */}
+              <button type="button" className="bmc-control" onClick={() => go(-1)} aria-disabled={step === 0} aria-label="Previous block">
                 <ChevronLeft size={18} aria-hidden />
               </button>
-              <button type="button" className="bmc-control" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause" : "Play"}>
+              <button
+                ref={playRef}
+                type="button"
+                className="bmc-control"
+                onClick={() => {
+                  // Play at the last block starts again from the first.
+                  if (!playing && step === blocks.length - 1) setStep(0);
+                  setPlaying((p) => !p);
+                }}
+                aria-label={playing ? "Pause" : "Play"}
+              >
                 {playing ? <Pause size={18} aria-hidden /> : <Play size={18} aria-hidden />}
               </button>
-              <button type="button" className="bmc-control" onClick={() => go(1)} disabled={step === blocks.length - 1} aria-label="Next block">
+              <button type="button" className="bmc-control" onClick={() => go(1)} aria-disabled={step === blocks.length - 1} aria-label="Next block">
                 <ChevronRight size={18} aria-hidden />
               </button>
-              <button type="button" className="bmc-control" onClick={stopTour} aria-label="End walk-through">
+              <button type="button" className="bmc-control" onClick={() => stopTour(true)} aria-label="End walk-through">
                 <X size={18} aria-hidden />
               </button>
             </div>
           ) : (
-            <button type="button" className="bmc-control bmc-control-primary" onClick={startTour}>
+            <button ref={startRef} type="button" className="bmc-control bmc-control-primary" onClick={startTour}>
               <Play size={16} aria-hidden /> Walk me through it
             </button>
           )}

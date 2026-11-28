@@ -28,6 +28,8 @@ export default function SiteHeader({
   const [navOpen, setNavOpen] = useState(false); // the phone panel
   const menuRef = useRef<HTMLDivElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const lastPointer = useRef(""); // the pointer type of the latest press on the Partnership button
 
   useEffect(() => {
     const update = () => setAtTop(window.scrollY < 8);
@@ -65,10 +67,16 @@ export default function SiteHeader({
       burgerRef.current?.focus();
     };
     const onWide = () => { if (wide.matches) setNavOpen(false); };
+    // A tap on the page below the panel closes it too.
+    const onPointer = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setNavOpen(false);
+    };
     document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
     wide.addEventListener("change", onWide);
     return () => {
       document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
       wide.removeEventListener("change", onWide);
     };
   }, [navOpen]);
@@ -81,7 +89,7 @@ export default function SiteHeader({
   };
 
   return (
-    <header className={["site-header", atTop && !home && !navOpen ? "is-top" : "", navOpen ? "is-open" : ""].filter(Boolean).join(" ")}>
+    <header ref={headerRef} className={["site-header", atTop && !home && !navOpen ? "is-top" : "", navOpen ? "is-open" : ""].filter(Boolean).join(" ")}>
       <nav className="masthead" aria-label="Main navigation">
         <div className="masthead-links">
           <a className="masthead-link" href={`${home}#process`}>How it works</a>
@@ -96,15 +104,23 @@ export default function SiteHeader({
             className="masthead-menu masthead-partnership"
             onPointerEnter={hover(true)}
             onPointerLeave={hover(false)}
+            // Keyboard: tabbing out of the menu closes it.
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setMenuOpen(false);
+            }}
           >
             <button
               type="button"
               className="masthead-link masthead-menu-button"
               aria-expanded={menuOpen}
               aria-controls="partnership-menu"
-              // A mouse already opened it on hover, so its click keeps it open; touch and keyboard toggle.
-              onClick={(event) => {
-                const mouse = (event.nativeEvent as PointerEvent).pointerType === "mouse";
+              // A mouse already opened it on hover, so its click keeps it open; touch and keyboard
+              // toggle. The pointer type comes from pointerdown, since not every browser's click
+              // event carries one; a keyboard click has no pointerdown.
+              onPointerDown={(event) => { lastPointer.current = event.pointerType; }}
+              onClick={() => {
+                const mouse = lastPointer.current === "mouse";
+                lastPointer.current = "";
                 setMenuOpen((open) => (mouse ? true : !open));
               }}
             >

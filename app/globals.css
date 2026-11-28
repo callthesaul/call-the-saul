@@ -671,10 +671,10 @@ section[id] { scroll-margin-top: 1.5rem; }
   cursor: pointer;
 }
 .bmc-tour .bmc-control { padding: 0; }
-.bmc-control:hover:not(:disabled) { background: var(--ink); color: #fff; }
-.bmc-control:disabled { opacity: .35; cursor: default; }
+.bmc-control:hover:not([aria-disabled="true"]) { background: var(--ink); color: #fff; }
+.bmc-control[aria-disabled="true"] { opacity: .35; cursor: default; }
 .bmc-control-primary { border-color: var(--red); background: var(--red); color: #fff; }
-.bmc-control-primary:hover:not(:disabled) { border-color: var(--red-hover); background: var(--red-hover); }
+.bmc-control-primary:hover:not([aria-disabled="true"]) { border-color: var(--red-hover); background: var(--red-hover); }
 .bmc-control:focus-visible, .bmc-head:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
 .bmc-grid {
@@ -730,6 +730,7 @@ section[id] { scroll-margin-top: 1.5rem; }
 
 @media (min-width: 40rem) {
   .bmc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bmc-costs { grid-column: 1 / -1; } /* nine blocks in two columns: the last one spans the row */
 }
 @media (min-width: 60rem) {
   .bmc-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
@@ -1182,7 +1183,7 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
     text-transform: uppercase;
   }
   .mobile-nav .mobile-nav-sub { padding-left: 16px; }
-  .site-header.is-open { box-shadow: 0 12px 24px rgb(0 0 0 / 12%); }
+  .mobile-nav:not([hidden]) { border-bottom: 1px solid var(--line); }
 }
 /* Very narrow phones: a smaller logo and button so the hamburger still fits */
 @media (max-width: 23.5rem) {
