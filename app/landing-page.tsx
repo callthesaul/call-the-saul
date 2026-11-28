@@ -7,8 +7,8 @@ import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
 import WorkflowCarousel from "./workflow-carousel";
 import { siteLogo } from "../lib/site-metadata";
 
-// AI tools vs traditional law firms vs us. `ok` picks the mark: true ✓, false ✗, null none.
-type Cell = { text: string; ok: boolean | null };
+// AI tools vs traditional law firms vs us. `ok` picks the mark: true ✓, false ✗.
+type Cell = { text: string; ok: boolean };
 const comparisonRows: { question: string; tools: Cell; lawFirms: Cell; us: Cell }[] = [
   {
     question: "Who does the work",
@@ -44,10 +44,9 @@ const comparisonRows: { question: string; tools: Cell; lawFirms: Cell; us: Cell 
 
 function ComparisonCell({ cell, label }: { cell: Cell; label: string }) {
   return (
-    <td data-label={label}>
+    <td role="cell" data-label={label}>
       <span className="comparison-cell">
-        {cell.ok === true && <Check {...iconProps} />}
-        {cell.ok === false && <X {...iconProps} />}
+        {cell.ok ? <Check {...iconProps} /> : <X {...iconProps} />}
         {cell.text}
       </span>
     </td>
@@ -219,7 +218,7 @@ export default function LandingPage({
             <h2 id="comparison-title">We handle the contract work</h2>
             <p>Send us an agreement to review or tell us what you need drafted</p>
             <div className="comparison-card">
-              <table className="comparison-table">
+              <table className="comparison-table" role="table">
                 <caption className="visually-hidden">AI tools and traditional law firms compared with Call the Saul</caption>
                 <colgroup>
                   <col className="comparison-question" />
@@ -227,10 +226,10 @@ export default function LandingPage({
                   <col className="comparison-tools" />
                   <col className="comparison-firm" />
                 </colgroup>
-                <thead>
-                  <tr>
-                    <th scope="col"><span className="visually-hidden">Question</span></th>
-                    <th scope="col" className="comparison-tools-head">
+                <thead role="rowgroup">
+                  <tr role="row">
+                    <th scope="col" role="columnheader"><span className="visually-hidden">Question</span></th>
+                    <th scope="col" role="columnheader" className="comparison-tools-head">
                       <span className="comparison-tools-label">AI tools</span>
                       {/* Decorative: the header reads "AI tools"; the names show on hover. An empty alt
                           also means a logo that fails to load leaves no broken icon or stray text. */}
@@ -240,21 +239,21 @@ export default function LandingPage({
                         ))}
                       </span>
                     </th>
-                    <th scope="col" className="comparison-tools-head">
+                    <th scope="col" role="columnheader" className="comparison-tools-head">
                       <span className="comparison-tools-label">Traditional law firms</span>
                       <span className="comparison-ai-logos" aria-hidden="true">
                         <Landmark size={26} strokeWidth={1.5} />
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" role="columnheader">
                       <span className="comparison-brand"><img {...logo} alt="Call the Saul" /></span>
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody role="rowgroup">
                   {comparisonRows.map(({ question, tools, lawFirms, us }) => (
-                    <tr key={question}>
-                      <th scope="row">{question}</th>
+                    <tr key={question} role="row">
+                      <th scope="row" role="rowheader">{question}</th>
                       <ComparisonCell cell={tools} label="AI tools" />
                       <ComparisonCell cell={lawFirms} label="Traditional law firms" />
                       <ComparisonCell cell={us} label="Call the Saul" />
