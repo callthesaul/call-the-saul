@@ -23,21 +23,31 @@ const outDir = resolve(repoRoot, "dist", target);
 const renderDir = resolve(repoRoot, "dist", "pages-render", target);
 const config = () => ({ configFile: false, root, publicDir, base, plugins: [react()] });
 
-await build({ ...config(), build: { outDir, emptyOutDir: true } });
+await build({
+  ...config(),
+  build: {
+    outDir,
+    emptyOutDir: true,
+    rollupOptions: { input: { index: resolve(root, "index.html"), investors: resolve(root, "investors/index.html") } },
+  },
+});
 await build({
   ...config(),
   build: { ssr: resolve(root, "render.tsx"), outDir: renderDir, emptyOutDir: true, copyPublicDir: false },
 });
 
-const { renderPage } = await import(pathToFileURL(resolve(renderDir, "render.js")).href);
-const { head, content } = renderPage();
-const indexPath = resolve(outDir, "index.html");
-const template = await readFile(indexPath, "utf8");
-if (!template.includes("<!--site-head-->") || !template.includes("<!--site-content-->")) {
-  throw new Error("Pages HTML template is missing the pre-render placeholders.");
+// Fill each page's template with its pre-rendered head and HTML.
+const { renderPage, pageNames } = await import(pathToFileURL(resolve(renderDir, "render.js")).href);
+for (const name of pageNames) {
+  const { head, content } = renderPage(name);
+  const pagePath = resolve(outDir, name === "index" ? "index.html" : `${name}/index.html`);
+  const template = await readFile(pagePath, "utf8");
+  if (!template.includes("<!--site-head-->") || !template.includes("<!--site-content-->")) {
+    throw new Error(`Pages HTML template for "${name}" is missing the pre-render placeholders.`);
+  }
+  await writeFile(pagePath, template
+    .replace("<!--site-head-->", () => head)
+    .replace("<!--site-content-->", () => content));
 }
-await writeFile(indexPath, template
-  .replace("<!--site-head-->", () => head)
-  .replace("<!--site-content-->", () => content));
 
 if (target === "github") await writeFile(resolve(outDir, ".nojekyll"), "");

@@ -624,6 +624,131 @@ section[id] { scroll-margin-top: 1.5rem; }
 }
 .partnership-grid > section { padding-top: 16px; border-top: 1px solid var(--line-strong); }
 .partnership-grid h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -.02em; }
+.partnership-grid p { margin: 12px 0 16px; color: var(--ink-2); }
+.text-link {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: .9375rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--red);
+  text-decoration: none;
+}
+.text-link::after { content: " →"; }
+.text-link:hover { color: var(--red-hover); text-decoration: underline; text-underline-offset: .2em; }
+
+/* Investors page: a short intro above the canvas, on the white page under a solid header. */
+.investors-page { padding: calc(var(--masthead-height) + clamp(40px, 6vw, 72px)) 0 clamp(64px, 8vw, 120px); }
+.investors-intro { max-width: 44rem; margin-bottom: clamp(32px, 4vw, 48px); }
+.investors-eyebrow { margin: 0 0 12px; font-family: var(--display); font-weight: 700; font-size: .9375rem; letter-spacing: .04em; text-transform: uppercase; color: var(--red); }
+.investors-intro h1 { margin: 0; font-size: clamp(2.25rem, 4.5vw, 4rem); line-height: 1.02; letter-spacing: -.02em; }
+.investors-intro p:last-child { margin: 16px 0 0; color: var(--ink-2); font-size: clamp(1rem, 1.35vw, 1.25rem); line-height: 1.5; }
+
+/* Business model canvas for investors: the classic nine-block layout on wide screens, a stack in
+   pitch order (customer first) on narrow ones. Each block shows an icon, its title and one
+   headline; the full text opens in place. The value proposition is the one red block. */
+.bmc { scroll-margin-top: var(--header-clearance); }
+.bmc-header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 24px; margin-bottom: 24px; }
+.bmc-title { margin: 0; font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -.02em; }
+.bmc-controls, .bmc-tour { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.bmc-tour-step { margin-right: 8px; font-family: var(--display); font-weight: 700; font-size: .9375rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
+.bmc-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: .9375rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.bmc-tour .bmc-control { padding: 0; }
+.bmc-control:hover:not([aria-disabled="true"]) { background: var(--ink); color: #fff; }
+.bmc-control[aria-disabled="true"] { opacity: .35; cursor: default; }
+.bmc-control-primary { border-color: var(--red); background: var(--red); color: #fff; }
+.bmc-control-primary:hover:not([aria-disabled="true"]) { border-color: var(--red-hover); background: var(--red-hover); }
+.bmc-control:focus-visible, .bmc-head:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+.bmc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+}
+.bmc-block { display: flex; flex-direction: column; background: #fff; }
+.bmc-block > * { transition: opacity .3s var(--ease); }
+.bmc-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name icon" "headline headline" "more more";
+  align-content: start;
+  gap: 12px 16px;
+  width: 100%;
+  padding: 20px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.bmc-name { grid-area: name; font-size: .9375rem; color: var(--ink-2); }
+.bmc-icon { grid-area: icon; color: var(--ink); line-height: 0; }
+.bmc-headline { grid-area: headline; font-family: var(--display); font-weight: 700; font-size: clamp(1.125rem, 1.5vw, 1.375rem); line-height: 1.2; color: var(--ink); text-wrap: balance; }
+.bmc-more { grid-area: more; font-family: var(--display); font-weight: 700; font-size: .8125rem; letter-spacing: .04em; text-transform: uppercase; color: var(--red); }
+.bmc-more::after { content: " +"; }
+.bmc-block[data-open] .bmc-more::after { content: " \2212"; }
+.bmc-head:hover .bmc-more { text-decoration: underline; text-underline-offset: .2em; }
+.bmc-detail { padding: 0 20px 20px; animation: bmc-open .35s var(--ease) both; }
+@keyframes bmc-open { from { opacity: 0; transform: translateY(-4px); } }
+.bmc-item { padding: 12px 0; border-top: 1px solid var(--line); }
+.bmc-label { display: block; margin-bottom: 4px; font-weight: 600; color: var(--ink); }
+.bmc-item p { margin: 0; color: var(--ink-2); font-size: .9375rem; line-height: 1.5; }
+.bmc-item ul { margin: 0; padding: 0; list-style: none; }
+.bmc-item li { position: relative; padding: 4px 0 4px 14px; color: var(--ink-2); font-size: .9375rem; line-height: 1.45; }
+.bmc-item li::before { content: ""; position: absolute; left: 0; top: .9em; width: 6px; height: 1px; background: currentColor; }
+
+/* The red value block */
+.bmc-value { background: linear-gradient(109deg, var(--red) 0%, var(--red-deep) 140%); }
+.bmc-value .bmc-name, .bmc-value .bmc-icon, .bmc-value .bmc-headline, .bmc-value .bmc-more,
+.bmc-value .bmc-label, .bmc-value .bmc-item p, .bmc-value .bmc-item li { color: #fff; }
+.bmc-value .bmc-item { border-top-color: rgb(255 255 255 / 25%); }
+.bmc-value .bmc-head:focus-visible { outline-color: #fff; outline-offset: -4px; }
+
+/* Walk-through: the content of the other blocks fades (not the blocks, so the black grid
+   lines never show through) */
+.bmc-grid[data-touring] .bmc-block:not([data-open]) > * { opacity: .3; }
+
+@media (min-width: 40rem) {
+  .bmc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bmc-costs { grid-column: 1 / -1; } /* nine blocks in two columns: the last one spans the row */
+}
+@media (min-width: 60rem) {
+  .bmc-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+  .bmc-partners { grid-area: 1 / 1 / 3 / 3; }
+  .bmc-activities { grid-area: 1 / 3 / 2 / 5; }
+  .bmc-resources { grid-area: 2 / 3 / 3 / 5; }
+  .bmc-value { grid-area: 1 / 5 / 3 / 7; }
+  .bmc-relationships { grid-area: 1 / 7 / 2 / 9; }
+  .bmc-channels { grid-area: 2 / 7 / 3 / 9; }
+  .bmc-segments { grid-area: 1 / 9 / 3 / 11; }
+  .bmc-costs { grid-area: 3 / 1 / 4 / 6; }
+  .bmc-revenue { grid-area: 3 / 6 / 4 / 11; }
+  .bmc-block { min-height: 200px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bmc-block > * { transition: none; }
+  .bmc-detail { animation: none; }
+}
 
 /* Waitlist popup */
 html:has(.waitlist-dialog[open]) { overflow: hidden; }
@@ -1009,25 +1134,100 @@ h2 { line-height: 1.05; font-size: clamp(2.25rem, 3.6vw, 3.25rem); }
   .masthead, .masthead-links, .masthead-actions { gap: 32px; }
 }
 @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
-/* Narrow screens: logo left, the button right, the links on a second row */
+/* Phones: one row (logo left; the waitlist button and the hamburger right). The links live in
+   the panel the hamburger opens. */
+.masthead-burger, .mobile-nav { display: none; }
 @media (max-width: 42rem) {
-  :root { --masthead-height: 6.5rem; }
-  .masthead { display: grid; grid-template-columns: minmax(0, 1fr) auto; row-gap: 8px; column-gap: 16px; }
-  .masthead > .wordmark { grid-area: 1 / 1; justify-self: start; width: 6.25rem; }
-  .masthead-actions { display: contents; }
-  .masthead .header-cta { grid-area: 1 / 2; grid-column: 2; justify-self: end; }
-  .masthead-links { grid-area: 2 / 1; flex-wrap: wrap; gap: 4px 16px; }
-  .masthead-partnership { grid-area: 2 / 2; justify-self: end; }
+  :root { --masthead-height: 4.75rem; }
+  .masthead { display: flex; align-items: center; gap: 12px; min-height: var(--masthead-height); padding-block: 8px; }
+  .masthead > .wordmark { order: -1; margin-right: auto; width: 6.25rem; }
+  .masthead-links, .masthead-partnership { display: none; }
+  .masthead-actions { display: flex; align-items: center; gap: 8px; }
+  .masthead .header-cta { min-height: 44px; padding: 0 16px; }
+  .masthead-burger {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-right: -8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .site-header.is-top .masthead-burger { color: #fff; }
+  .masthead-burger:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .mobile-nav:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    padding: 8px var(--edge) 24px;
+    border-top: 1px solid var(--line);
+    background: #fff;
+  }
+  .mobile-nav a {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    font: 700 1.125rem/1.2 var(--display);
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .mobile-nav a:hover, .mobile-nav a:focus-visible { color: var(--red); }
+  .mobile-nav-group {
+    margin: 20px 0 4px;
+    color: var(--muted);
+    font: 700 .8125rem/1 var(--display);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .mobile-nav .mobile-nav-sub { padding-left: 16px; }
+  .mobile-nav:not([hidden]) { border-bottom: 1px solid var(--line); }
 }
-/* Very narrow phones: the links wrap to a second line, so the header is taller */
+/* Very narrow phones: a smaller logo and button so the hamburger still fits */
 @media (max-width: 23.5rem) {
-  :root { --masthead-height: 7.25rem; }
+  .masthead { gap: 8px; }
+  .masthead > .wordmark { width: 5.25rem; }
+  .masthead .header-cta { padding: 0 12px; font-size: .8125rem; }
+  .masthead-actions { gap: 4px; }
 }
 
 /* Over the hero film the header is transparent with white type; it turns into the white bar on scroll */
 .site-header.is-top .masthead-link { color: #fff; }
 .site-header.is-top .masthead-link:hover { color: #fff; text-decoration: underline; text-underline-offset: .3em; }
 .site-header.is-top .wordmark img { filter: brightness(0) invert(1); }
+
+/* Partnership menu: a white panel under the link with a red top rule, the two choices stacked */
+.masthead-menu { position: relative; }
+.masthead-menu-button { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; cursor: pointer; }
+.masthead-menu-button svg { transition: transform .3s var(--ease); }
+.masthead-menu-button[aria-expanded="true"] svg { transform: rotate(180deg); }
+.masthead-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 5;
+  min-width: 200px;
+  margin-top: 0;
+  padding: 16px 0 8px;
+  background-clip: content-box;
+}
+.masthead-dropdown::before { content: ""; position: absolute; inset: 12px 0 0; background: #fff; border: 1px solid var(--line); border-top: 2px solid var(--red); box-shadow: none; }
+.masthead-dropdown a {
+  position: relative;
+  display: block;
+  padding: 12px 20px;
+  color: var(--ink);
+  font: 700 .875rem/1 var(--display);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.masthead-dropdown a:hover, .masthead-dropdown a:focus-visible { color: var(--red); }
+.masthead-dropdown a + a { border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { .masthead-menu-button svg { transition: none; } }
 
 /* Hero: the film fills the screen; the text sits in a translucent dark panel on the left whose
    text lines up with the logo (--edge). The panel stays under 46% of the frame, where the
