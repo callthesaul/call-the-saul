@@ -72,14 +72,14 @@ export default function LandingPage({
         <section className="process section-space" aria-labelledby="process-title">
           <WorkflowCarousel id="process">
             <header className="process-heading">
-              <h2 id="process-title" aria-label="AI prepares. Expert lawyer reviews and confirms.">
+              <h2 id="process-title" aria-label="Our smart legal engine prepares. Your lawyer reviews and signs off.">
                 <span className="process-heading-display" aria-hidden="true">
-                  <span>AI prepares</span>{" "}
+                  <span>Our smart legal engine prepares</span>{" "}
                   <span className="process-expert">
                     <span className="process-review-line">
-                      <span className="process-accent">Expert lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews and</span></span>
+                      <span className="process-accent">Your lawyer</span>{" "}<span className="review-mark"><span className="review-word">reviews and</span></span>
                     </span>{" "}
-                    <span>confirms</span>
+                    <span>signs off</span>
                   </span>
                 </span>
               </h2>
@@ -119,7 +119,7 @@ export default function LandingPage({
               <li className="workflow-stage">
                 <div className="stage-copy">
                   <span className="step-number">Step 2</span>
-                  <h3>Our AI runs the first review, adapted to your context</h3>
+                  <h3>Our smart legal engine runs the first review, adapted to your context</h3>
                   <p>We apply your confidentiality rules to the first draft of the NDA.</p>
                 </div>
                 <figure className="example-panel" aria-label="Legal profile">
