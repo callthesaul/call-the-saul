@@ -57,7 +57,7 @@ export default function LandingPage({
           <HeroFilmVideo basePath={basePath} />
           <div className="hero-film-scrim" aria-hidden="true" />
           <div className="hero-film-copy">
-            <h1 id="hero-title">Your law firm,<br /> at startup speed<br /> and budget.</h1>
+            <h1 id="hero-title">Lawyer-reviewed contracts,<br /> at startup speed<br /> and budget.</h1>
             <div className="hero-film-row">
               <p>A lawyer handles it within 24 hours. One transparent fee.</p>
               {showWaitlist ? (
