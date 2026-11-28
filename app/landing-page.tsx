@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Check, X } from "lucide-react";
+import { Check, Landmark, X } from "lucide-react";
 import CookieBanner from "./cookie-banner";
 import HeroFilmVideo from "./hero-film-video";
 import SiteHeader from "./site-header";
@@ -7,11 +7,52 @@ import WaitlistDialog, { WaitlistButton } from "./waitlist-dialog";
 import WorkflowCarousel from "./workflow-carousel";
 import { siteLogo } from "../lib/site-metadata";
 
-const comparisonRows = [
-  { question: "Who does the work", tools: "You", firm: "We do" },
-  { question: "Who’s accountable", tools: "You", firm: "A real law firm" },
-  { question: "What you receive", tools: "A draft", firm: "Finished work" },
+// AI tools vs traditional law firms vs us. `ok` picks the mark: true ✓, false ✗, null none.
+type Cell = { text: string; ok: boolean | null };
+const comparisonRows: { question: string; tools: Cell; lawFirms: Cell; us: Cell }[] = [
+  {
+    question: "Who does the work",
+    tools: { text: "You", ok: false },
+    lawFirms: { text: "A lawyer", ok: true },
+    us: { text: "A lawyer, with our legal engine", ok: true },
+  },
+  {
+    question: "Who’s accountable",
+    tools: { text: "You", ok: false },
+    lawFirms: { text: "The law firm", ok: true },
+    us: { text: "A real law firm", ok: true },
+  },
+  {
+    question: "What you receive",
+    tools: { text: "A draft", ok: false },
+    lawFirms: { text: "Finished work", ok: true },
+    us: { text: "Finished work", ok: true },
+  },
+  {
+    question: "How fast",
+    tools: { text: "Instant, then your own time", ok: false },
+    lawFirms: { text: "Days to weeks", ok: false },
+    us: { text: "Within 24 hours", ok: true },
+  },
+  {
+    question: "What it costs",
+    tools: { text: "A monthly subscription", ok: null },
+    lawFirms: { text: "Unknown until the invoice", ok: false },
+    us: { text: "One fee, known upfront", ok: true },
+  },
 ];
+
+function ComparisonCell({ cell, label }: { cell: Cell; label: string }) {
+  return (
+    <td data-label={label}>
+      <span className="comparison-cell">
+        {cell.ok === true && <Check {...iconProps} />}
+        {cell.ok === false && <X {...iconProps} />}
+        {cell.text}
+      </span>
+    </td>
+  );
+}
 
 const contractTypes = [
   "Master services agreements",
@@ -179,9 +220,10 @@ export default function LandingPage({
             <p>Send us an agreement to review or tell us what you need drafted</p>
             <div className="comparison-card">
               <table className="comparison-table">
-                <caption className="visually-hidden">AI tools compared with Call the Saul</caption>
+                <caption className="visually-hidden">AI tools and traditional law firms compared with Call the Saul</caption>
                 <colgroup>
                   <col className="comparison-question" />
+                  <col className="comparison-tools" />
                   <col className="comparison-tools" />
                   <col className="comparison-firm" />
                 </colgroup>
@@ -198,17 +240,24 @@ export default function LandingPage({
                         ))}
                       </span>
                     </th>
+                    <th scope="col" className="comparison-tools-head">
+                      <span className="comparison-tools-label">Traditional law firms</span>
+                      <span className="comparison-ai-logos" aria-hidden="true">
+                        <Landmark size={26} strokeWidth={1.5} />
+                      </span>
+                    </th>
                     <th scope="col">
                       <span className="comparison-brand"><img {...logo} alt="Call the Saul" /></span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonRows.map(({ question, tools, firm }) => (
+                  {comparisonRows.map(({ question, tools, lawFirms, us }) => (
                     <tr key={question}>
                       <th scope="row">{question}</th>
-                      <td><span className="comparison-cell"><X {...iconProps} />{tools}</span></td>
-                      <td><span className="comparison-cell"><Check {...iconProps} />{firm}</span></td>
+                      <ComparisonCell cell={tools} label="AI tools" />
+                      <ComparisonCell cell={lawFirms} label="Traditional law firms" />
+                      <ComparisonCell cell={us} label="Call the Saul" />
                     </tr>
                   ))}
                 </tbody>
