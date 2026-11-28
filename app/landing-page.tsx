@@ -36,7 +36,7 @@ const comparisonRows: { question: string; tools: Cell; lawFirms: Cell; us: Cell 
   },
   {
     question: "What it costs",
-    tools: { text: "A monthly subscription", ok: null },
+    tools: { text: "Cheap, but you carry the risk", ok: false },
     lawFirms: { text: "Unknown until the invoice", ok: false },
     us: { text: "One fee, known upfront", ok: true },
   },
